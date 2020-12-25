@@ -1,0 +1,67 @@
+* Get help in tooltip
+#+begin_src emacs-lisp
+(defun describe-in-popup  (fn)
+"Create a popup with the help text created by describe-function or describe-variable"
+(let* ((description (save-window-excursion
+(funcall fn (symbol-at-point))
+(switch-to-buffer "*Help*")
+(buffer-string))))
+(popup-tip description
+:point (point)
+:around t
+:height 30
+:scroll-bar t
+:margin t)))
+
+(defun describe-thing-in-popup ()
+"Call either describe-function or describe-variable on symbol-at-point."
+(interactive)
+(let* ((thing (symbol-at-point)))
+(cond
+((fboundp thing) (describe-in-popup 'describe-function))
+((boundp thing) (describe-in-popup 'describe-variable)))))
+(global-set-key (kbd "C-h C-h") 'describe-thing-in-popup)
+#+end_src
+
+* Insert
+** Date
+#+begin_src emacs-lisp
+(defun insert-date (prefix)
+"Insert the current date. With prefix-argument, use ISO format. With
+two prefix arguments, write out the day and month name."
+(interactive "P")
+(let ((format (cond
+((not prefix) "%Y-%m-%d")
+((equal prefix '(4)) "%d-%m-%Y")
+((equal prefix '(16)) "%A, %d. %B %Y")))
+(system-time-locale "us_US"))
+(insert (format-time-string format))))
+(global-set-key (kbd "C-c d") 'insert-date)
+#+end_src
+
+* File Management
+#+begin_src emacs-lisp
+(defun reload ()
+  "Shorcut to reload init file."
+  (interactive)
+  (load-file "~/.emacs.e/init.el"))
+
+(defun load-config ()
+  "Open config.org."
+  (interactive)
+  (find-file "~/.emacs.e/config/config.org"))
+#+end_src emacs-lisp
+
+* Programming
+#+begin_src emacs-lisp
+  (defun tk-comment-dwim ()
+  "Active region => (un)comment it. Else => (un)comment line."
+  (interactive)
+  (let (beg end)
+  (if (region-active-p)
+  (setq beg (region-beginning) end (region-end))
+  (setq beg (line-beginning-position) end (line-end-position)))
+  (comment-or-uncomment-region beg end)))
+
+  (global-set-key (kbd "M-;") 'tk-comment-dwim)
+#+end_src

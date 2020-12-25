@@ -1,0 +1,47 @@
+* Commands
+- add-to-list
+- package-initialize
+- when = if
+- not
+- <something>-p (predicate)
+- (provide 'package-name): for packages
+- let (): setq occurs later
+eg: (let (beg end) ; explicit assign to beg, end with a setq
+(setq beg (region-beginning) end (region-end))
+let ((format (cond ; assign to format based on a condition
+
+- fset
+- funcall
+- description
+- save-window-excursion
+- switch-to-buffer
+- buffer-string
+
+
+- let (()): value assigned immediately
+- let*: lets happen sequentially, not in parallel; allow vars to rely on previous assigns
+- let:
+-
+
+* Do:
+** DONE How to tell emacs to load different directory on startup
+CLOSED: [2020-12-22 Tue 09:32]
+- State "TODO"       from              [2020-12-21 Mon 20:18]
+emacs -q -l PATHTOLOADFILE
+-q because we don't want to load the default path.
+** DONE Tell emacs to use diff customization file
+CLOSED: [2020-12-22 Tue 09:32]
+- State "TODO"       from              [2020-12-21 Mon 20:18]
+** DONE buffer Switch Fkey
+- State "TODO"       from              [2020-12-21 Mon 20:58]
+** DONE comment dwim assign to F key
+- State "TODO"       from              [2020-12-22 Tue 09:32]
+
+**
+** TODO Describe in popup
+** TODO hrs convenience functions
+** TODO Appearance
+* Don't:
+** Try to unbind keys C-i, C-m, or C-\[.
+The stone age has no sunset.
+https://emacs.stackexchange.com/questions/17509/how-to-distinguish-c-i-from-tab
