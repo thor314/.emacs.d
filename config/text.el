@@ -1,5 +1,11 @@
 (setq sentence-end-double-space nil) ; single space after periods
 (setq-default fill-column 115)
+(setq org-src-fontify-natively t)
+(setq org-src-tab-acts-natively t)
+(setq org-adapt-indentation nil)
+(setq line-number-mode nil)
+
+(add-hook 'text-mode-hook 'turn-on-auto-fill)
 
 (defun tk-org-insert-lisp-block ()
 (interactive)

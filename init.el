@@ -28,18 +28,20 @@
 (use-package auto-compile
 	;; reduce risk of loading outdated bytecode
 	:config (setq load-prefer-newer t)
-	(auto-compile-on-save-mode)
-	(auto-compile-on-load-mode))
+	(auto-compile-on-save-mode t)
+	(auto-compile-on-load-mode t))
 
 
-(org-babel-load-file "~/.emacs.e/config/general.org")
-(org-babel-load-file "~/.emacs.e/config/tk_functions.org")
-(org-babel-load-file "~/.emacs.e/config/programming.org")
-(org-babel-load-file "~/.emacs.e/config/text.org")
-(org-babel-load-file "~/.emacs.e/config/experimental.org")
+(org-babel-load-file "~/.emacs.d/config/general.org")
+(org-babel-load-file "~/.emacs.d/config/tk_functions.org")
+(org-babel-load-file "~/.emacs.d/config/ivy.org")
+;(org-babel-load-file "~/.emacs.d/config/misc_packages.org")
+(org-babel-load-file "~/.emacs.d/config/programming.org")
+(org-babel-load-file "~/.emacs.d/config/text.org")
+(org-babel-load-file "~/.emacs.d/config/experimental.org")
 
 ;; tell emacs to use customize.el for customization
-(setq custom-file "~/.emacs.e/config/customize.el")
+(setq custom-file "~/.emacs.d/config/customize.el")
 (load custom-file)
 
 ;;; init.el ends here

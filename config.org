@@ -1,0 +1,1047 @@
+* configure =use-package= and path
+** refactor fast forward
+#+begin_src emacs-lisp
+(defun tk-comment-dwim ()
+	"Active region => (un)comment it. Else => (un)comment line."
+	(interactive)
+	(let (beg end)
+		(if (region-active-p)
+				(setq beg (region-beginning) end (region-end))
+			(setq beg (line-beginning-position) end (line-end-position)))
+		(comment-or-uncomment-region beg end)))
+	(global-set-key (kbd "M-;")	'tk-comment-dwim)
+
+(global-unset-key (kbd "C-x f"))
+(global-set-key (kbd "C-.") 'other-window)
+(global-set-key [f2] 'eshell)
+; Note: f3, f4 reserved for macro binds.
+; f5-f11 are mode specific. f12 is org-capture.
+(global-set-key [f5] 'tk-comment-dwim)
+#+end_src
+** Do the stuff
+=use-package= is 'require on [[https://duckduckgo.com/?q=usepackage+emacs&t=brave&ia=software][steroids]]. It downloads things for me. Yay.
+=use-package-ensure= is equivalent to =:ensure t= on every =use-package= use.
+It means install package if not already installed.
+#+begin_src emacs-lisp
+  (require 'use-package-ensure)
+  (setq use-package-always-ensure t)
+#+end_src
+
+[[https://github.com/emacscollective/auto-compile][Auto-compile]] packages, and use the newest version available.
+#+begin_src emacs-lisp
+	(use-package auto-compile
+		:config	(auto-compile-on-save-mode) ;; reduce risk of loading outdated bytecode
+		(setq load-prefer-newer t))
+#+end_src
+
+** =Use-package= instructions (because I forget them)
+Okay, so here's the deal. I went super gung-ho on =use-package= based
+configuration for awhile. I regret that now. I regret that because it's simpler
+to "learn to write emacs-lisp gud", and know how to debug that, than to use the
+fancy =use-package= macro system. Now I only do fancy =use-package= stuff
+by copy pasting others' nonsense, and revert to emacs lisp if it's causing probs.
+
+_Basics For Reference_
+:init - execute stuff before loading. =:init (setq my-var t)= :config - execute
+stuff after loading. =:config (foo-mode t)= :bind - set keybindings. =:bind
+("C-g" . keyboard-quit)= don't forget the '.' :bind-keymap - eg projectile, set
+a command-map prefix.
+
+* use sensible-defaults.el (thank you hrs)
+Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings. This is really good to read
+from if learning elisp.
+** Some nice from SD:
+*** functions
+sensible-defaults/comment-or-uncomment-blah
+sensible-defaults/reset-text-size
+*** Nice settings:
+Save backups to /tmp
+set default directory when opening a file to home
+30x garbage collection limit
+delete trailing whitespaces on saves
+oc
+treat camelCaseSubWords as separate words
+always follow symlinks when opening
+files
+when saving a file starting with #!, make it executable automatically
+Don't assume sentences should have two spaces after periods
+When saving a file that doesn't exist, offer to create it and any super-directories necessary
+Turn on transient mark mode
+If text is selected and then I type text, replace the text (delete-selection-mode)
+Append a newline to all saved files
+Confirm whether to close emacs before closing emacs
+Suppress the startup message and clear the scratch buffer
+Tell dired mode to list file sizes in kb and mb etc.
+Ask y/n instead of yes-or-no
+Turn on syntax highlighting where possible (font-lock-mode)
+refresh buffers so they don't get out of sync with auto-revert-mode
+Show matching parens (show-paren-mode)
+Flash screen, not audibell
+Set line length to 60 *play with this number as suits me*
+If clicking on stuff to open in emacs, open in existing emacs window
+Insert text where the point is, not
+where the mouse is
+sensible-defaults
+*** Nice keybindings
+M-; comments or uncomments a region
+C-+-_= are size adjustments
+** 4 lines that make all the diff
+#+begin_src emacs-lisp
+  (load-file "~/.emacs.d/sensible-defaults.el")
+  (sensible-defaults/use-all-settings)
+  (sensible-defaults/use-all-keybindings)
+  (sensible-defaults/backup-to-temp-directory)
+#+end_src
+
+* Utilityction friends
+** All my defun friends live here
+Also, some of hrs's. Good to read when learning elisp.
+*** Mine
+reload, open config, open zsh profile
+#+begin_src emacs-lisp
+	(defun reload ()
+		"shorcut to reload init file"
+		(interactive)
+		(load-file "~/.emacs.d/init.el"))
+
+	(defun cedit ()
+		"shortcut to edit config.org file"
+		(interactive)
+		(find-file "~/.emacs.d/config.org"))
+
+	(defun tedit ()
+		"shortcut to edit org/tktodos.org"
+		(interactive)
+		(find-file "~/org/tktodos.org"))
+
+	(defun pedit ()
+		"shortcut to edit .profile"
+		(interactive)
+		(find-file "~/.zshrc"))
+
+ (defun insert-date (prefix)
+    "Insert the current date. With prefix-argument, use ISO format. With
+   two prefix arguments, write out the day and month name."
+    (interactive "P")
+    (let ((format (cond
+                   ((not prefix) "%Y-%m-%d")
+                   ((equal prefix '(4)) "%d-%m-%Y")
+                   ((equal prefix '(16)) "%A, %d. %B %Y")))
+          (system-time-locale "us_US"))
+      (insert (format-time-string format))))
+(global-set-key (kbd "C-c d") 'insert-date)
+#+end_src
+
+*** Better than C-h <blah>, get help for emacs-lisp thing at point in tooltip. C-h C-h.
+thx [[https://gist.github.com/jasonm23/eea3b4662e2a3028a07e][Jason]]. Get a tooltip for thing at point.
+
+:#+begin_src emacs-lisp
+	(defun describe-in-popup  (fn)
+		(let* ((description (save-window-excursion
+													(funcall fn (symbol-at-point))
+													(switch-to-buffer "*Help*")
+													(buffer-string))))
+			(popup-tip description
+								 :point (point)
+								 :around t
+								 :height 30
+								 :truncate t
+								 :width 40
+								 :scroll-bar t
+								 :margin t)))
+
+	(defun describe-thing-in-popup ()
+		(interactive)
+		(let* ((thing (symbol-at-point)))
+			(cond
+			 ((fboundp thing) (describe-in-popup 'describe-function))
+			 ((boundp thing) (describe-in-popup 'describe-variable)))))
+	(global-set-key (kbd "C-h C-h") 'describe-thing-in-popup)
+:#+end_src
+
+
+#+begin_src emacs-lisp
+(defun describe-in-popup  (fn)
+"Create a popup with the help text created by describe-function or describe-variable"
+(let* ((description (save-window-excursion
+(funcall fn (symbol-at-point))
+(switch-to-buffer "*Help*")
+(buffer-string))))
+(popup-tip description
+:point (point)
+:around t
+:height 30
+:scroll-bar t
+:margin t)))
+
+(defun describe-thing-in-popup ()
+"Call either describe-function or describe-variable on symbol-at-point."
+(interactive)
+(let* ((thing (symbol-at-point)))
+(cond
+((fboundp thing) (describe-in-popup 'describe-function))
+((boundp thing) (describe-in-popup 'describe-variable)))))
+(global-set-key (kbd "C-h C-h") 'describe-thing-in-popup)
+#+end_src
+
+*** hrs's convenience functions that I mostly keep around to study
+rename file, get scratch buffer, kill current buffer no prompt
+#+begin_src emacs-lisp
+  (defun hrs/rename-file (new-name)
+    (interactive "FNew name: ")
+    (let ((filename (buffer-file-name)))
+      (if filename
+          (progn
+            (when (buffer-modified-p)
+               (save-buffer))
+            (rename-file filename new-name t)
+            (kill-buffer (current-buffer))
+            (find-file new-name)
+            (message "Renamed '%s' -> '%s'" filename new-name))
+        (message "Buffer '%s' isn't backed by a file!" (buffer-name)))))
+
+  (defun hrs/generate-scratch-buffer ()
+    "Create and switch to a temporary scratch buffer with a random
+       name."
+    (interactive)
+    (switch-to-buffer (make-temp-name "scratch-")))
+
+  (defun hrs/kill-current-buffer ()
+    "Kill the current buffer without prompting."
+    (interactive)
+    (kill-buffer (current-buffer)))
+#+end_src
+
+Add entries to alist, sudo find
+#+begin_src emacs-lisp
+  (defun hrs/add-auto-mode (mode &rest patterns)
+    "Add entries to `auto-mode-alist' to use `MODE' for all given file `PATTERNS'."
+    (dolist (pattern patterns)
+      (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+  (defun hrs/find-file-as-sudo ()
+    (interactive)
+    (let ((file-name (buffer-file-name)))
+      (when file-name
+        (find-alternate-file (concat "/sudo::" file-name)))))
+
+  (defun hrs/region-or-word ()
+    (if mark-active
+        (buffer-substring-no-properties (region-beginning)
+                                        (region-end))
+      (thing-at-point 'word)))
+#+end_src
+
+append to path, insert generated password, display a desktop notification
+#+begin_src emacs-lisp
+	(defun hrs/append-to-path (path)
+		"Add a path both to the $PATH variable and to Emacs' exec-path."
+		(setenv "PATH" (concat (getenv "PATH") ":" path))
+		(add-to-list 'exec-path path))
+
+	(defun hrs/insert-password ()
+		(interactive)
+		(shell-command "pwgen 30 -1" t))
+
+	(defun hrs/notify-send (title message)
+		"Display a desktop notification by shelling out to `notify-send'."
+		(call-process-shell-command
+		 (format "notify-send -t 2000 \"%s\" \"%s\"" title message)))
+#+end_src
+
+** Macro game going strong
+Insert lisp/rust block
+#+begin_src emacs-lisp
+	(defun tk-org-insert-lisp-block ()
+		(interactive)
+		(beginning-of-line)
+		(insert "#+begin_src emacs-lisp\n\t\n#+end_src")
+		(previous-line))
+
+	(defun tk-org-insert-rust-block ()
+		(interactive)
+		(beginning-of-line)
+		(insert "#+begin_src rust\n\t\n#+end_src")
+		(previous-line))
+#+end_src
+
+** Handy kbd shortcuts live here
+Return and indent instead of just return
+#+begin_src emacs-lisp
+(define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "<f7>") 'eshell)
+#+end_src
+
+* Prettify emacs window appearance and general settings
+** No Backups~
+#+begin_src emacs-lisp
+	(setq make-backup-files nil) ; none of these~
+	(setq auto-save-default t)
+#+end_src
+** Theme
+#+begin_src emacs-lisp
+	(use-package solarized-theme
+	 :config (load-theme 'solarized-gruvbox-dark t))
+	;; make src block code look like normal text
+	(add-hook 'text-mode-hook
+						 (lambda ()
+							(variable-pitch-mode 1)))
+#+end_src
+** Window configuration
+*** Zoom mode
+[[https://github.com/cyrus-and/zoom][Zoom]]. Auto resize windows on active buffer switch.
+#+begin_src emacs-lisp
+	(use-package zoom
+		:config (zoom-mode t))
+#+end_src
+*** =subword-mode= to tell emacs to treat CamelCaseAsDifferentWords on M-f/b
+#+begin_src emacs-lisp
+	(setq subword-mode t)
+#+end_src
+*** Autofill, electric pair, linum, highlighting
+line numberings. And highlighting current line. and highlighting differences on
+git tracked files.
+[[https://github.com/dgutov/diff-hl][diff-hl-mode]]
+#+begin_src emacs-lisp
+	(add-hook 'text-mode-hook 'turn-on-auto-fill)
+	(global-linum-mode 1)
+	(global-hl-line-mode)
+	(setq electric-pair-mode 1)
+	(use-package diff-hl)
+	(global-diff-hl-mode)
+#+end_src
+
+*** Remove things
+Get rid of the annoying parts of the display.
+#+begin_src emacs-lisp
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  (set-window-scroll-bars (minibuffer-window) nil nil) ; minibuffer window has a scroll bar for some reason
+#+end_src
+
+** Use fancy lambdas, =moody= and =minions=
+lambdas: prettify symbols, column and line number
+#+begin_src emacs-lisp
+  (global-prettify-symbols-mode t)
+  (setq column-number-mode t)
+  (setq line-number-mode t)
+#+end_src
+
+Moody is a pretty mode bar
+#+begin_src emacs-lisp
+ (use-package moody
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (setq size-indication-mode t) ; display how long file is in modeline
+)
+#+end_src
+
+minions mode changes what minor are listed in the bar
+#+begin_src emacs-lisp
+  (use-package minions
+  :config
+;  (setq minions-mode-line-lighter "Hey Thor ;)" ; because why not
+;        minions-mode-line-delimiters '("" . ""))
+  (minions-mode 1))
+#+end_src
+
+** [off] Turn on flyspell check in text mode
+[[https://www.emacswiki.org/emacs/FlySpell][emacswiki flyspell]]
+;#+begin_src emacs-lisp
+	(dolist (hook '(text-mode-hook)) ; when entering text mode
+				(add-hook hook (lambda () (flyspell-mode 1)))) ; add hook to turn on flyspell
+	;(add-hook 'prog-mode-hook ; turn on flyspell in comments of programming modes
+	;					(lambda ()
+	;						(flyspell-prog-mode)
+	;					))
+	(setq flyspell-issue-message-flag nil) ; printing messages for every word slows down perf
+;#+end_src
+Toy with this for awhile, then try out [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] and [[https://github.com/d12frosted/flyspell-correct#flyspell-correct-ivy-interface][ivy interface]] later
+[[http://ergoemacs.org/emacs/emacs_spell_checker_problems.html][Xah has problems and solutions with flyspell if these don't work.]]
+** work groups for remembering window setup ; Cc z [c/v/Cs/Cf]
+Want emacs to remember my window setup for stuff. Storing views in registers
+aren't persistent across sessions. [[https://github.com/pashinin/workgroups2][docs]].
+Note that this can get buggy with treemacs, beware.
+; #+begin_src emacs-lisp
+	(use-package workgroups2
+		:config
+	(setq wg-session-file "~/.emacs.d/workgroups")
+	(setq wg-emacs-exit-save-behavior 'save))      ; Options: 'save 'ask nil
+	(setq wg-prefix-key (kbd "C-c z"))
+	(workgroups-mode)
+;#+end_src
+
+* Cool Tools
+** =ivy-mode=, with =counsel= and =swiper= - navigation and other things
+Ivy and helm do similar stuff, move ya from place to place and complete stuff.
+Ivy claims to be more minimal.
+Using [[https://oremacs.com/swiper/][oremacs]] user manual heavily.
+[[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][this link's much nicer tho]]
+New learn: use C-c v/V to store the current set of windows open.
+*** Standard commands mostly replace standards. Ch i/l info-lookup/library
+Copy pasted from docs.
+#+begin_src emacs-lisp
+	(use-package ivy)
+	(use-package swiper) ; search extension to ivy
+	(use-package counsel) ;
+	(setq ivy-display-style 'fancy) ; full regex features in ivy
+	(ivy-mode 1) ; globally turn on ivy
+	(setq ivy-use-virtual-buffers t) ; variably sized
+	(setq ivy-count-format "(%d/%d) ")
+	(global-set-key (kbd "C-s") 'swiper-isearch)
+	(global-set-key (kbd "C-r") 'swiper-isearch-backward)
+	(global-set-key (kbd "M-x") 'counsel-M-x)
+	(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+	(global-set-key (kbd "M-y") 'counsel-yank-pop) ; nicer kill ring
+	(global-set-key (kbd "C-h f") 'counsel-describe-function)
+	(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+	(global-set-key (kbd "C-h l") 'counsel-find-library)
+	(global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
+	(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+	(global-set-key (kbd "C-c v") 'ivy-push-view)
+	(global-set-key (kbd "C-c V") 'ivy-pop-view)
+#+end_src
+
+Ivy views store the set of buffers open in the current frame.
+*** Shell and System tools - C-c k rg, C-c j file jump
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c k") 'counsel-rg)
+(global-set-key (kbd "C-c j") 'counsel-file-jump)
+#+end_src
+
+*** Ivy-resume (Cc r), bkmk (Cc b), what the hell binding is this (Cc d), jump to a heading Cc o
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c r") 'ivy-resume)
+;(global-set-key (kbd "C-c b") 'counsel-bookmark) ; weird stuff goin on
+(global-set-key (kbd "C-c o") 'counsel-outline)
+#+end_src
+
+*** Ivy-rich
+[[https://github.com/Yevgnen/ivy-rich][ivy rich]], in combination with ivy descbind (Cc d) and which-key, installed
+earlier, make it wayyyy easier to discover and remember what my keybinds are.
+#+begin_src emacs-lisp
+(use-package ivy-rich
+ :config (ivy-rich-mode 1))
+(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; recommended format
+(setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
+#+end_src
+
+*** =Avy= M-t
+jump to visible text.
+#+begin_src emacs-lisp
+(use-package avy)
+(global-set-key (kbd "M-t") 'avy-goto-word-1)
+#+end_src
+
+** =Counsel-projectile= - jump around project files, Ccp m, Ccp p
+[[https://github.com/bbatsov/projectile][Projectile]]: finding and moving around .git or .projectile controlled project
+files. Projectile-commander is useful magit-like.
+#+begin_src emacs-lisp
+(use-package projectile)
+(use-package counsel-projectile)
+(counsel-projectile-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+end_src
+** =magit= - git version control inside emacs. C-x g
+[[https://github.com/magit/magit][magit]]. Interface to git. [[https://magit.vc/manual/forge/][Forge]] to interface with github. Sorta shitty
+documentation on forge. Trying [[https://gist.github.com/bmhatfield/cc21ec0a3a2df963bffa3c1f884b676b][this]] solution. Hoo baby it worked.
+#+begin_src emacs-lisp
+	(use-package magit)
+	(use-package forge)
+#+end_src
+** =exec-path-from-shell= - magit relies on this
+[[https://github.com/purcell/exec-path-from-shell][exec-path-from-shell]]. gives emacs a look at shell environment variables. Most
+useful on OS X.
+ #+begin_src emacs-lisp
+ (use-package exec-path-from-shell
+ :init (exec-path-from-shell-initialize)
+ :config (when (memq window-system '(mac ns x)) ; sets MANPATH, PATH, exec-path-from-shell in osX/linux
+ (exec-path-from-shell-initialize)))
+ #+end_src
+** =rip-grep= - to directory search; C-c k
+[[https://github.com/BurntSushi/ripgrep][ripgrep]] is the fastest implementation of grep, built on Rust's regex engine,
+binary name rg. Usage: =C-c k=. [[https://github.com/dajva/rg.el][rg.el.]] Ties in with counsel.
+#+begin_src emacs-lisp
+	(use-package rg)
+	(hrs/append-to-path "/usr/local/bin") ; oddly wasn't globally in path, fixing that
+#+end_src
+
+** =Dired-X= - run arbitrary shell cmds in dired; press ! in dired
+[[https://www.gnu.org/software/emacs/manual/html_node/dired-x/index.html][Dired-X.]]  [[https://www.gnu.org/software/emacs/manual/html_node/dired-x/Features.html#Features][Features]]: Omit uninteresting files, guess and run shell commands, file
+marking. I use it minimally.
+#+begin_src emacs-lisp
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired-x")))
+#+end_src
+** =dumb-jump= - jump to definition with CMs and CMr
+[[https://github.com/jacktasia/dumb-jump][dumb-jump.]] Jump to definition. Usage: in prog-mode, =C-M-s | C-M-R=.
+Other packages often include something similar, eg, xref, racer. Use this when
+those aren't available.
+#+begin_src emacs-lisp
+(use-package dumb-jump)
+(global-set-key (kbd "C-M-s") 'dumb-jump-go)
+(global-set-key (kbd "C-M-r") 'dumb-jump-back)
+(setq dumb-jump-force-searcher 'rg)
+(setq dumb-jump-selector 'ivy)
+#+end_src
+** =re-builder= - for building and testing regex (try C-c C-w)
+[[https://www.emacswiki.org/emacs/ReBuilder][re Builder.]] Usage: =M-x re-builder=, test patterns in buffer.
+Set re-builder to "string mode" (default req.s double backslash)
+#+begin_src emacs-lisp
+(use-package re-builder)
+(setq reb-re-syntax 'string)
+#+end_src
+
+** =simpleclip= - Use cmd-C, cmd-v, cmd x
+For copy-cut-paste things without affecting kill ring.
+#+begin_src emacs-lisp
+(use-package simpleclip)
+(simpleclip-mode 1)
+#+end_src
+
+** =Which-key= - sometimes crashes emacs on Cx Cg. -> Only turn it on, on demand.
+Confirmed, this is crashing emacs. Sad face.
+#+begin_src emacs-lisp
+(use-package which-key)
+#+end_src
+** =free-keys= - show unbound keys
+[[https://github.com/Fuco1/free-keys][free-keys.]] Usage: =m-x free-keys=.
+#+begin_src emacs-lisp
+(use-package free-keys)
+#+end_src-
+* Orgifications
+[[http://cachestocaches.com/2016/9/my-workflow-org-agenda/][This]] was a pretty good start.
+Try clocking in and out with *Cc Cx Ci/o*
+** Setup
+*** Shortcuts to org stuff Cc c/a/l
+#+begin_src emacs-lisp
+	(global-set-key (kbd "C-c l") 'org-store-link)
+	(global-set-key (kbd "C-c a") 'org-agenda)
+;	(global-set-key (kbd "C-c c") 'org-capture)
+	(global-set-key (kbd "<f12>") 'org-capture)
+#+end_src
+*** src block settings
+tell syntax highlighting and tab in source blocks to act naturally.
+don't indent newly expanded blocks.
+#+begin_src emacs-lisp
+	(setq org-src-fontify-natively t)
+	(setq org-src-tab-acts-natively t)
+	(setq org-adapt-indentation nil)
+	;(setq org-pretty-entities nil) ; quick latex-ify in org files; annoying in codesnippets
+#+end_src
+
+*** Store org files in ~/org. Set todo state keywords.
+#+begin_src emacs-lisp
+	(setq org-directory "~/org")
+	(setq org-todo-keywords									; ! = timestamp, @ = create note
+				'((sequence "TODO(t!)" "NOW(n!)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+(setq org-log-done 'time) ; log when finished
+#+end_src
+*
+*** Org-download for images in org mode
+[[https://github.com/abo-abo/org-download][Org download docs]] - drag images from outside of emacs into emacs buffers
+#+begin_src emacs-lisp
+(use-package org-download)
+#+end_src
+
+** Org capture
+*** notes on template options
+See [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-elements.html#Template-elements][this]] for option elements, and [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-expansion.html#Template-expansion][this]] for template escape sequences.
+Usage: (key description type target template properties)
+types: entry (org node), item (plain list item at location), checkitem (checkbox
+item), table-line, plain
+templates: [[https://orgmode.org/manual/Template-expansion.html#Template-expansion][many]]
+targets: file "file", id "existing id", file+headline "file" "node", datetree, clock
+properties: prepend, empty-lines, clock-in/keep/resume,
+time-prompt, tree-type, table-line-pos
+%? = point;
+%i = initial content
+%a = location stored from ; %l = literal
+%x,c = put pastebin, killring head
+%k title of currently clocked task; K = link to
+: %^g prompt for tags; G completion all tags all agenda files
+: %^t prompt date, T,u,U
+: %^{PROPMT|default|completion2|...} pick from a sequence of prompts
+%t = datestamp; T= time+datestamp; u,U = inactive timestamps - don't cause item
+ to show up in agenda
+*** templates
+#+begin_src emacs-lisp
+		(setq org-default-notes-file (concat org-directory "~/org/tktodos.org")) ; capture
+		(setq org-capture-templates
+					 '(
+			 ("z" "Misc todo" entry (file+headline "~/org/misc.org" "Misc")
+				"* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
+			 ("d" "Dev" entry (file+headline "~/org/dev.org" "Dev")
+				"* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
+			 ("M" "Main Dev" entry (file+headline "~/org/main.org" "Main")
+				"* TODO [#A] \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+			 ("R" "Main Rsch" entry (file+headline "~/org/main.org" "Main")
+				"* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
+			 ("e" "Emacs" entry (file+headline "~/org/emacs.org" "Emacs")
+				"* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
+			 ("p" "Personal" entry (file+headline "~/org/pers.org" "Pers")
+				"* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
+			 ("r" "Research" entry (file+headline "~/org/rsch.org" "Rsch")
+				"* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
+			 ("i" "Idea" entry (file "~/org/ideas.org")
+				"* \t %? :IDEA:\nAdded: %u" )
+	))
+#+end_src
+
+*** Org-clock configuration
+Note, I've found org-clock to be pretty clunky to work with. Especially bad if
+Emacs exits irregularly/crashes. Toggl does better.
+**** keybind
+#+begin_src emacs-lisp
+	(add-hook 'org-mode-hook
+				(lambda ()
+					(local-set-key (kbd "C-c C-x C-l") 'org-clock-in-last)
+	))
+#+end_src
+
+**** propmt to resolve idle time after 15 idle minutes
+[[https://orgmode.org/manual/Resolving-idle-time.html#Resolving-idle-time][manual]] : if idle, eg did nothing for 15 minutes, emacs can prompt about weird
+timers and idle time. Usually, respond to prompt with 's/k', or 'S/K' to then
+clock out.
+#+begin_src emacs-lisp
+(setq org-clock-idle-time 15) ;prompt after 15 idle minutes.
+#+end_src
+** org-agenda
+[[https://orgmode.org/manual/Agenda-Views.html][All you ever wanted to know.]]
+*** Tell org-agenda where to look
+#+begin_src emacs-lisp
+	(setq org-agenda-files '("~/org" ))
+#+end_src
+
+*** And give org-agenda some custom tags
+#+begin_src emacs-lisp
+																					; tf not used heavily atm
+	(setq org-agenda-custom-commands ; options - todo, tags, tags-todo
+				'(("d" "Dev" tags-todo "DEV")
+					("e" "Emacs" tags-todo "EMACS")
+					("p" "Personal" tags-todo "PERS")
+					("r" "Research" tags-todo "RSCH")
+					("m" "Research" tags-todo "MAIN")
+					))
+	(setq org-agenda-start-on-weekday nil) ; start today
+
+#+end_src
+** org tag alist - tags I care about
+#+begin_src emacs-lisp
+(setq org-tag-alist '(("dev" . d) ("personal" . ?p) ("research" . ?r) ("main" . ?m)))
+#+end_src
+
+** Org-roam - Cc n [lfgic]
+Currently using Bear over org-roam. May increase usage gradually over time,
+especially on Linux.
+
+[[https://www.orgroam.com/manual/][documentation]] and [[https://github.com/org-roam/org-roam][source]]. Get used to zettelkastening up some notas.
+*** Setup Company, set keys
+#+begin_src emacs-lisp
+		(use-package company-org-roam)
+		(setq org-roam-completion-system 'ivy)
+		(use-package org-roam
+					:hook
+					(after-init . org-roam-mode)
+					:custom ; adjust graph dot executable
+					(org-roam-directory "~/org/roam")
+					(setq org-roam-tag-sources '(prop all-directories)) ; tag all intermediate dirs
+					:bind (:map org-roam-mode-map
+									(("C-c n l" . org-roam)
+									 ("C-c n f" . org-roam-find-file)
+									 ("C-c n g" . org-roam-graph))
+									:map org-mode-map
+									(("C-c n i" . org-roam-insert))
+									(("C-c n c" . org-roam-capture))
+	;								(("C-c n I" . org-roam-insert-immediate))
+	))
+#+end_src
+
+*** Set roam-capture templates
+#+begin_src emacs-lisp
+	(setq org-roam-capture--file-name-default "<%Y-%m%-%d>")
+	(setq org-roam-capture-templates
+				 ;; '(("p" "paper" plain (function org-roam--capture-get-point)
+				 ;; 	 "%?"
+				 ;; 	 :file-name "paper/${topic}/${subtopic}/${slug}"
+				 ;; 	 :head: "#+title: ${title}\n"
+				 ;; 	 :unnarrowed t)
+				 '(("w" "web" plain (function org-roam--capture-get-point)
+					"%?"
+					:file-name "web/${topic}/${subtopic}/${slug}"
+					:head "#+title: ${title}\n"
+					:unnarrowed t
+					)
+					 ))
+#+end_src
+
+*** relies on Graphviz for graph visualisation. CMq, TAB, M; CcCc, Cx `, Cc Cp, Cc v
+[[https://github.com/ppareit/graphviz-dot-mode][graphviz docs]]
+#+begin_src emacs-lisp
+(setq org-roam-graph-executable "/usr/local/bin/dot")
+(use-package graphviz-dot-mode
+  :config
+(setq graphviz-dot-indent-width 4))
+;(setq org-roam-graph-viewer "/Applications/Safari.app/Contents/MacOS/safari")
+#+end_src
+
+* Prog'n General
+** Tab width (I like 2)
+#+begin_src emacs-lisp
+(setq-default tab-width 2)
+#+end_src
+
+** =flycheck= linter for most things. Mg n/p=nxt/prev err
+new: want flycheck keys
+just kidding, looks like this [[https://www.flycheck.org/en/latest/user/error-interaction.html][is something already done for me]].
+#+begin_src emacs-lisp
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode)) ; test
+#+end_src
+
+** LSP
+[[https://emacs-lsp.github.io/lsp-mode/page/installation/][lsp guide]].
+[[https://github.com/Alexander-Miller/treemacs][treemacs.]]
+Try: =lsp-treemacs-quick-fix= or =x= when at an error list
+#+begin_src emacs-lisp
+	(setq lsp-keymap-prefix "M-n")
+	(use-package lsp-mode
+			:hook (rustic-mode . lsp)
+;			:hook (sh-mode . lsp)
+			:hook(go-mode . lsp)
+			:commands lsp)
+	;; optionally
+	(use-package lsp-ui :commands lsp-ui-mode)
+	(use-package lsp-ivy :commands lsp-ivy-workspa ce-symbol)
+	(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+	(use-package dap-mode) ; debugger - no dap-rust yet
+	;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+	(global-set-key (kbd "<f9>") 'treemacs)
+#+end_src
+
+* Rust
+** Tips
+rustup component add rls rust-analysis rust-src
+cargo +nightly install racer
+cargo install cargo-check
+cargo install cargo-edit  - {add,rm,upgrade} crates from toml
+cargo install cargo-audit
+rustup component add rustfmt-preview
+** Rustic & Rust-analyzer
+[[https://github.com/brotzeit/rustic][Rustic mode.]] Simple extension of rust-mode.
+[[https://rust-analyzer.github.io/manual.html][Rust-analyzer]]. In alpha. Great docs. Requires a little setup.
+#+begin_src emacs-lisp
+(use-package rustic)  ; many nifty convenience functions. defaults to rust-analyzer > rls
+(setq rustic-lsp-server 'rust-analyzer)
+(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+(custom-set-faces
+  '(rustic-compilation-error ((t (:foreground "Red"))))
+  '(rustic-compilation-warning ((t (:foreground "Red"))))
+  '(rustic-compilation-message ((t (:foreground "Red"))))
+  '(rustic-compilation-info ((t (:foreground "Blue"))))
+  '(rustic-compilation-line ((t (:foreground "Blue")))))
+#+end_src
+
+*** Rust-mode, unnecessary with rustic. Kept in case I revert
+#+begin_src emacs-lisp
+  (use-package rust-mode)
+	(hrs/append-to-path "~/.cargo/bin")
+  (setq rust-format-on-save t)
+#+end_src
+
+** Setup cargo
+[[https://github.com/kwrooijen/cargo.el][cargo.el.]]
+#+begin_src emacs-lisp
+(use-package cargo)
+(use-package toml-mode)
+#+end_src
+** =Racer= - autocompletion and docs with company
+[[https://github.com/racer-rust/emacs-racer][racer docs]]. Code auto-completion and find definitions. Buggy shitter.
+#+begin_src emacs-lisp
+  ; testing, possibly useful on Starchy
+(setenv "RUST_SRC_PATH" "/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+	(use-package racer
+	:config (setq company-tooltip-align-annotations t)
+	:hook ((rust-mode . racer-mode)
+	(rust-mode . rustic-mode)
+	(add-racer-mode . eldoc-mode) ; shows in echo area the arg list of the fn at point
+	(racer-mode . company-mode)) ; company autocomplete sometimes slows editor down significantly
+	:bind (:map rust-mode-map ("TAB" . company-indent-or-complete-common)))
+#+end_src
+
+** Hooks - flycheck, compile command
+Also, use C-c p to throw a debug println in.
+#+begin_src emacs-lisp
+		(use-package flycheck-rust) ; runs on save buffer
+		(with-eval-after-load 'rust-mode
+				(add-hook 'flycheck-mode-hook 'flycheck-rust-setup))
+		(add-hook 'rust-mode-hook
+				(lambda ()
+				(setq cargo-minor-mode t) ; Cc Cc C(b/r/t)
+			))
+	(add-hook 'rust-mode-hook
+					(lambda () (local-set-key (kbd "M-.") 'lsp-find-definition))
+						(lambda () (setq indent-tabs-mode nil)))
+	(add-hook 'rustic-mode-hook
+						(lambda () (setq indent-tabs-mode nil)))
+
+#+end_src
+
+** =Playground= and =org-babel-rust=
+*** =rust-playground= get a rust playground for snippets.
+Usage: M-x rust-playground(-exec|rm)?
+Note ctl-ret is bound in playgrounds for compile
+#+begin_src emacs-lisp
+	(use-package rust-playground)
+#+end_src
+
+*** For literate Rust evaluation, there's =org-babel=!
+#+begin_src emacs-lisp
+	(use-package ob-rust)
+#+end_src
+* Go
+** Install =go-mode= and related packages:
+#+begin_src emacs-lisp
+	(use-package go-mode)
+	(use-package go-errcheck)
+	(use-package company) ; autocompletes
+	(use-package company-go)
+	(setq company-tooltip-limit 20)     ; bigger popup window
+	(setq company-idle-delay .2)        ; decrease delay before autocompletion popup shows
+#+end_src
+
+** Define my =$GOPATH= and tell Emacs where to find the Go binaries.
+#+begin_src emacs-lisp
+	(setenv "GOPATH" "/Users/thor/go")
+	(hrs/append-to-path (concat (getenv "GOPATH") "/bin")) ; user gopath
+	(hrs/append-to-path "/usr/local/go/bin") ; other shit that we like
+#+end_src
+
+** Run =goimports= on every file when saving
+formats the file and automatically updates the list of imports.
+#+begin_src emacs-lisp
+  (setq gofmt-command "goimports")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+#+end_src
+
+** Go hooks - turn on company, add compile cmd (CcCcCr), flycheck
+[[https://github.com/nsf/gocode/tree/master/emacs-company][company-go docs]]. Enable [[https://github.com/flycheck/flycheck][flycheck]]. run these yourself:
+- go get github.com/rogpeppe/godef
+- go get -u github.com/nsf/gocode
+#+begin_src emacs-lisp
+	(add-hook 'go-mode-hook
+							(lambda ()
+								(if (not (string-match "go" compile-command))
+										(set (make-local-variable 'compile-command)
+											 "go run ")
+									)))
+#+end_src
+
+#+begin_src emacs-lisp
+	(add-hook 'go-mode-hook
+						(lambda ()
+							(set (make-local-variable 'company-backends)
+									 '(company-go))
+							(company-mode)
+							(flycheck-mode)
+							(local-set-key (kbd "C-c C-c C-r") 'compile)
+		))
+#+end_src
+
+** Keybind reminders, we get these set by default from =go-mode=
+Integration with godoc via the functions godoc and godoc-at-point.
+godef-describe (C-c C-d) to describe expressions
+godef-jump (C-c C-j) and godef-jump-other-window (C-x 4 C-c C-j) to jump to declarations
+Jump to the argument list (go-goto-arguments - C-c C-f a)
+Jump to the docstring, create it if it does not exist yet (go-goto-docstring - C-c C-f d).
+Jump to the function keyword (go-goto-function - C-c C-f f)
+Jump to the function name (go-goto-function-name - C-c C-f n)
+Jump to the return values (go-goto-return-values - C-c C-f r)
+Jump to the method receiver, adding a pair of parentheses if no method receiver exists (go-goto-method-receiver - C-c C-f m).
+
+* Lisp
+You should toggle some of these to remember what they actually do.
+** =paredit= and =rainbow-delimiters= for nice parens
+#+begin_src emacs-lisp
+(use-package paredit)
+(use-package rainbow-delimiters)
+#+end_src
+
+** Hooks to do those things above
+#+begin_src emacs-lisp
+(setq lispy-mode-hooks
+      '(emacs-lisp-mode-hook
+        lisp-mode-hook
+        scheme-mode-hook))
+(dolist (hook lispy-mode-hooks)
+  (add-hook hook (lambda ()
+                   (setq show-paren-style 'expression)
+                   (paredit-mode)
+                   (rainbow-delimiters-mode))))
+#+end_src
+
+If I’m writing in Emacs lisp I’d like to use =eldoc-mode= to display documentation.
+#+begin_src emacs-lisp
+(use-package eldoc
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
+#+end_src
+
+** =Flycheck=
+#+begin_src emacs-lisp
+(use-package flycheck-package) ; should b called emacs-lisp flycheck
+(eval-after-load 'flycheck
+  '(flycheck-package-setup))
+#+end_src
+
+* Solidity
+[[https://github.com/ethereum/emacs-solidity][solidity mode]].
+#+begin_src emacs-lisp
+(use-package solidity-mode)
+; optionals
+(setq solidity-comment-style 'slash) ; 'star by default
+; optional keybinds
+(define-key solidity-mode-map (kbd "C-c C-g") 'solidity-estimate-gas-at-point)
+; provide path to solc and solium binaries ;  these are overlapping checkers and can be used simultaneously
+; (setq solidity-solc-path "/bin")
+; (setq solidity-solium-path "/home/lefteris/.npm-global/bin/solium")
+;(use-package 'solidity-flycheck)
+;(setq solidity-flycheck-solc-checker-active t)
+;(setq solidity-flycheck-solium-checker-active t)
+; (setq flycheck-solidity-solc-addstd-contracts t) ; enable to include standard contracts
+(use-package company-solidity)
+(add-hook 'solidity-mode-hook
+	(lambda ()
+	(set (make-local-variable 'company-backends)
+		(append '((company-solidity company-capf company-dabbrev-code))
+			company-backends))))
+#+end_src
+
+* Shell
+[[Https://github.com/Alexander-Miller/company-shell][company shell docs]] autocompletes
+#+begin_src emacs-lisp
+(use-package company-shell)
+(add-to-list 'company-backends 'company-shell)
+#+end_src
+* Tex
+** Basic TeX
+stuff for latex. [[https://www.gnu.org/software/emacs/manual/html_node/emacs/TeX-Mode.html][tex mode]] starts out pretty useful, AuCTeX improves it.
+Use =Cj= to break and check the previous TeX para. Use =Cc Co= to
+insert \begin \end block points. Use =Cc Ce= to close the innermost block.
+Use =Cc Cc= or =Cc Cb= to run tex. Then =Cc Cv= to bring up the pdf. Use =Cc ?=
+to get documentation for symbol at point.
+
+In Plain TeX mode, insert ‘%**start of header’ before the header, and ‘%**end of
+header’ after it. In LaTeX mode, the header begins with ‘\documentclass’ or
+‘\documentstyle’ and ends with ‘\begin{document}’.
+
+** Recommended onfiguration and integration with Auctex
+The minor mode latex-electric-env-pair-mode automatically inserts these begin
+end. The rest is from the the link. [[https://www.emacswiki.org/emacs/AUCTeX][AUCTeX]] is TeX with goodies. Advanced
+features, like preview TeX equations within buffers. Use =preview-latex=.
+#+begin_src emacs-lisp
+;  (use-package auctex)
+; Error (use-package): ; auctex/:catch: Loading file /Users/thor/.emacs.d/elpa/auctex-12.2.4/auctex.elc failed to provide feature auctex
+	(setq TeX-auto-save t)
+	(setq TeX-parse-self t)
+	(setq-default TeX-master nil)
+	(add-hook 'LaTeX-mode-hook 'visual-line-mode) ; an altern to auto-fill-mode
+	(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+	(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+	(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+	(setq reftex-plug-into-AUCTeX t)
+	(add-hook 'tex-mode-hook
+						(lambda ()
+						(latex-electric-env-pair-mode)))
+#+end_src
+The fat Auctex manual lives [[https://www.gnu.org/software/auctex/manual/auctex.index.html][here]].
+
+* Random quick answers to questions
+- There is no difference between `global-set-key` and `define-key global-map`.
+- what is #'<function>? add-hook 'blah-hook #'<function> = this is a function;
+  which is why we use it when adding hooks.
+* Skeptic Zone
+** Font lock
+
+#+begin_src emacs-lisp
+; (setq highlight-changes-mode t)
+(global-font-lock-mode 1)
+(font-lock-add-keywords nil
+            '(("\\<\\(todo\\)" 1
+               font-lock-warning-face t)))
+#+end_src
+* Graveyard
+** Eglot - dunno how to configure for rust-analyzer, so using LSP instead
+[[https://github.com/joaotavora/eglot#differences-to-lsp-modeel][eglot.]] a language server that does nice things for me in a simple way.
+: #+begin_src emacs-lisp
+		(use-package eglot)
+;; if weirdness, add this line:
+; (add-to-list 'eglot-server-programs '(foo-mode . ("foo-language-server" "--args")))
+		(add-hook 'sh-mode-hook 'eglot-ensure)
+		(add-hook 'rust-mode-hook 'eglot-ensure)
+		(add-hook 'python-mode-hook 'eglot-ensure)
+   	(add-hook 'go-mode-hook 'eglot-ensure)
+   	(add-hook 'tex-mode-hook 'eglot-ensure)
+:  #+end_src
+
+** yasnippet code snippets - often fails to load properly, too much hassle
+[[https://github.com/joaotavora/yasnippet][yasnippet docs]], [[https://github.com/AndreaCrotti/yasnippet-snippets][snippets sold separately]]
+: #+begin_src emacs-lisp
+	(use-package yasnippet-snippets)
+	(use-package yasnippet
+		:config  (yas-reload-all) ; must come after snippet-dirs
+		:hook ('prog-mode #'yas-minor-mode)
+		:bind ("C-c y" .  yas-insert-snippet))
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"                 ;; personal snippets
+        ))
+: #+end_src
+
+** Centaur Tabs - crashes emacs on reload
+	 (use-package centaur-tabs
+		 :demand ;; don't defer load, recommended
+	 :config
+		(setq centaur-tabs-style "bar"
+		 centaur-tabs-height 32
+		 centaur-tabs-set-icons t
+		 centaur-tabs-set-modified-marker t
+		 centaur-tabs-show-navigation-buttons t
+		 centaur-tabs-set-bar 'left)
+		(centaur-tabs-headline-match)
+		;; (centaur-tabs-enable-buffer-reordering)
+		;; (setq centaur-tabs-adjust-buffer-order t)
+		(centaur-tabs-mode t)
+	(setq uniquify-separator "/")
+		(setq uniquify-buffer-name-style 'forward))
+** XKCD - crashes emacs on reload
+get [[https://github.com/vibhavp/emacs-xkcd][xkcd]]. Turns out this makes it impossible to reload for unknown reasons.
+	(use-package xkcd)
+	(global-set-key (kbd "<f4>") 'xkcd)
+** =notmuch= email client - too much fiddling
+[[https://notmuchmail.org/notmuch-emacs/][notmuch emacs docs]] reminder to download and install notmuch first
+(use-package notmuch)
+(autoload 'notmuch "notmuch" "notmuch mail" t) ;
+** =ivy-todo= - use org-agenda instead
+modify org-todos w ivy, Cc t, Cu Cc t - to change todos
+[[https://github.com/Kungsgeten/ivy-todo][ivy-todo]] is convenient for task setting, it recognizes what project I'm in and
+puts me in that list. Sortof a lightweight task manager. Testing this out.
+Decided ivy-todo was inferior to org-agenda
+(use-package ivy-todo :ensure t
+  :bind ("C-c t" . ivy-todo)
+  :commands ivy-todo
+  :config
+	(setq ivy-todo-file "~/org/ivy-todo.org")
+  (setq ivy-todo-default-tags '("PROJECT")))
+** =Ido mode=  - use ivy instead
+Note: type C-f while in an Ido frame to turn off Ido's suggestions.
+I could extend Ido further to search through "work directories" and other stuff
+	(ido-mode 1)
+	(setq ido-enable-flex-matching t)
+	(setq ido-everywhere t) ; enables ido on C-x C-f
+	;; tell ido what priority extensions are
+	(setq ido-file-extensions-order '(".org" ".rs" ".go" ".txt" ".emacs" ".xml" ".el" ".ini" ".cfg" ".cnf"))
