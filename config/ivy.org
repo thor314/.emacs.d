@@ -14,6 +14,15 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 	(global-set-key (kbd "C-c r") 'ivy-resume)
 #+end_src
 
+* Ivy rich, more self-documenting interface
+#+begin_src emacs-lisp
+	(use-package ivy-rich)
+	(ivy-rich-mode 1)
+	(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; formatting
+	(setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
+#+end_src
+[[https://github.com/Yevgnen/ivy-rich][ivy rich]].
+
 * Swiper
 #+begin_src emacs-lisp
 	(use-package swiper) ; better isearch
@@ -29,6 +38,7 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 	(global-set-key (kbd "C-c j") 'counsel-file-jump)
 	(global-set-key (kbd "C-h l") 'counsel-find-library)
 	(global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
+	(global-set-key (kbd "C-c b") 'counsel-bookmark) ; note: bkmks overlap with ivy-view
 
 	(global-set-key (kbd "C-c k") 'counsel-rg)
 	(global-set-key (kbd "M-x") 'counsel-M-x) ; M-x
@@ -44,7 +54,6 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-c c") 'counsel-compile)
 (global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
 (global-set-key (kbd "C-c L") 'counsel-git-log)
 (global-set-key (kbd "C-c k") 'counsel-rg)
 (global-set-key (kbd "C-c m") 'counsel-linux-app)
@@ -65,6 +74,6 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 * Avy
 #+begin_src emacs-lisp
 	(use-package avy)
-	(global-set-key (kbd "M-s M-s") 'avy-goto-char)
+	(global-set-key (kbd "M-p") 'avy-goto-char)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].

@@ -1,5 +1,12 @@
 auto-save-list/
+tramp
 /eshell/
 recentf
 projectile-bookmarks.eld
 elpa/
+.sx
+transient/
+forge*
+.cache
+.lsp*
+ref-previous-config*

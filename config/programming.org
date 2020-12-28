@@ -1,16 +1,71 @@
-* Prog mode
-** Keymaps
+* Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
-(add-hook 'prog-mode-hook
- (lambda ()
- (local-set-key [f5] 'tk-comment-dwim)
-))
+	(use-package magit)
+	(use-package forge
+		:after magit)
+  (setq auth-sources '("~/.authinfo.gpg"))
 #+end_src
-** Settings
+[[https://magit.vc/][magit]]. [[https://magit.vc/manual/forge/][forge]]. [[https://magit.vc/manual/forge/][forge manual]]. Setup requires ~/authinfo.gpg.
+
+** Why forge, not $x:
+0. Don't leave emacs. Write text in an editor that makes sense.
+1. Abstract (github|gitlab) to "some_forge".
+
+* Flycheck error information on the fly
 #+begin_src emacs-lisp
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(add-hook 'prog-mode-hook (lambda ()
-   (subword-mode)
-   (show-paren-mode t) ; higlight matching parens pairs at point
-))
+	(use-package flycheck)
+	(global-flycheck-mode 1)
+#+end_src
+
+* Company-mode text-completion
+#+begin_src emacs-lisp
+	(use-package company)
+  (setq company-minimum-prefix-length 1)
+#+end_src
+[[http://company-mode.github.io/][company]].
+
+* Treemacs - interact w dir structure in sidebar
+#+begin_src emacs-lisp
+	(use-package treemacs)
+	(use-package treemacs-projectile)
+#+end_src
+[[https://github.com/Alexander-Miller/treemacs][treemacs]]. Btw, great hydra.
+
+* LSP
+#+begin_src emacs-lisp
+	(setq lsp-keymap-prefix "M-n")
+	(use-package lsp-mode
+		:hook (rustic-mode . lsp)
+		:commands lsp)
+	(use-package lsp-ui :commands lsp-ui-mode)
+	(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+	(setq lsp-completion-provider :capf) ; completion backend
+  (setq lsp-idle-delay 0.2) ; refresh highlights
+#+end_src
+[[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
+
+* Yasnippet code snippets
+#+begin_src emacs-lisp
+  (use-package yasnippet)
+  (use-package yasnippet-snippet) ; try Mx yas-describe-tables
+#+end_src
+[[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
+
+* Prog mode
+#+begin_src emacs-lisp
+	(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+	(add-hook 'prog-mode-hook
+						(lambda ()
+							(subword-mode)
+						  (yas-minor-mode t)
+							(show-paren-mode t) ; higlight matching parens pairs at point
+	))
+#+end_src
+* Prog mode keybinds
+#+begin_src emacs-lisp
+	(add-hook 'prog-mode-hook
+	(lambda ()
+		(local-set-key [f5] 'tk-comment-dwim)
+		))
 #+end_src

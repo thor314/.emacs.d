@@ -35,10 +35,14 @@
 (org-babel-load-file "~/.emacs.d/config/general.org")
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")
 (org-babel-load-file "~/.emacs.d/config/ivy.org")
-;(org-babel-load-file "~/.emacs.d/config/misc_packages.org")
+(org-babel-load-file "~/.emacs.d/config/misc_packages.org")
 (org-babel-load-file "~/.emacs.d/config/programming.org")
 (org-babel-load-file "~/.emacs.d/config/text.org")
 (org-babel-load-file "~/.emacs.d/config/experimental.org")
+
+(org-babel-load-file "~/.emacs.d/config/lang/rust.org")
+(org-babel-load-file "~/.emacs.d/config/lang/sh.org")
+
 
 ;; tell emacs to use customize.el for customization
 (setq custom-file "~/.emacs.d/config/customize.el")

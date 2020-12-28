@@ -1,5 +1,3 @@
-* =sx= Browse stack exchange
-#+begin_src emacs-lisp
 (use-package sx
   :config
   (bind-keys :prefix "C-c s"
@@ -11,15 +9,7 @@
              ("u" . sx-tab-unanswered-my-tags)
              ("a" . sx-ask)
              ("s" . sx-search)))
-#+end_src
-[[https://github.com/vermiculus/sx.el/][sx]].
-* =free-keys= Show what keys are unbound
-#+begin_src emacs-lisp
+
 (use-package free-keys)
-#+end_src
-[[https://github.com/Fuco1/free-keys][free-keys]].
-* =re-builder= - Build and test regex
-#+begin_src emacs-lisp
+
 (use-package re-builder)
-#+end_src
-[[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
