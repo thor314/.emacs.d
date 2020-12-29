@@ -1,12 +1,12 @@
 (defun offer-to-create-dir-on-save ()
 	"On saving a file to a non-existant dir, query user to create dir."
 	(add-hook
-	 'before-save-hook   (lambda ()
-												 (when buffer-file-name
-													 (let ((dir (file-name-directory buffer-file-name)))
-														 (when (and (not (file-exists-p dir))
-																				(y-or-n-p (format "Dir %s does not exist. Create? " dir)))
-															 (make-directory dir t)))))))
+	 'before-save-hook (lambda ()
+											 (when buffer-file-name
+												 (let ((dir (file-name-directory buffer-file-name)))
+													 (when (and (not (file-exists-p dir))
+																			(y-or-n-p (format "Dir %s does not exist. Create? " dir)))
+														 (make-directory dir t)))))))
 (offer-to-create-dir-on-save)
 
 (defun window-split-toggle ()
@@ -33,6 +33,18 @@
 		 ((boundp thing) (describe-var thing)))))
 (global-set-key (kbd "C-h C-h") 'describe-thing)
 
+(defun tk-org-insert-lisp-block ()
+	(interactive)
+	(beginning-of-line)
+	(insert "#+begin_src emacs-lisp\n\t\n#+end_src")
+	(previous-line))
+
+(defun tk-org-insert-rust-block ()
+	(interactive)
+	(beginning-of-line)
+	(insert "#+begin_src rust\n\t\n#+end_src")
+	(previous-line))
+
 (defun insert-date (prefix)
 	"Insert the current date. With prefix-argument, use ISO format. With
 two prefix arguments, write out the day and month name."
@@ -43,7 +55,6 @@ two prefix arguments, write out the day and month name."
 								 ((equal prefix '(16)) "%A, %d. %B %Y")))
 				(system-time-locale "us_US"))
 		(insert (format-time-string format))))
-(global-set-key (kbd "C-c d") 'insert-date)
 
 (defun reload ()
 	"Shorcut to reload init file."
@@ -53,7 +64,7 @@ two prefix arguments, write out the day and month name."
 (defun load-config ()
 	"Open config.org."
 	(interactive)
-	(find-file "~/.emacs.d/config/config.org"))
+	(find-file "~/.emacs.d/config"))
 
 (defun rename-fil3 (new-name)
 	"The default rename file function keeps the file with the incorrect name, can be annoying."

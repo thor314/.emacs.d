@@ -1,3 +1,47 @@
-* Config settings
+* Org-roam - Cc n [lfgic]
+[[https://www.orgroam.com/manual/][docs]] and [[https://github.com/org-roam/org-roam][source]].
+** Setup Company, set keys
 #+begin_src emacs-lisp
+	(use-package org-roam
+						:hook
+						(after-init . org-roam-mode)
+						:custom ; adjust graph dot executable
+						(org-roam-directory "~/org/roam")
+						:bind (:map org-roam-mode-map (
+										 ("C-c n f" . org-roam-find-file)
+										 ("C-c n g" . org-roam-graph))
+										:map org-mode-map
+										(("C-c n i" . org-roam-insert))
+										(("C-c n c" . org-roam-capture))
+									(("C-c n I" . org-roam-insert-immediate))
+									))
+	(use-package company-org-roam)
+	(setq org-roam-completion-system 'ivy)
+#+end_src
+
+** Set roam-capture templates
+#+begin_src emacs-lisp
+	(setq org-roam-capture--file-name-default "<%Y-%m%-%d>")
+	(setq org-roam-capture-templates
+				 ;; '(("p" "paper" plain (function org-roam--capture-get-point)
+				 ;; 	 "%?"
+				 ;; 	 :file-name "paper/${topic}/${subtopic}/${slug}"
+				 ;; 	 :head: "#+title: ${title}\n"
+				 ;; 	 :unnarrowed t)
+				 '(("w" "web" plain (function org-roam--capture-get-point)
+					"%?"
+					:file-name "web/${topic}/${subtopic}/${slug}"
+					:head "#+title: ${title}\n"
+					:unnarrowed t
+					)
+					 ))
+#+end_src
+
+** relies on Graphviz for graph visualisation. CMq, TAB, M; CcCc, Cx `, Cc Cp, Cc v
+[[https://github.com/ppareit/graphviz-dot-mode][graphviz docs]]
+#+begin_src emacs-lisp
+(setq org-roam-graph-executable "/usr/local/bin/dot")
+(use-package graphviz-dot-mode
+  :config
+(setq graphviz-dot-indent-width 4))
 #+end_src

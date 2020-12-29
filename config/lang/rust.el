@@ -1,19 +1,17 @@
 (use-package rustic) ; lsp-compatible rust mode
-(add-hook 'rust-mode-hook 'rustic-mode)
-(add-hook 'rustic-mode-hook
-					(lambda ()
-						(setq rustic-lsp-server 'rust-analyzer) ; not rls
-						(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-						(setq rustic-format-on-save t)
+	(add-hook 'rust-mode-hook 'rustic-mode)
+	(add-hook 'rustic-mode-hook
+						(lambda ()
+							(setq rustic-lsp-server 'rust-analyzer) ; not rls
+							(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+							(setq rustic-format-on-save t)
+							(setq rustic-indent-offset 2)
+						  (setq rustic-match-angle-brackets nil)
+))
 
-						(custom-set-faces
-						 '(rustic-compilation-column ((t (:inherit compilation-column-number))))
-						 '(rustic-compilation-line ((t (:foreground "LimeGreen")))))
-						))
-
-2	(use-package cargo)
-	(add-hook 'rust-mode-hook 'cargo-minor-mode)
-	(use-package toml-mode) ; syntax highlighting in toml files
+(use-package cargo)
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+(use-package toml-mode) ; syntax highlighting in toml files
 
 (use-package flycheck-rust) ; runs on save buffer
 

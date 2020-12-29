@@ -8,17 +8,14 @@
 							(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
 							(setq rustic-format-on-save t)
 							(setq rustic-indent-offset 2)
-
-							(custom-set-faces
-							 '(rustic-compilation-column ((t (:inherit compilation-column-number))))
-							 '(rustic-compilation-line ((t (:foreground "LimeGreen")))))
-							))
+						  (setq rustic-match-angle-brackets nil)
+))
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
 * Cargo binds and Toml mode fontlock
 #+begin_src emacs-lisp
-2	(use-package cargo)
+	(use-package cargo)
 	(add-hook 'rust-mode-hook 'cargo-minor-mode)
 	(use-package toml-mode) ; syntax highlighting in toml files
 #+end_src

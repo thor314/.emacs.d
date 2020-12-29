@@ -1,34 +1,101 @@
-* Text Mode Settings
+* Text-mode hook
 #+begin_src emacs-lisp
-	(setq sentence-end-double-space nil) ; single space after periods
-	(setq-default fill-column 115)
-	(setq org-src-fontify-natively t)
-	(setq org-src-tab-acts-natively t)
-	(setq org-adapt-indentation nil)
-	(setq line-number-mode nil)
-
-
+	(add-hook 'text-mode-hook (lambda ()
+															(turn-on-auto-fill)
+															(setq sentence-end-double-space nil) ; single space after periods
+															(setq line-number-mode nil)
+															(setq-default fill-column 115)
+															))
 #+end_src
-* Text Mode Hook
+* Agenda
 #+begin_src emacs-lisp
-	(add-hook 'text-mode-hook 'turn-on-auto-fill)
+	(setq org-agenda-files '("~/org" ))
+	(setq org-agenda-custom-commands ; options - todo, tags, tags-todo
+				'(("d" "Dev" tags-todo "DEV")
+					("e" "Emacs" tags-todo "EMACS")
+					("p" "Personal" tags-todo "PERS")
+					("r" "Research" tags-todo "RSCH")
+					("m" "Research" tags-todo "MAIN")
+					))
+	(setq org-agenda-start-on-weekday nil) ; start today
 #+end_src
-* Insert
+[[https://orgmode.org/manual/Agenda-Views.html][agenda]].
+
+* Tags
+Default tags available in org files.
 #+begin_src emacs-lisp
-(defun tk-org-insert-lisp-block ()
-(interactive)
-(beginning-of-line)
-(insert "#+begin_src emacs-lisp\n\t\n#+end_src")
-(previous-line))
+(setq org-tag-alist '(("dev" . d) ("personal" . ?p) ("research" . ?r) ("main" . ?m)))
+#+end_src
+[[https://orgmode.org/manual/Tags.html#Tags][tags]].
+* Capture
+#+begin_src emacs-lisp
+		(setq org-default-notes-file (concat org-directory "~/org/tktodos.org")) ; capture
+		(setq org-capture-templates
+					 '(
+			 ("z" "Misc todo" entry (file+headline "~/org/misc.org" "Misc")
+				"* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
+			 ("d" "Dev" entry (file+headline "~/org/dev.org" "Dev")
+				"* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
+			 ("M" "Main Dev" entry (file+headline "~/org/main.org" "Main")
+				"* TODO [#A] \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+			 ("R" "Main Rsch" entry (file+headline "~/org/main.org" "Main")
+				"* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
+			 ("e" "Emacs" entry (file+headline "~/org/emacs.org" "Emacs")
+				"* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
+			 ("p" "Personal" entry (file+headline "~/org/pers.org" "Pers")
+				"* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
+			 ("r" "Research" entry (file+headline "~/org/rsch.org" "Rsch")
+				"* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
+			 ("i" "Idea" entry (file "~/org/ideas.org")
+				"* \t %? :IDEA:\nAdded: %u" )
+	))
+#+end_src
+** Notes on org capture template.
+See [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-elements.html#Template-elements][this]] for option elements, and [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-expansion.html#Template-expansion][this]] for template escape sequences.
+Usage: (key description type target template properties)
+types: entry (org node), item (plain list item at location), checkitem (checkbox
+item), table-line, plain
+templates: [[https://orgmode.org/manual/Template-expansion.html#Template-expansion][many]]
+targets: file "file", id "existing id", file+headline "file" "node", datetree, clock
+properties: prepend, empty-lines, clock-in/keep/resume,
+time-prompt, tree-type, table-line-pos
+%? = point;
+%i = initial content
+%a = location stored from ; %l = literal
+%x,c = put pastebin, killring head
+%k title of currently clocked task; K = link to
+: %^g prompt for tags; G completion all tags all agenda files
+: %^t prompt date, T,u,U
+: %^{PROPMT|default|completion2|...} pick from a sequence of prompts
+%t = datestamp; T= time+datestamp; u,U = inactive timestamps - don't cause item
+ to show up in agenda
 
-(defun tk-org-insert-rust-block ()
-(interactive)
-(beginning-of-line)
-(insert "#+begin_src rust\n\t\n#+end_src")
-(previous-line))
-
-(add-hook 'org-mode-hook
-  (lambda ()
-  (local-set-key (kbd "C-; e") 'tk-org-insert-lisp-block)
-  (local-set-key (kbd "C-; r") 'tk-org-insert-rust-block)))
+* Images
+Drag images into org or dired buffers. Saves in a folder in dir called images.
+#+begin_src emacs-lisp
+(use-package org-download)
+(add-hook 'dired-mode-hook 'org-download-enable)
+#+end_src
+[[https://github.com/abo-abo/org-download][org-download]].
+* Keybinds
+#+begin_src emacs-lisp
+	(global-set-key (kbd "C-c l") 'org-store-link) ; a link to dir in org file
+	(global-set-key (kbd "C-c a") 'org-agenda)
+	(global-set-key (kbd "C-c c") 'org-capture)
+	(add-hook 'org-mode-hook
+						(lambda ()
+							(local-set-key (kbd "C-; e") 'tk-org-insert-lisp-block)
+							(local-set-key (kbd "C-; r") 'tk-org-insert-rust-block)
+							(local-set-key (kbd "C-c d") 'insert-date)
+							))
+#+end_src
+* Settings
+#+begin_src emacs-lisp
+	(add-hook 'org-mode-hook (lambda ()
+														 (setq org-src-fontify-natively t) ; font-lock src if org recognizes the code block
+														 (setq org-src-tab-acts-natively t)
+														 (setq org-adapt-indentation nil) ; turn off special indentation in org subsections
+														 (setq org-directory "~/org")
+														 (setq org-log-done 'time) ; timstamp when TODO - DONE
+														 ))
 #+end_src

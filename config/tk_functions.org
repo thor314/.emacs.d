@@ -3,12 +3,12 @@
 	(defun offer-to-create-dir-on-save ()
 		"On saving a file to a non-existant dir, query user to create dir."
 		(add-hook
-		 'before-save-hook   (lambda ()
-													 (when buffer-file-name
-														 (let ((dir (file-name-directory buffer-file-name)))
-															 (when (and (not (file-exists-p dir))
-																					(y-or-n-p (format "Dir %s does not exist. Create? " dir)))
-																 (make-directory dir t)))))))
+		 'before-save-hook (lambda ()
+												 (when buffer-file-name
+													 (let ((dir (file-name-directory buffer-file-name)))
+														 (when (and (not (file-exists-p dir))
+																				(y-or-n-p (format "Dir %s does not exist. Create? " dir)))
+															 (make-directory dir t)))))))
 	(offer-to-create-dir-on-save)
 #+end_src
 * Transpose Frame
@@ -42,6 +42,20 @@
 #+end_src
 
 * Insert
+** org-src-blocks
+#+begin_src emacs-lisp
+	(defun tk-org-insert-lisp-block ()
+		(interactive)
+		(beginning-of-line)
+		(insert "#+begin_src emacs-lisp\n\t\n#+end_src")
+		(previous-line))
+
+	(defun tk-org-insert-rust-block ()
+		(interactive)
+		(beginning-of-line)
+		(insert "#+begin_src rust\n\t\n#+end_src")
+		(previous-line))
+#+end_src
 ** Date
 #+begin_src emacs-lisp
 	(defun insert-date (prefix)
@@ -54,7 +68,7 @@
 									 ((equal prefix '(16)) "%A, %d. %B %Y")))
 					(system-time-locale "us_US"))
 			(insert (format-time-string format))))
-	(global-set-key (kbd "C-c d") 'insert-date)
+
 #+end_src
 
 * File Management
@@ -93,7 +107,6 @@
 		"Add a path both to the $PATH variable and to Emacs' exec-path."
 		(setenv "PATH" (concat (getenv "PATH") ":" path))
 		(add-to-list 'exec-path path))
-
 #+end_src
 
 * Comment-dwim

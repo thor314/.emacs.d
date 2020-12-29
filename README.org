@@ -1,10 +1,9 @@
 * I said, what is this
 This is my emacs config. It's not the best emacs config, but it's mine, and I love it. I scrounged around the
-internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of .org files
-because organization is good, and I like collapsable sectioning and pretty text. I could organize it in a bunch of
-=.el= files, but the literate setup divides and collapses the sections in a way I enjoy. Most of the packages I use,
-I include a link to the documentation for, making it easy for myself (and possibly others) to use my config
-reasonably efficiently for reference.
+internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of =.org=
+files because organization is good, and I like collapsable sectioning and pretty text. The literate setup divides
+and collapses the sections in a way I enjoy. Most of the packages I use, I include a link to the documentation for,
+making it easy for myself (and possibly others) to use my config reasonably efficiently for reference.
 
 If you're starting out with emacs, advice: aggressively steal from others without guilt. Welcome to open source.
 But also, for your own benefit as much as anyone elses, try to document what it is you stole, maybe even better

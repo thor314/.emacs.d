@@ -31,14 +31,13 @@
 	(auto-compile-on-save-mode t)
 	(auto-compile-on-load-mode t))
 
-
-(org-babel-load-file "~/.emacs.d/config/general.org")
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")
+(org-babel-load-file "~/.emacs.d/config/general.org")
 (org-babel-load-file "~/.emacs.d/config/ivy.org")
 (org-babel-load-file "~/.emacs.d/config/misc_packages.org")
-(org-babel-load-file "~/.emacs.d/config/programming.org")
 (org-babel-load-file "~/.emacs.d/config/text.org")
-(org-babel-load-file "~/.emacs.d/config/experimental.org")
+(org-babel-load-file "~/.emacs.d/config/programming.org")
+;(org-babel-load-file "~/.emacs.d/config/experimental.org")
 
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
