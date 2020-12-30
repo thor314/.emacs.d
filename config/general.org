@@ -94,13 +94,15 @@ Most useful: replace a regexp across multiple files.
 
 * Keybinds
 #+begin_src emacs-lisp
-	(global-set-key [f1] 'query-regexp)
+	(global-set-key [f1] 'search-forward-regexp)
 	(global-set-key (kbd "<C-f1>") 'replace-regexp)
 	(global-set-key [f2] 'eshell)
 	(global-set-key (kbd "<C-f2>") 'projectile-run-eshell)
 	(global-set-key [f3] 'kmacro-end-or-call-macro)
 	(global-set-key (kbd "<C-f3>") 'kmacro-start-or-insert-counter)
-  ; give f4-f10 to major mode bindings
+	(global-set-key (kbd "<M-f3>") 'kmacro-edit-macro-repeat)
+	(global-set-key (kbd "<C-M-f3>") 'kmacro-step-edit-macro)
+	; give f4-f10 to major mode bindings
 	(global-set-key [f4] 'nil)
 	(global-set-key [f10] 'nil)
 	(global-set-key [f11] 'treemacs)

@@ -42,6 +42,9 @@
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
 
+;; org-babel doesn't clean up after herself, messy girl
+(shell-command "rm ./config/*.el")
+(shell-command "rm ./config/lang/*.el")
 
 ;; tell emacs to use customize.el for customization
 (setq custom-file "~/.emacs.d/customize.el")

@@ -10,4 +10,3 @@ forge*
 .cache
 .lsp*
 ref-previous-config*
-config/*.el
