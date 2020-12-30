@@ -6,7 +6,7 @@
 						(lambda ()
 							(setq rustic-lsp-server 'rust-analyzer) ; not rls
 							(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-							(setq rustic-format-on-save t)
+							;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
 							(setq rustic-indent-offset 2)
 						  (setq rustic-match-angle-brackets nil)
 ))

@@ -68,6 +68,8 @@ LSP integrates snippet expansions into code-actions nicely.
 #+begin_src emacs-lisp
 	(add-hook 'prog-mode-hook
 	(lambda ()
+	  (local-set-key [f4] 'flycheck-next-error)
+	  (local-set-key (kbd "<C-f4>") 'flycheck-previous-error)
 		(local-set-key [f5] 'tk-comment-dwim)
 		))
 #+end_src

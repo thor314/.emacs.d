@@ -45,3 +45,13 @@
   :config
 (setq graphviz-dot-indent-width 4))
 #+end_src
+* =pop-win= - less annoying help and compilation buffers
+#+begin_src emacs-lisp
+	(use-package popup)
+	(use-package popwin)
+	(popwin-mode 1)
+  ;; want: compilation buffer in popup-tip or just less annoying compilation buffers
+	(setq rustic-compile-display-method 'display-buffer)
+	;(add-to-list 'popwin:special-display-config '(rustic-compilation-mode :noselect t)))
+#+end_src
+[[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].

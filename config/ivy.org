@@ -61,6 +61,9 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 	(use-package counsel-projectile)
 	(global-set-key (kbd "C-c p SPC") 'counsel-projectile)
 	(global-set-key (kbd "C-c p d") 'counsel-projectile-find-dir)
+	(global-set-key (kbd "C-c p s") 'projectile-switch-project)
+	(global-set-key (kbd "C-c p r") 'projectile-remove-known-project)
+	(global-set-key (kbd "C-c p a") 'projectile-add-known-project)
 #+end_src
 [[https://github.com/ericdanan/counsel-projectile][counsel projectile]].
 
@@ -68,5 +71,6 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 #+begin_src emacs-lisp
 	(use-package avy)
 	(global-set-key (kbd "M-p") 'avy-goto-char)
+	(global-set-key (kbd "C-'") 'avy-goto-char)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].

@@ -1,6 +1,6 @@
 auto-save-list/
 tramp
-/eshell/
+eshell/
 recentf
 projectile-bookmarks.eld
 elpa/
@@ -10,3 +10,4 @@ forge*
 .cache
 .lsp*
 ref-previous-config*
+config/*.el

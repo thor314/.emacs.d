@@ -44,7 +44,7 @@
 
 
 ;; tell emacs to use customize.el for customization
-(setq custom-file "~/.emacs.d/config/customize.el")
+(setq custom-file "~/.emacs.d/customize.el")
 (load custom-file)
 
 ;;; init.el ends here

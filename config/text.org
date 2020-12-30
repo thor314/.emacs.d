@@ -87,8 +87,11 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 							(local-set-key (kbd "C-; e") 'tk-org-insert-lisp-block)
 							(local-set-key (kbd "C-; r") 'tk-org-insert-rust-block)
 							(local-set-key (kbd "C-c d") 'insert-date)
+							(local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
+						  (local-set-key (kbd "C-,") 'ivy-switch-buffer)
 							))
 #+end_src
+
 * Settings
 #+begin_src emacs-lisp
 	(add-hook 'org-mode-hook (lambda ()
