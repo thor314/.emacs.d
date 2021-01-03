@@ -7,19 +7,27 @@
 							(setq line-number-mode nil)
 							(setq-default fill-column 115)
 							(flyspell-mode 1) ; spell checking.
+							(local-set-key (kbd "<f9>") 'flyspell-goto-next-error)
+							(local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
+							(local-set-key (kbd "M-<f9>") 'flyspell-correct-previous-word)
 							))
-(insert 59)
-	(add-hook 'flyspell-mode-hook
-						(lambda () ;; flyspell sets these keys. Bad flyspell.
-							(local-set-key (kbd "C-,") 'ivy-switch-buffer)
-							(local-set-key (kbd "C-.") 'other-window)
-						  ; But I don't use xref in text-modes, so rebind them.
-							(local-set-key (kbd "M-,") 'flyspell-goto-next-error)
-							(local-set-key (kbd "M-.") 'flyspell-auto-correct-word)
-							))
+	; failing to change anything
+	;; (add-hook 'flyspell-mode-hook
+	;; 					(lambda () ;; flyspell sets these keys. Bad flyspell.
+	;; 						(local-set-key (kbd "C-,") 'ivy-switch-buffer)
+	;; 						(local-set-key (kbd "C-.") 'other-window)
+	;; 						; But I don't use xref in text-modes, so rebind them.
+	;; 						(local-set-key (kbd "M-,") 'flyspell-goto-next-error)
+	;; 						(local-set-key (kbd "M-.") 'flyspell-auto-correct-word)
+	;; 						))
 #+end_src
 Ispell support packages: Hunspell and Hunspell-english sold separately.
-
+* Tags
+Default tags available in org files. Syntax =?x= for literal ASCII value of x.
+#+begin_src emacs-lisp
+(setq org-tag-alist '(("dev" . ?d) ("personal" . ?p) ("write" . ?w) ("research" . ?r) ("main" . ?m) ("misc" . ?z)))
+#+end_src
+[[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
 #+begin_src emacs-lisp
@@ -37,12 +45,13 @@ Ispell support packages: Hunspell and Hunspell-english sold separately.
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
 
-* Tags
-Default tags available in org files.
+* Journal
 #+begin_src emacs-lisp
-(setq org-tag-alist '(("dev" . d) ("personal" . ?p) ("write" . ?w) ("research" . ?r) ("main" . ?m) ("misc" . ?z)))
+	(use-package org-journal)
+	(global-set-key (kbd "M-<f12>") 'org-journal-new-entry)
+	(setq org-journal-dir "~/org/journal")
 #+end_src
-[[https://orgmode.org/manual/Tags.html#Tags][tags]].
+[[https://github.com/bastibe/org-journal][org-journal]].
 
 * Capture
 #+begin_src emacs-lisp
@@ -92,7 +101,7 @@ time-prompt, tree-type, table-line-pos
 %t = datestamp; T= time+datestamp; u,U = inactive timestamps - don't cause item
  to show up in agenda
 
-* Images
+* Images via =org-download=
 Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
 (use-package org-download)
@@ -103,22 +112,21 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
 	(add-hook 'org-mode-hook
 						(lambda ()
-							(local-set-key (kbd "C-; e") 'tk-org-insert-lisp-block)
-							(local-set-key (kbd "C-; r") 'tk-org-insert-rust-block)
-							(local-set-key (kbd "C-c d") 'insert-date)
+							(local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
+							(local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
+							(local-set-key (kbd "<f1> d") 'insert-date)
 							(local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
 						  (local-set-key (kbd "C-,") 'ivy-switch-buffer)
 						  (local-set-key (kbd "C-.") 'other-window)
 							))
 #+end_src
 
-* Org mobile
-Sync's my org directories to my phone.
+* =org-mobile=  Sync's my org directories to my phone.
 #+begin_src emacs-lisp
 	(use-package org-mobile-sync)
 	(setq org-mobile-inbox-for-pull "~/org/org_mobile_pull_inbox.org")
 	(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-  (setq org-mobile-files '("~/org/agenda" "~/org/roam" "~/org/cap" "~/org/note" "~/org/journal"))
+  (setq org-mobile-files '("~/org/agenda" "~/org/cap"  "~/org/note"))
   ; automate push if emacs is idle for 30s and on emacs exit
   (run-with-idle-timer 30 nil 'org-mobile-push)
   (add-hook 'kill-emacs-hook 'org-mobile-push)

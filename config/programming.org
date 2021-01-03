@@ -46,14 +46,6 @@
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 
-* Yasnippet code snippets
-LSP integrates snippet expansions into code-actions nicely.
-#+begin_src emacs-lisp
-  (use-package yasnippet) ; Usage: Cc & Cs
-  (use-package yasnippet-snippets)
-#+end_src
-[[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
-
 * Prog mode
 #+begin_src emacs-lisp
 	(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
@@ -62,8 +54,14 @@ LSP integrates snippet expansions into code-actions nicely.
 							(subword-mode)
 							(yas-minor-mode t)
 							(show-paren-mode t) ; higlight matching parens pairs at point
+							(use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
+							(rainbow-delimiters-mode 1)
+							(use-package yasnippet) ; Usage: Cc & Cs
+							(use-package yasnippet-snippets)
 	))
 #+end_src
+ [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
+
 * Prog mode keybinds
 #+begin_src emacs-lisp
 	(add-hook 'prog-mode-hook

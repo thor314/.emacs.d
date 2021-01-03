@@ -1,19 +1,30 @@
 * Rustic - lsp extensions to rust-mode
 #+begin_src emacs-lisp
-	(use-package rustic) ; lsp-compatible rust mode
-	(add-hook 'rust-mode-hook 'rustic-mode)
-	(add-hook 'rustic-mode-hook
-						(lambda ()
-							(setq rustic-lsp-server 'rust-analyzer) ; not rls
-							(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-							;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
-							(setq rustic-indent-offset 2)
-						  (setq rustic-match-angle-brackets nil)
-))
+		(use-package rustic) ; lsp-compatible rust mode
+		(add-hook 'rust-mode-hook 'rustic-mode)
+		(add-hook 'rustic-mode-hook
+							(lambda ()
+								(setq rustic-lsp-server 'rust-analyzer) ; not rls
+								(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+								;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
+								(setq rustic-indent-offset 2)
+								(setq rustic-match-angle-brackets nil)
+								(setq rustic-compile-display-method 'popwin:display-buffer-1) ; display if possible in popup-win
+	))
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
-* Cargo binds and Toml mode fontlock
+* Format on leave hack
+#+begin_src emacs-lisp
+	(defun rustic-save-leave ()
+	  "Hack to format files on leaving rustic mode."
+	(when (eq major-mode 'rustic-mode)
+		( cargo-process-fmt)))
+	(add-hook 'change-major-mode-hook 'rustic-save-leave)
+#+end_src
+[[https://emacs.stackexchange.com/questions/47333/are-there-hooks-for-leaving-modes][sx hack]].
+
+* Cargo binds and .toml  mode font-lock
 #+begin_src emacs-lisp
 	(use-package cargo)
 	(add-hook 'rust-mode-hook 'cargo-minor-mode)

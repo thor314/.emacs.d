@@ -44,6 +44,7 @@
 ;; languages
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
+(org-babel-load-file "~/.emacs.d/config/lang/elisp.org")
 
 ;; org-babel doesn't clean up after herself, messy girl
 (shell-command "rm ~/.emacs.d/config/*.el")
