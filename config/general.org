@@ -84,36 +84,16 @@ N2R: Some of these are on by default. I value explicitness.
 * Dired
 Most useful: replace a regexp across multiple files.
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-x C-d") 'dired-jump) ; easier to remember than CxCj
 	(add-hook 'dired-mode-hook
-						(lambda
+						(lambda ()
 							(local-set-key [f1] 'dired-do-find-regexp)
 							(local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
 							))
 #+end_src
-
-* Keybinds
+* Abbrevs
 #+begin_src emacs-lisp
-	(global-set-key [f1] 'search-forward-regexp)
-	(global-set-key (kbd "<C-f1>") 'replace-regexp)
-	(global-set-key [f2] 'eshell)
-	(global-set-key (kbd "<C-f2>") 'projectile-run-eshell)
-	(global-set-key [f3] 'kmacro-end-or-call-macro)
-	(global-set-key (kbd "<C-f3>") 'kmacro-start-or-insert-counter)
-	(global-set-key (kbd "<M-f3>") 'kmacro-edit-macro-repeat)
-	(global-set-key (kbd "<C-M-f3>") 'kmacro-step-edit-macro)
-	; give f4-f10 to major mode bindings
-	(global-set-key [f4] 'nil)
-	(global-set-key [f10] 'nil)
-	(global-set-key [f11] 'treemacs)
-	(global-set-key (kbd "<C-f11>") 'projectile-switch-project)
-	(global-set-key (kbd "<M-f11>") 'projectile-switch-to-buffer-other-frame)
-	(global-set-key [f12] 'org-capture)
-	(global-set-key (kbd "<C-f12>") 'org-roam-capture)
-
-	(global-set-key (kbd "C-.") 'other-window)
-	(global-set-key (kbd "C-,") 'ivy-switch-buffer)
-	(global-set-key (kbd "<home>") 'text-scale-increase)
-	(global-set-key (kbd "<end>") 'text-scale-decrease)
-	(global-set-key (kbd "RET") 'newline-and-indent)
+	(setq abbrev-file-name             ;; tell emacs where to read abbrev
+				"~/.emacs.d/.abbrev_defs")
+	(setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
+  (setq-default abbrev-mode t)
 #+end_src

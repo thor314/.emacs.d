@@ -1,3 +1,12 @@
+I could be making more complete use of:
+CxCx, Mh, M@ - mark stuff
+Ccb - bookmarks
+list-faces-display
+highlight changes mode
+selective-display - display only some indentation level
+abbrevs with Cxag/l
+hs-mode
+
 * Commands
 - add-to-list
 - package-initialize
@@ -38,9 +47,12 @@ CLOSED: [2020-12-22 Tue 09:32]
 - State "TODO"       from              [2020-12-22 Tue 09:32]
 
 **
-** TODO Describe in popup
-** TODO hrs convenience functions
-** TODO Appearance
+** DONE Describe in popup
+CLOSED: [2021-01-02 Sat 14:30]
+** DONE hrs convenience functions
+CLOSED: [2021-01-02 Sat 14:31]
+** DONE Appearance
+CLOSED: [2021-01-02 Sat 14:31]
 * Don't:
 ** Try to unbind keys C-i, C-m, or C-\[.
 The stone age has no sunset.

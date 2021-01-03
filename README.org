@@ -5,6 +5,8 @@ files because organization is good, and I like collapsable sectioning and pretty
 and collapses the sections in a way I enjoy. Most of the packages I use, I include a link to the documentation for,
 making it easy for myself (and possibly others) to use my config reasonably efficiently for reference.
 
+Quick note to anyone rippin mah binds: I use a Dvorak layout. Your ergonomics may vary (esp on ',.).
+
 If you're starting out with emacs, advice: aggressively steal from others without guilt. Welcome to open source.
 But also, for your own benefit as much as anyone elses, try to document what it is you stole, maybe even better
 than how you found it. Some packages I particularly recommend learning to use:

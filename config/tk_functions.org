@@ -26,7 +26,6 @@
 			(save-selected-window
 				(other-window 1)
 				(switch-to-buffer (other-buffer))))))
-(global-set-key (kbd "C-!") 'window-split-toggle)
 #+end_src
 
 * A no guesswork helper
@@ -38,7 +37,6 @@
 			(cond
 			 ((fboundp thing) (describe-function thing))
 			 ((boundp thing) (describe-var thing)))))
-	(global-set-key (kbd "C-h C-h") 'describe-thing)
 #+end_src
 
 * Insert
@@ -78,10 +76,21 @@
 		(interactive)
 		(load-file "~/.emacs.d/init.el"))
 
-	(defun load-config ()
-		"Open config.org."
+  ;; trick: prefix fns with unusual 2 chars for quick searching.
+	(defun oo-open-config ()
+		"Open Emacs config dir."
 		(interactive)
 		(find-file "~/.emacs.d/config"))
+
+	(defun oo-open-dropbox ()
+		"Open org-mobile Dropbox dir."
+		(interactive)
+		(find-file "~/Dropbox/Apps/MobileOrg"))
+
+	(defun oo-open-org ()
+		"Open org dir."
+		(interactive)
+		(find-file "~/org"))
 
 	(defun rename-fil3 (new-name)
 		"The default rename file function keeps the file with the incorrect name, can be annoying."
@@ -119,5 +128,4 @@
 					(setq beg (region-beginning) end (region-end))
 				(setq beg (line-beginning-position) end (line-end-position)))
 			(comment-or-uncomment-region beg end)))
-	(global-set-key (kbd "M-;") 'tk-comment-dwim)
 #+end_src

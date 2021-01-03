@@ -31,6 +31,7 @@
 	(auto-compile-on-save-mode t)
 	(auto-compile-on-load-mode t))
 
+;; general
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")
 (org-babel-load-file "~/.emacs.d/config/general.org")
 (org-babel-load-file "~/.emacs.d/config/ivy.org")
@@ -38,16 +39,18 @@
 (org-babel-load-file "~/.emacs.d/config/text.org")
 (org-babel-load-file "~/.emacs.d/config/programming.org")
 ;(org-babel-load-file "~/.emacs.d/config/experimental.org")
+(org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
 
+;; languages
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
 
 ;; org-babel doesn't clean up after herself, messy girl
-(shell-command "rm ./config/*.el")
-(shell-command "rm ./config/lang/*.el")
+(shell-command "rm ~/.emacs.d/config/*.el")
+(shell-command "rm ~/.emacs.d/config/lang/*.el")
 
 ;; tell emacs to use customize.el for customization
 (setq custom-file "~/.emacs.d/customize.el")
 (load custom-file)
-
+(oo-open-config) ; dired config at start
 ;;; init.el ends here
