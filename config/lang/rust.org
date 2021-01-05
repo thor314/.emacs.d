@@ -15,12 +15,13 @@
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
 * Format on leave hack
+Problem: Significantly interrupts flow.
 #+begin_src emacs-lisp
-	(defun rustic-save-leave ()
-	  "Hack to format files on leaving rustic mode."
-	(when (eq major-mode 'rustic-mode)
-		( cargo-process-fmt)))
-	(add-hook 'change-major-mode-hook 'rustic-save-leave)
+	;; (defun rustic-save-leave ()
+	;; 	"Hack to format files on leaving rustic mode."
+	;; (when (eq major-mode 'rustic-mode)
+	;; 	( cargo-process-fmt)))
+	;; (add-hook 'change-major-mode-hook 'rustic-save-leave)
 #+end_src
 [[https://emacs.stackexchange.com/questions/47333/are-there-hooks-for-leaving-modes][sx hack]].
 

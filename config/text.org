@@ -6,26 +6,19 @@
 							(setq sentence-end-double-space nil) ; single space after periods
 							(setq line-number-mode nil)
 							(setq-default fill-column 115)
-							(flyspell-mode 1) ; spell checking.
+						  ;; note: turn flyspell mode on for syntax highlighting
 							(local-set-key (kbd "<f9>") 'flyspell-goto-next-error)
 							(local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
 							(local-set-key (kbd "M-<f9>") 'flyspell-correct-previous-word)
+							(local-set-key (kbd "C-M-<f9>") 'flyspell-mode)
 							))
-	; failing to change anything
-	;; (add-hook 'flyspell-mode-hook
-	;; 					(lambda () ;; flyspell sets these keys. Bad flyspell.
-	;; 						(local-set-key (kbd "C-,") 'ivy-switch-buffer)
-	;; 						(local-set-key (kbd "C-.") 'other-window)
-	;; 						; But I don't use xref in text-modes, so rebind them.
-	;; 						(local-set-key (kbd "M-,") 'flyspell-goto-next-error)
-	;; 						(local-set-key (kbd "M-.") 'flyspell-auto-correct-word)
-	;; 						))
 #+end_src
 Ispell support packages: Hunspell and Hunspell-english sold separately.
+
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
-(setq org-tag-alist '(("dev" . ?d) ("personal" . ?p) ("write" . ?w) ("research" . ?r) ("main" . ?m) ("misc" . ?z)))
+(setq org-tag-alist '(("dev" . ?d) ("pers" . ?p) ("write" . ?w) ("rsch" . ?r) ("main" . ?m) ("mint" . ?M) ("misc" . ?z)))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
@@ -40,6 +33,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 					("r" "Research" tags-todo "RSCH")
 					("z" "Misc" tags-todo "MISC")
 					("m" "Main" tags-todo "MAIN")
+					("M" "Mintbase" tags-todo "MINT")
 					))
 	(setq org-agenda-start-on-weekday nil) ; start today
 #+end_src
@@ -70,10 +64,12 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 				"* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
 			 ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
 				"* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
-			 ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
-				"* TODO \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
-			 ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
-				"* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
+			 ("M" "Mintbase" entry (file+headline "~/org/agenda/mintbase.org" "Mintbase")
+				"* TODO \t %? :MINT:\nAdded: %u" :empty-lines 1 )
+			 ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
+			 ;; 	"* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+			 ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
+			 ;; 	"* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
 			 ("i" "Idea" entry (file "~/org/cap/ideas.org")
 				"* \t %? :IDEA:\nAdded: %u" )
 			 ("n" "QNote" entry (file "~/org/cap/qnote.org")
@@ -108,6 +104,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 (add-hook 'dired-mode-hook 'org-download-enable)
 #+end_src
 [[https://github.com/abo-abo/org-download][org-download]].
+
 * Key binds
 #+begin_src emacs-lisp
 	(add-hook 'org-mode-hook
