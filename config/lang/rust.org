@@ -14,17 +14,6 @@
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
-* Format on leave hack
-Problem: Significantly interrupts flow.
-#+begin_src emacs-lisp
-	;; (defun rustic-save-leave ()
-	;; 	"Hack to format files on leaving rustic mode."
-	;; (when (eq major-mode 'rustic-mode)
-	;; 	( cargo-process-fmt)))
-	;; (add-hook 'change-major-mode-hook 'rustic-save-leave)
-#+end_src
-[[https://emacs.stackexchange.com/questions/47333/are-there-hooks-for-leaving-modes][sx hack]].
-
 * Cargo binds and .toml  mode font-lock
 #+begin_src emacs-lisp
 	(use-package cargo)
@@ -38,6 +27,17 @@ Problem: Significantly interrupts flow.
 	(use-package flycheck-rust) ; runs on save buffer
 #+end_src
 [[https://github.com/flycheck/flycheck-rust][flycheck-rust]].
+
+* Racer - jump to defn
+Annoying to setup, try to do it right the first time.
+I have this line in my =.zshrc= now:
+: export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
+#+begin_src emacs-lisp
+	(use-package racer)
+	(add-hook 'rustic-mode-hook 'racer-mode)
+  (define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
+#+end_src
+[[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
 
 * Org-babel rust integration
 #+begin_src emacs-lisp

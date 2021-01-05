@@ -1,3 +1,8 @@
+* Counsel
+ Chain actions. Allow regex. Useful rings.
+#+begin_src emacs-lisp
+	(use-package counsel)
+#+end_src
 * Ivy, the ido replacement. M-o to get actions.
 N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping. I use =rigrep= to overcome this.
 [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][quick-guide]]. [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][ivy user manual]]: suggests many keybindings.
@@ -21,12 +26,6 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 * Swiper
 #+begin_src emacs-lisp
 	(use-package swiper) ; better isearch
-#+end_src
-
-* Counsel
- Chain actions. Allow regex. Useful rings.
-#+begin_src emacs-lisp
-	(use-package counsel)
 #+end_src
 
 * Counsel-Projectile
