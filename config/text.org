@@ -24,18 +24,21 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 * Agenda
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
 #+begin_src emacs-lisp
-	(setq org-agenda-files '("~/org/agenda" ))
-	(setq org-agenda-custom-commands ; options - todo, tags, tags-todo
-				'(("d" "Dev" tags-todo "DEV")
-					("w" "Write" tags-todo "WRITE")
-					("e" "Emacs" tags-todo "EMACS")
-					("p" "Personal" tags-todo "PERS")
-					("r" "Research" tags-todo "RSCH")
-					("z" "Misc" tags-todo "MISC")
-					("m" "Main" tags-todo "MAIN")
-					("M" "Mintbase" tags-todo "MINT")
-					))
+	 (setq org-agenda-files '("~/org/agenda" ))
+	 (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
+				 '(("d" "Dev" tags-todo "DEV")
+					 ("w" "Write" tags-todo "WRITE")
+					 ("e" "Emacs" tags-todo "EMACS")
+					 ("p" "Personal" tags-todo "PERS")
+					 ("r" "Research" tags-todo "RSCH")
+					 ("z" "Misc" tags-todo "MISC")
+					 ("m" "Main" tags-todo "MAIN")
+					 ("M" "Mintbase" tags-todo "MINT")
+					 ))
 	(setq org-agenda-start-on-weekday nil) ; start today
+	(setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
+	(setq org-agenda-include-diary t) ; if I make a todo in diary, stick it into agenda
+	(setq org-agenda-start-on-weekday nil) ; start today, a weird day
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
 

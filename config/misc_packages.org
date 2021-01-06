@@ -1,4 +1,5 @@
 * =sx= Browse stack exchange
+Surprisingly powerful.
 #+begin_src emacs-lisp
 (use-package sx
   :config
@@ -13,6 +14,7 @@
              ("s" . sx-search)))
 #+end_src
 [[https://github.com/vermiculus/sx.el/][sx]].
+
 * =free-keys= Show what keys are unbound
 #+begin_src emacs-lisp
 (use-package free-keys)
@@ -30,3 +32,10 @@
 	(popwin-mode 1)
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
+* =twittering-mode= - twitter
+Not using this heavily right now. Sometimes cute, but a graphic interface goes a long way.
+#+begin_src emacs-lisp
+	(use-package twittering-mode)
+	(setq twittering-use-master-password t)
+#+end_src
+[[https://www.emacswiki.org/emacs/TwitteringMode][tw-mode]].

@@ -76,6 +76,11 @@
 	(global-set-key (kbd "<end>") 'text-scale-decrease)
 	(global-set-key (kbd "RET") 'newline-and-indent)
 #+end_src
+* Misc packages
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c t") 'twit)
+#+end_src
+
 * Org things
 #+begin_src emacs-lisp
 	(global-set-key (kbd "C-c l") 'org-store-link) ; a link to dir in org file
