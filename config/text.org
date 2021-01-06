@@ -42,7 +42,6 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 * Journal
 #+begin_src emacs-lisp
 	(use-package org-journal)
-	(global-set-key (kbd "M-<f12>") 'org-journal-new-entry)
 	(setq org-journal-dir "~/org/journal")
 #+end_src
 [[https://github.com/bastibe/org-journal][org-journal]].

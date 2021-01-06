@@ -2,7 +2,6 @@
 #+begin_src emacs-lisp
 	(use-package paredit) ; minor mode for editing S-expressions to keep parens balanced
 	(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-	(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 	(eldoc-add-command
 	 'paredit-backward-delete
 	 'paredit-close-round)

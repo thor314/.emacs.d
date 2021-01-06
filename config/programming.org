@@ -30,7 +30,7 @@
 	(use-package treemacs-projectile)
   (add-hook 'treemacs-mode-hook (lambda () (local-set-key (kbd "M-p") 'avy-goto-char)))
 #+end_src
-[[https://github.com/Alexander-Miller/treemacs][treemacs]]. Btw, great hydra.
+[[https://github.com/Alexander-Miller/treemacs][treemacs]]. Btw, great hydra example.
 
 * LSP
 #+begin_src emacs-lisp
@@ -47,19 +47,21 @@
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 
 * Prog mode
+
 #+begin_src emacs-lisp
 	(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 	(add-hook 'prog-mode-hook
 						(lambda ()
-							(subword-mode)
-							(company-mode)
-						  (eldoc-mode)
-							(show-paren-mode t) ; higlight matching parens pairs at point
+							(subword-mode) ; ThisStuffIsFiveWords
+							(company-mode) ; completions
+							(eldoc-mode) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
+						  (hs-minor-mode) ; code folding
+							(show-paren-mode) ; higlight matching parens pairs at point
 							(use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
-							(rainbow-delimiters-mode 1)
+							(rainbow-delimiters-mode)
 							(use-package yasnippet) ; Usage: Cc & Cs
 							(use-package yasnippet-snippets) ; curiously causing problems on a fresh install
-							(yas-minor-mode t)
+							(yas-minor-mode)
 	))
 #+end_src
  [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
@@ -73,3 +75,14 @@
 		(local-set-key [f5] 'tk-comment-dwim)
 		))
 #+end_src
+** hs (hide-show) mode keymaps (Cc @) is awful
+I generally prefer the other way of defining maps, but I have an example of this for self-reference
+#+begin_src emacs-lisp
+	(setq hs-hide-comments nil) ; hide comments on hs-hide-all
+	(define-key prog-mode-map (kbd "C-]") 'hs-toggle-hiding)
+	(define-key prog-mode-map (kbd "M-]") 'hs-hide-all)
+	(define-key prog-mode-map (kbd "C-}") 'hs-show-block)
+	(define-key prog-mode-map (kbd "M-}") 'hs-hide-block)
+	(define-key prog-mode-map (kbd "C-M-]") 'hs-show-all)
+#+end_src
+[[https://www.emacswiki.org/emacs/HideShow][hide-show]].

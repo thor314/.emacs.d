@@ -28,14 +28,19 @@
 #+end_src
 [[https://github.com/flycheck/flycheck-rust][flycheck-rust]].
 
-* Racer - jump to defn
-Annoying to setup, try to do it right the first time.
-I have this line in my =.zshrc= now:
+* Racer (similar to xref) - eldoc and lsp dependency, get defn
+Not well maintained unfortunately (ugh), but very useful. I have this line in my =.zshrc=, and a hook to set the
+environment variable =rust-racer-src-path=.
 : export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
 #+begin_src emacs-lisp
 	(use-package racer)
 	(add-hook 'rustic-mode-hook 'racer-mode)
-  (define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
+	(add-hook 'racer-mode-hook
+						(lambda ()
+							(setq racer-rust-src-path
+										"/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+							))
+	(define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
 #+end_src
 [[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
 
