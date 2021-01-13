@@ -37,7 +37,6 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 					 ))
 	(setq org-agenda-start-on-weekday nil) ; start today
 	(setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
-	(setq org-agenda-include-diary t) ; if I make a todo in diary, stick it into agenda
 	(setq org-agenda-start-on-weekday nil) ; start today, a weird day
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
@@ -50,6 +49,8 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 [[https://github.com/bastibe/org-journal][org-journal]].
 
 * Capture
+Annoyance: Org-capture does not save window configuration. I should pull the org-capture repo to emulate org-agenda
+save-window-config.
 #+begin_src emacs-lisp
 		(setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
 		(setq org-capture-templates

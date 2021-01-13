@@ -12,3 +12,4 @@ forge*
 .cache
 .lsp*
 ref-previous-config*
+session.*

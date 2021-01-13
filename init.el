@@ -53,5 +53,6 @@
 ;; tell emacs to use customize.el for customization
 (setq custom-file "~/.emacs.d/customize.el")
 (load custom-file)
+
 (oo-open-config) ; dired config at start
 ;;; init.el ends here
