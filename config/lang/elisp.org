@@ -1,11 +1,18 @@
+* General settings
+#+begin_src emacs-lisp
+(setq lisp-indent-offset 2)
+;; turn off the ;;; Code type recommendations
+(with-eval-after-load 'flycheck
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+#+end_src
 * =paredit=  for parens balance stuff
 TBH, I find paredit super annoying to get used to, and turn it off half the time, but enough people recommend it
 that I'm hoping I just "get it" eventually.
 #+begin_src emacs-lisp
-	(use-package paredit) ; minor mode for editing S-expressions to keep parens balanced
-	(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-	(eldoc-add-command
-	 'paredit-backward-delete
-	 'paredit-close-round)
+(use-package paredit) ; minor mode for editing S-expressions to keep parens balanced
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(eldoc-add-command
+	'paredit-backward-delete
+	'paredit-close-round)
 #+end_src
 [[https://www.emacswiki.org/emacs/ParEdit][paredit]]. [[https://www.emacswiki.org/emacs/ParEdit][paredit reference card]].

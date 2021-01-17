@@ -1,6 +1,6 @@
 * F keys
 #+begin_src emacs-lisp
-	; f1 contains inserts.
+; f1 contains inserts.
 	(global-set-key [f2] 'eshell)
 	(global-set-key (kbd "<C-f2>") 'projectile-run-eshell) ; runs eshell in project root
 	(global-set-key [f3] 'kmacro-end-or-call-macro)
@@ -21,24 +21,24 @@
 
 * Nice stuff
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-%") 'replace-regexp)
+  (global-set-key (kbd "C-%") 'replace-regexp)
 	(global-set-key (kbd "M-%") 'replace-string)
 	(global-set-key (kbd "C-M-%") 'query-replace-string)
 #+end_src
 * My functions
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-!") 'window-split-toggle)
+  (global-set-key (kbd "C-!") 'window-split-toggle)
 	(global-set-key (kbd "C-h C-h") 'describe-thing)
 #+end_src
 
 * Dired and Eshell
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-x C-d") 'dired-jump) ; easier to remember than CxCj
+  (global-set-key (kbd "C-x C-d") 'dired-jump) ; easier to remember than CxCj
 #+end_src
 
 * Ivy, Avy, Swiper
 #+begin_src emacs-lisp
-	(global-set-key (kbd "M-p") 'avy-goto-char)
+  (global-set-key (kbd "M-p") 'avy-goto-char)
 	(global-set-key (kbd "C-'") 'avy-goto-char)
 	(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 	(global-set-key (kbd "C-c v") 'ivy-push-view)
@@ -51,7 +51,7 @@
 
 * Counsel (Projectile)
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-c p SPC") 'counsel-projectile)
+  (global-set-key (kbd "C-c p SPC") 'counsel-projectile)
 	(global-set-key (kbd "C-c p d") 'counsel-projectile-find-dir)
 	(global-set-key (kbd "C-c p s") 'projectile-switch-project)
 	(global-set-key (kbd "C-c p r") 'projectile-remove-known-project)
@@ -76,7 +76,7 @@
 
 * Window and formatting
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-.") 'other-window)
+  (global-set-key (kbd "C-.") 'other-window)
 	(global-set-key (kbd "C-,") 'ivy-switch-buffer)
 	(global-set-key (kbd "<home>") 'text-scale-increase)
 	(global-set-key (kbd "<end>") 'text-scale-decrease)
@@ -84,12 +84,12 @@
 #+end_src
 * Misc packages
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c t") 'twit)
+	(global-set-key (kbd "C-c t") 'twit)
 #+end_src
 
 * Org things
 #+begin_src emacs-lisp
-	(global-set-key (kbd "C-c l") 'org-store-link) ; a link to dir in org file
+  (global-set-key (kbd "C-c l") 'org-store-link) ; a link to dir in org file
 	(global-set-key (kbd "C-c a") 'org-agenda)
 	(global-set-key (kbd "C-c c") 'org-capture)
 #+end_src

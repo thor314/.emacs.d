@@ -1,22 +1,22 @@
 * Counsel
  Chain actions. Allow regex. Useful rings.
 #+begin_src emacs-lisp
-	(use-package counsel)
+(use-package counsel)
 #+end_src
 * Ivy, the ido replacement. M-o to get actions.
 N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping. I use =rigrep= to overcome this.
 [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][quick-guide]]. [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][ivy user manual]]: suggests many keybindings.
 #+begin_src emacs-lisp
-	(use-package ivy) ; intentional redundancy; counsel installs ivy.
+(use-package ivy) ; intentional redundancy; counsel installs ivy.
 	(setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
-				ivy-count-format "%d/%d ")
+		ivy-count-format "%d/%d ")
 	(setq ivy-display-style 'fancy) ; regex-enabled
 	(ivy-mode 1)
 #+end_src
 
 * Ivy rich, more self-documenting interface
 #+begin_src emacs-lisp
-	(use-package ivy-rich)
+(use-package ivy-rich)
 	(ivy-rich-mode 1)
 	(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; formatting
 	(setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
@@ -25,17 +25,17 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 
 * Swiper
 #+begin_src emacs-lisp
-	(use-package swiper) ; better isearch
+(use-package swiper) ; better isearch
 #+end_src
 
 * Counsel-Projectile
 #+begin_src emacs-lisp
-	(use-package counsel-projectile)
+(use-package counsel-projectile)
 #+end_src
 [[https://github.com/ericdanan/counsel-projectile][counsel projectile]].
 
 * Avy
 #+begin_src emacs-lisp
-	(use-package avy)
+(use-package avy)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].

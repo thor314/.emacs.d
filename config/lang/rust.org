@@ -1,16 +1,16 @@
 * Rustic - lsp extensions to rust-mode
 #+begin_src emacs-lisp
-		(use-package rustic) ; lsp-compatible rust mode
-		(add-hook 'rust-mode-hook 'rustic-mode)
-		(add-hook 'rustic-mode-hook
-							(lambda ()
-								(setq rustic-lsp-server 'rust-analyzer) ; not rls
-								(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-								;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
-								(setq rustic-indent-offset 2)
-								(setq rustic-match-angle-brackets nil)
-								(setq rustic-compile-display-method 'popwin:display-buffer-1) ; display if possible in popup-win
-	))
+	(use-package rustic) ; lsp-compatible rust mode
+(add-hook 'rust-mode-hook 'rustic-mode)
+(add-hook 'rustic-mode-hook
+	(lambda ()
+		(setq rustic-lsp-server 'rust-analyzer) ; not rls
+		(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+																				;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
+	(setq rustic-indent-offset 2)
+		(setq rustic-match-angle-brackets nil)
+		(setq rustic-compile-display-method 'popwin:display-buffer-1) ; display if possible in popup-win
+		))
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
@@ -34,14 +34,14 @@ environment variable =rust-racer-src-path=.
 : export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
 #+begin_src emacs-lisp
 	(use-package racer)
-	(add-hook 'rustic-mode-hook 'racer-mode)
-	(add-hook 'racer-mode-hook
-						(lambda ()
-							(setq racer-rust-src-path
-										"/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
-						  (local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
-							))
-	(define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
+(add-hook 'rustic-mode-hook 'racer-mode)
+(add-hook 'racer-mode-hook
+	(lambda ()
+		(setq racer-rust-src-path
+			"/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+		(local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
+		))
+(define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
 #+end_src
 [[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
 
@@ -60,18 +60,18 @@ environment variable =rust-racer-src-path=.
 * Keybinds
 #+begin_src emacs-lisp
 	(add-hook 'rustic-mode-hook
-						(lambda ()
-							(local-set-key (kbd "C-$") 'rustic-cargo-build)
-							(local-set-key (kbd "C-\\") 'rustic-cargo-build)
-							(local-set-key (kbd "M-\\") 'rustic-cargo-test)
-						  (setq rustic-test-arguments "-- --nocapture")
-							(local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
-							(local-set-key [f9] 'next-error)
-							(local-set-key [f10] 'lsp-execute-code-action)
-							(local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
-							))
-	(add-hook 'rustic-compilation-mode-hook
-						(lambda ()
-							(local-set-key [f9] 'compilation-next-error)
-							))
+		(lambda ()
+			(local-set-key (kbd "C-$") 'rustic-cargo-build)
+			(local-set-key (kbd "C-\\") 'rustic-cargo-build)
+			(local-set-key (kbd "M-\\") 'rustic-cargo-test)
+			(setq rustic-test-arguments "-- --nocapture")
+			(local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
+			(local-set-key [f9] 'next-error)
+			(local-set-key [f10] 'lsp-execute-code-action)
+			(local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
+			))
+(add-hook 'rustic-compilation-mode-hook
+	(lambda ()
+		(local-set-key [f9] 'compilation-next-error)
+		))
 #+end_src
