@@ -5,7 +5,6 @@
 							(turn-on-auto-fill)
 							(setq sentence-end-double-space nil) ; single space after periods
 							(setq line-number-mode nil)
-							(setq-default fill-column 115)
 						  ;; note: turn flyspell mode on for syntax highlighting
 							(local-set-key (kbd "<f9>") 'flyspell-goto-next-error)
 							(local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
@@ -152,3 +151,12 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 							(font-lock-add-keywords nil '(("\\<\\(thor\\|THOR\\|tk\\|TK\\)\\>" 1 font-lock-warning-face t)))
 							))
 #+end_src
+* EXPERIMENTAL poly mode for nice code blocks in org and markdown
+#+begin_src emacs-lisp
+  (use-package polymode)
+	(use-package poly-org)
+  (add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
+	(use-package poly-markdown)
+  (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
+#+end_src
+[[https://polymode.github.io/usage/][polymode]].

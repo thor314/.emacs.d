@@ -7,8 +7,8 @@
 	(global-set-key (kbd "<C-f3>") 'kmacro-start-macro-or-insert-counter)
 	(global-set-key (kbd "<M-f3>") 'kmacro-edit-macro-repeat)
 	(global-set-key (kbd "<C-M-f3>") 'kmacro-step-edit-macro)
-	; give f4-f10 to major mode bindings
-	(global-set-key [f4] 'nil)
+	; give f5-f10 to major mode bindings
+
 	(global-set-key [f10] 'nil)
 	(global-set-key [f11] 'treemacs) ; not convinced I want treemacs annd projectile here.
 	(global-set-key (kbd "<C-f11>") 'projectile-switch-project)
@@ -19,6 +19,12 @@
   ;; warning. Don't try to set C-M-f12. Turns screen off.
 #+end_src
 
+* Nice stuff
+#+begin_src emacs-lisp
+	(global-set-key (kbd "C-%") 'replace-regexp)
+	(global-set-key (kbd "M-%") 'replace-string)
+	(global-set-key (kbd "C-M-%") 'query-replace-string)
+#+end_src
 * My functions
 #+begin_src emacs-lisp
 	(global-set-key (kbd "C-!") 'window-split-toggle)
@@ -62,7 +68,6 @@
 	(global-set-key (kbd "C-h f") 'counsel-describe-function)
 	(global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
-	(global-set-key (kbd "C-c k") 'counsel-rg)
 	(global-set-key (kbd "C-c m") 'counsel-linux-app)
 	(global-set-key (kbd "C-c l") 'counsel-locate)
 	(global-set-key (kbd "C-c w") 'counsel-wmctrl)

@@ -39,6 +39,7 @@ environment variable =rust-racer-src-path=.
 						(lambda ()
 							(setq racer-rust-src-path
 										"/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+						  (local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
 							))
 	(define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
 #+end_src
@@ -63,6 +64,8 @@ environment variable =rust-racer-src-path=.
 							(local-set-key (kbd "C-$") 'rustic-cargo-build)
 							(local-set-key (kbd "C-\\") 'rustic-cargo-build)
 							(local-set-key (kbd "M-\\") 'rustic-cargo-test)
+						  (setq rustic-test-arguments "-- --nocapture")
+							(local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
 							(local-set-key [f9] 'next-error)
 							(local-set-key [f10] 'lsp-execute-code-action)
 							(local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
