@@ -8,6 +8,7 @@
 (setq require-final-newline t)
 (setq next-line-add-newlines t) ; add newline on C-n at EOF
 (setq vc-follow-symlinks 't)
+(setq-default indent-tabs-mode nil) ; prefer spaces not tabs
 (setq-default fill-column 80)
 (setq-default dired-listing-switches "-alh") ; add human-readable units
 (setq-default tab-width 2)
@@ -15,9 +16,9 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 ;; Put backups~ and #autosaves# in /tmp
 (setq backup-directory-alist
-	`((".*" . ,temporary-file-directory)))
+  `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
-	`((".*" ,temporary-file-directory t)))
+  `((".*" ,temporary-file-directory t)))
 #+end_src
 
 ** Turn theses modes off
@@ -77,24 +78,24 @@ N2R: Some of these are on by default. I value explicitness.
 * Eshell
 #+begin_src emacs-lisp
 (add-hook 'eshell-mode-hook
-	(lambda ()
-		(local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
-		(local-set-key (kbd "M-n") 'eshell-previous-matching-input-from-input)
-		))
+  (lambda ()
+    (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
+    (local-set-key (kbd "M-n") 'eshell-previous-matching-input-from-input)
+    ))
 #+end_src
 * Dired
 Most useful: replace a regexp across multiple files.
 #+begin_src emacs-lisp
 (add-hook 'dired-mode-hook
-	(lambda ()
-		(local-set-key [f1] 'dired-do-find-regexp)
-		(local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
-		))
+  (lambda ()
+    (local-set-key [f1] 'dired-do-find-regexp)
+    (local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
+    ))
 #+end_src
 * Abbrevs
 #+begin_src emacs-lisp
 (setq abbrev-file-name             ;; tell emacs where to read abbrev
-				"~/.emacs.d/.abbrev_defs")
-	(setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
+        "~/.emacs.d/.abbrev_defs")
+  (setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
   (setq-default abbrev-mode t)
 #+end_src

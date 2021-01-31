@@ -8,18 +8,18 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][quick-guide]]. [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][ivy user manual]]: suggests many keybindings.
 #+begin_src emacs-lisp
 (use-package ivy) ; intentional redundancy; counsel installs ivy.
-	(setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
-		ivy-count-format "%d/%d ")
-	(setq ivy-display-style 'fancy) ; regex-enabled
-	(ivy-mode 1)
+  (setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
+    ivy-count-format "%d/%d ")
+  (setq ivy-display-style 'fancy) ; regex-enabled
+  (ivy-mode 1)
 #+end_src
 
 * Ivy rich, more self-documenting interface
 #+begin_src emacs-lisp
 (use-package ivy-rich)
-	(ivy-rich-mode 1)
-	(setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; formatting
-	(setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
+  (ivy-rich-mode 1)
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; formatting
+  (setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
 #+end_src
 [[https://github.com/Yevgnen/ivy-rich][ivy rich]].
 

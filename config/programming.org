@@ -1,8 +1,8 @@
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
-	(use-package magit)
-	(use-package forge
-		:after magit)
+  (use-package magit)
+  (use-package forge
+    :after magit)
   (setq auth-sources '("~/.authinfo.gpg"))
 #+end_src
 [[https://magit.vc/][magit]]. [[https://magit.vc/manual/forge/][forge]]. [[https://magit.vc/manual/forge/][forge manual]]. Setup requires ~/authinfo.gpg.
@@ -13,13 +13,13 @@
 
 * Flycheck error information on the fly
 #+begin_src emacs-lisp
-	(use-package flycheck)
-	(global-flycheck-mode 1)
+  (use-package flycheck)
+  (global-flycheck-mode 1)
 #+end_src
 
 * Company-mode text-completion
 #+begin_src emacs-lisp
-	(use-package company)
+  (use-package company)
   (setq company-minimum-prefix-length 1)
 #+end_src
 [[http://company-mode.github.io/][company]].
@@ -36,8 +36,8 @@
 #+begin_src emacs-lisp
 (setq lsp-keymap-prefix "M-n")
 (use-package lsp-mode
-	:hook (rustic-mode . lsp)
-	:commands lsp)
+  :hook (rustic-mode . lsp)
+  :commands lsp)
 (use-package lsp-ui :commands lsp-ui-mode)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
@@ -50,38 +50,38 @@
 #+begin_src emacs-lisp
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'prog-mode-hook
-	(lambda ()
-		(subword-mode) ; ThisStuffIsFiveWords
-		(company-mode) ; completions
-		(eldoc-mode) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
-		(hs-minor-mode) ; code folding
-		(show-paren-mode) ; higlight matching parens pairs at point
-		(use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
-		(rainbow-delimiters-mode)
-		(use-package yasnippet) ; Usage: Cc & Cs
-		(use-package yasnippet-snippets) ; curiously causing problems on a fresh install
-		(yas-minor-mode)
-		))
+  (lambda ()
+    (subword-mode) ; ThisStuffIsFiveWords
+    (company-mode) ; completions
+    (eldoc-mode) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
+    (hs-minor-mode) ; code folding
+    (show-paren-mode) ; higlight matching parens pairs at point
+    (use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
+    (rainbow-delimiters-mode)
+    (use-package yasnippet) ; Usage: Cc & Cs
+    (use-package yasnippet-snippets) ; curiously causing problems on a fresh install
+    (yas-minor-mode)
+    ))
 #+end_src
  [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
 
 * Prog mode keybinds
 #+begin_src emacs-lisp
-	(add-hook 'prog-mode-hook
-		(lambda ()
-			(local-set-key [f4] 'flycheck-next-error)
-			(local-set-key (kbd "<C-f4>") 'flycheck-previous-error)
-			(local-set-key [f5] 'tk-comment-dwim)
-		))
+  (add-hook 'prog-mode-hook
+    (lambda ()
+      (local-set-key [f4] 'flycheck-next-error)
+      (local-set-key (kbd "<C-f4>") 'flycheck-previous-error)
+      (local-set-key [f5] 'tk-comment-dwim)
+    ))
 #+end_src
 ** hs (hide-show) mode keymaps (Cc @) is awful
 I generally prefer the other way of defining maps, but I have an example of this for self-reference
 #+begin_src emacs-lisp
-	(setq hs-hide-comments nil) ; hide comments on hs-hide-all
-	(define-key prog-mode-map (kbd "C-]") 'hs-toggle-hiding)
-	(define-key prog-mode-map (kbd "M-]") 'hs-hide-all)
-	(define-key prog-mode-map (kbd "C-}") 'hs-show-block)
-	(define-key prog-mode-map (kbd "M-}") 'hs-hide-block)
-	(define-key prog-mode-map (kbd "C-M-]") 'hs-show-all)
+  (setq hs-hide-comments nil) ; hide comments on hs-hide-all
+  (define-key prog-mode-map (kbd "C-]") 'hs-toggle-hiding)
+  (define-key prog-mode-map (kbd "M-]") 'hs-hide-all)
+  (define-key prog-mode-map (kbd "C-}") 'hs-show-block)
+  (define-key prog-mode-map (kbd "M-}") 'hs-hide-block)
+  (define-key prog-mode-map (kbd "C-M-]") 'hs-show-all)
 #+end_src
 [[https://www.emacswiki.org/emacs/HideShow][hide-show]].

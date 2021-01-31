@@ -26,10 +26,10 @@
 ;; Autocompile source files on save, use latest version available
 ;; https://github.com/emacscollective/auto-compile
 (use-package auto-compile
-	;; reduce risk of loading outdated bytecode
-	:config (setq load-prefer-newer t)
-	(auto-compile-on-save-mode t)
-	(auto-compile-on-load-mode t))
+  ;; reduce risk of loading outdated bytecode
+  :config (setq load-prefer-newer t)
+  (auto-compile-on-save-mode t)
+  (auto-compile-on-load-mode t))
 
 ;; general
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")

@@ -27,34 +27,11 @@ Surprisingly powerful.
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
 * =pop-win= - less annoying help and compilation buffers
 #+begin_src emacs-lisp
-	;(use-package popup) ; not making use atm. Creates dropdown ui.
-	(use-package popwin)
-	(popwin-mode 1)
+  ;(use-package popup) ; not making use atm. Creates dropdown ui.
+  (use-package popwin)
+  (popwin-mode 1)
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
-* =twittering-mode= - twitter
-Now breaking.
-Not using this heavily right now. Sometimes cute, but a graphic interface goes a long way.
-#+begin_src emacs-lisp
-	(use-package twittering-mode)
-	(setq twittering-use-master-password t)
-#+end_src
-[[https://www.emacswiki.org/emacs/TwitteringMode][tw-mode]]. Not sure how to get better key lists here, ? not working
-i image toggle
-j next
-k prev
-n next by same author
-p prev by same author
-Ci next link
-MCi prev link
-g retreive new
-r display replies
-Cc D delete own tweet
-u post
-RET post reply
-Cc RET post retweet
-Cu Cc Ret
-d send dm
-Cc Cv open browser
-a toggle autoretrieval
-https://www.emacswiki.org/emacs/TwitteringMode#h5o-7
+* <deprecated> =twittering-mode= - twitter
+Relies on cl-mode, breaks and occasionally forgets my credentials (?)
+[[https://www.emacswiki.org/emacs/TwitteringMode][tw-mode]].

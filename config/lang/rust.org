@@ -1,30 +1,31 @@
 * Rustic - lsp extensions to rust-mode
 #+begin_src emacs-lisp
-	(use-package rustic) ; lsp-compatible rust mode
+  (use-package rustic) ; lsp-compatible rust mode
 (add-hook 'rust-mode-hook 'rustic-mode)
 (add-hook 'rustic-mode-hook
-	(lambda ()
-		(setq rustic-lsp-server 'rust-analyzer) ; not rls
-		(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-																				;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
-	(setq rustic-indent-offset 2)
-		(setq rustic-match-angle-brackets nil)
-		(setq rustic-compile-display-method 'popwin:display-buffer-1) ; display if possible in popup-win
-		))
+  (lambda ()
+    (setq rustic-lsp-server 'rust-analyzer) ; not rls
+    (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+                                        ;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
+  (setq rustic-indent-offset 2)
+    (setq rustic-match-angle-brackets nil)
+    ;; thought this would be better, was wrong.
+    ;(setq rustic-compile-display-method 'popwin:display-buffer-1) ; display if possible in popup-win
+    ))
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
 * Cargo binds and .toml  mode font-lock
 #+begin_src emacs-lisp
-	(use-package cargo)
-	(add-hook 'rust-mode-hook 'cargo-minor-mode)
-	(use-package toml-mode) ; syntax highlighting in toml files
+  (use-package cargo)
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  (use-package toml-mode) ; syntax highlighting in toml files
 #+end_src
 [[https://github.com/kwrooijen/cargo.el][cargo]]. [[https://github.com/dryman/toml-mode.el][toml-mode]].
 
 * Flycheck
 #+begin_src emacs-lisp
-	(use-package flycheck-rust) ; runs on save buffer
+  (use-package flycheck-rust) ; runs on save buffer
 #+end_src
 [[https://github.com/flycheck/flycheck-rust][flycheck-rust]].
 
@@ -33,45 +34,45 @@ Not well maintained unfortunately (ugh), but very useful. I have this line in my
 environment variable =rust-racer-src-path=.
 : export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
 #+begin_src emacs-lisp
-	(use-package racer)
+  (use-package racer)
 (add-hook 'rustic-mode-hook 'racer-mode)
 (add-hook 'racer-mode-hook
-	(lambda ()
-		(setq racer-rust-src-path
-			"/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
-		(local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
-		))
+  (lambda ()
+    (setq racer-rust-src-path
+      "/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+    (local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
+    ))
 (define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
 #+end_src
 [[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
 
 * Org-babel rust integration
 #+begin_src emacs-lisp
-	(use-package ob-rust)
+  (use-package ob-rust)
 #+end_src
 [[https://github.com/micanzhang/ob-rust][ob-rust]].
 
 * get a rust playground
 #+begin_src emacs-lisp
-	(use-package rust-playground)
+  (use-package rust-playground)
 #+end_src
 [[https://github.com/grafov/rust-playground][rust-playground]]. Note. C-RET => compile in playground
 
 * Keybinds
 #+begin_src emacs-lisp
-	(add-hook 'rustic-mode-hook
-		(lambda ()
-			(local-set-key (kbd "C-$") 'rustic-cargo-build)
-			(local-set-key (kbd "C-\\") 'rustic-cargo-build)
-			(local-set-key (kbd "M-\\") 'rustic-cargo-test)
-			(setq rustic-test-arguments "-- --nocapture")
-			(local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
-			(local-set-key [f9] 'next-error)
-			(local-set-key [f10] 'lsp-execute-code-action)
-			(local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
-			))
+  (add-hook 'rustic-mode-hook
+    (lambda ()
+      (local-set-key (kbd "C-$") 'rustic-cargo-build)
+      (local-set-key (kbd "C-\\") 'rustic-cargo-build)
+      (local-set-key (kbd "M-\\") 'rustic-cargo-test)
+      (setq rustic-test-arguments "-- --nocapture")
+      (local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
+      (local-set-key [f9] 'next-error)
+      (local-set-key [f10] 'lsp-execute-code-action)
+      (local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
+      ))
 (add-hook 'rustic-compilation-mode-hook
-	(lambda ()
-		(local-set-key [f9] 'compilation-next-error)
-		))
+  (lambda ()
+    (local-set-key [f9] 'compilation-next-error)
+    ))
 #+end_src
