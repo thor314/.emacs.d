@@ -3,13 +3,13 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
-	(filename . "~/org/agenda/mintbase.org")
-	(front-context-string . "** TODO   Handle")
-	(rear-context-string . "021-01-07 Thu]\n\n")
-	(position . 700))
+  (filename . "~/org/roam/lit/article/2021-01-31-test.org")
+  (front-context-string . "#+title: test\n#+")
+  (rear-context-string)
+  (position . 1))
 ("global_keybinds.org"
-	(filename . "~/.emacs.d/config/global_keybinds.org")
-	(front-context-string)
-	(rear-context-string . "h, M@, Cxrm, Cxr")
-	(position . 3351))
+  (filename . "~/.emacs.d/config/global_keybinds.org")
+  (front-context-string)
+  (rear-context-string . "h, M@, Cxrm, Cxr")
+  (position . 3351))
 )

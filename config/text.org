@@ -108,7 +108,9 @@ time-prompt, tree-type, table-line-pos
 * Images via =org-download=
 Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
-(use-package org-download)
+;;(use-package org-download) ;; can't find?
+(add-to-list 'load-path "~/.emacs.d/org-download")
+(require 'org-download)
 (add-hook 'dired-mode-hook 'org-download-enable)
 #+end_src
 [[https://github.com/abo-abo/org-download][org-download]].
@@ -138,6 +140,56 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+end_src
 [[https://mobileorg.github.io/features/][org-mobile]].
 
+* Org-roam - Cc n [lfgic]
+[[https://www.orgroam.com/manual/][docs]] and [[https://github.com/org-roam/org-roam][source]].
+** Setup
+Create a file: Org roam find file
+#+begin_src emacs-lisp
+  ;; tar not found:
+  ;;(use-package org-roam)
+  ;;(use-package company-org-roam)
+  (add-to-list 'load-path "~/.emacs.d/org-roam/org-roam")
+  (require 'org-roam)
+  (add-hook 'org-mode-hook
+    (lambda ()
+        (local-set-key (kbd "C-c n r") 'org-roam)
+        (local-set-key (kbd "C-c n i") 'org-roam-insert)
+        (local-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+        (local-set-key (kbd "C-c n f") 'org-roam-find-file)
+        (local-set-key (kbd "C-c n g") 'org-roam-graph)
+        ))
+
+  ;; enables org-roam on startup
+  (add-hook 'after-init-hook 'org-roam-mode)
+  (setq org-roam-directory "~/org/roam")
+  (setq org-roam-completion-system 'ivy)
+  ;; optional index file keeps links to main files
+  ;; (setq org-roam-index-file "index.org")
+#+end_src
+
+** roam-capture templates
+#+begin_src emacs-lisp
+  (setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
+  (setq org-roam-capture-templates
+    '(
+       ("a" "article" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "lit/article/%<%Y-%m-%d>-${slug}"
+         :head "#+title: ${slug}\n#+roam_tags: \"article\"\n#+roam_key: ${link}"
+         :unnarrowed t)
+       ("p" "paper" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "lit/paper/%<%Y-%m-%d>-${slug}"
+         :head "#+title: ${slug}\n#+roam_tags: \"paper\"\n#+roam_key: ${link}"
+         :unnarrowed t)
+       ("c" "concept" plain (function org-roam--capture-get-point)
+         "%?"
+         :file-name "concept/${slug}"
+         :head "#+title: ${slug}\n#+roam_tags: \"concept\""
+         :unnarrowed t)
+       )
+    )
+#+end_src
 * Settings
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
@@ -157,7 +209,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       (font-lock-add-keywords nil '(("\\<\\(thor\\|THOR\\|tk\\|TK\\)\\>" 1 font-lock-warning-face t)))
       ))
 #+end_src
-* EXPERIMENTAL poly mode for nice code blocks in org and markdown
+* Poly mode for native code blocks in org and markdown
 #+begin_src emacs-lisp
   (use-package polymode)
   (use-package poly-org)

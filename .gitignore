@@ -13,3 +13,7 @@ forge*
 .lsp*
 ref-previous-config*
 session.*
+bookmarks
+org-download/
+org-roam/
+org-roam.db
