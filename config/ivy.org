@@ -39,3 +39,10 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 (use-package avy)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].
+* Prescient completions
+#+begin_src emacs-lisp
+ (use-package prescient)
+ (use-package ivy-prescient)
+ (ivy-prescient-mode)
+#+end_src
+[[https://github.com/raxod502/prescient.el][prescient]].

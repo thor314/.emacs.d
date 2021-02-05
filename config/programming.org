@@ -21,6 +21,8 @@
 #+begin_src emacs-lisp
   (use-package company)
   (setq company-minimum-prefix-length 1)
+  (use-package company-prescient) ;
+  (company-prescient-mode)
 #+end_src
 [[http://company-mode.github.io/][company]].
 

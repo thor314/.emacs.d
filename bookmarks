@@ -3,10 +3,10 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
-  (filename . "~/org/roam/lit/article/2021-01-31-test.org")
-  (front-context-string . "#+title: test\n#+")
-  (rear-context-string)
-  (position . 1))
+  (filename . "~/org/cap/qnote.org")
+  (front-context-string . "*  There's no re")
+  (rear-context-string . "	-\n- The Gud\n	-\n")
+  (position . 1466))
 ("global_keybinds.org"
   (filename . "~/.emacs.d/config/global_keybinds.org")
   (front-context-string)
