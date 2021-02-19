@@ -1,27 +1,34 @@
 * I said, what is this
-This is my emacs config. It's not the best emacs config, but it's mine, and I love it. I scrounged around the
-internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of =.org=
-files because organization is good, and I like collapsable sectioning and pretty text. Have noticed that on GitHub,
-the tab width is huge, and I'm not sure what to do about it, sorry. The literate setup divides and collapses the
-sections in a way I enjoy. Most of the packages I use, I include a link to the documentation for, making it easy
-for myself (and possibly others) to use my config reasonably efficiently for reference.
+This is my emacs config. It's not the best emacs config, but it's mine, and I
+love it. I scrounged around the internet for stuff I wanted, and like a good
+viking, dragged the good stuff back here. It's in a set of =.org= files because
+organization is good, and I like collapsable sectioning and pretty text. The
+literate setup divides and collapses the sections in a way I enjoy. Most of the
+packages I use, I include a link to the documentation for, making it easy for
+myself (and possibly others) to use my config reasonably efficiently for
+reference.
 
-Quick note to anyone rippin mah binds: I use a Dvorak layout. Your ergonomics may vary (esp on ',.).
+Quick note to anyone rippin mah binds: I use a Dvorak layout. Your ergonomics
+may vary (esp on ',.).
 
-If you're starting out with emacs, advice: aggressively steal from others without guilt. Welcome to open source.
-But also, for your own benefit as much as anyone elses, try to document what it is you stole, maybe even better
-than how you found it. Some packages I particularly recommend learning to use:
-- =ivy-mode=, with =ivy-rich= and =counsel=, for better navigation/information inside emacs
+If you're starting out with emacs, advice: aggressively steal from others
+without guilt. Welcome to open source. But also, for your own benefit as much as
+anyone elses, try to document what it is you stole, maybe even better than how
+you found it. Some packages I particularly recommend learning to use:
+- =ivy-mode=, with =ivy-rich= and =counsel=, for better navigation/information
+  inside emacs
 - =use-package= in place of 'require for installing packages
 - =org-mode= and =org-roam= are reasons onto themselves to use emacs
 
 Other skills that are v useful when emacs-ing:
-- Learn to use =customize/customize-group= to lazily modify variables without resorting to documentation
-- Use macros (default on F3 and F4 keys). They're hacky and I use them just about every day.
-- Don't be afraid to rebind keys. There are some examples of that in my config. Try the package =free-keys= to find
-  the unbound keys.
-- Lisp is an easy language to pick up, but it's also fairly unnecessary to know for the most part when using Emacs.
-  Don't rush into it.
+- Learn to use =customize/customize-group= to lazily modify variables without
+  resorting to documentation
+- Use macros (default on F3 and F4 keys). They're hacky and I use them just
+  about every day.
+- Don't be afraid to rebind keys. There are some examples of that in my config.
+  Try the package =free-keys= to find the unbound keys.
+- Lisp is an easy language to pick up, but it's also fairly unnecessary to know
+  for the most part when using Emacs. Don't rush into it.
 
 For some other perspectives on how to start emacsing, check out this SE post.
 https://emacs.stackexchange.com/questions/47318/how-can-i-start-learning-emacs-lisp
