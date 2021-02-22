@@ -30,7 +30,9 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 
 * Counsel-Projectile
 #+begin_src emacs-lisp
+(use-package projectile)
 (use-package counsel-projectile)
+(projectile-load-known-projects)
 #+end_src
 [[https://github.com/ericdanan/counsel-projectile][counsel projectile]].
 

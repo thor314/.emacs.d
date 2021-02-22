@@ -52,6 +52,7 @@
 
 * Counsel (Projectile)
 #+begin_src emacs-lisp
+  ;;(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (global-set-key (kbd "C-c p SPC") 'counsel-projectile)
   (global-set-key (kbd "C-c p d") 'counsel-projectile-find-dir)
   (global-set-key (kbd "C-c p s") 'projectile-switch-project)
