@@ -6,7 +6,8 @@
   (lambda ()
     (setq rustic-lsp-server 'rust-analyzer) ; not rls
     (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
-                                        ;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
+  (define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)                                        ;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
+    ;(local-set-key (kbd "C-c C-c C-o") 'cargo-process-fmt) ; sometimes rustic is buggy
   (setq rustic-indent-offset 2)
     (setq rustic-match-angle-brackets nil)
     ;; thought this would be better, was wrong.
@@ -28,23 +29,6 @@
   (use-package flycheck-rust) ; runs on save buffer
 #+end_src
 [[https://github.com/flycheck/flycheck-rust][flycheck-rust]].
-
-* Racer (similar to xref) - eldoc and lsp dependency, get defn
-Not well maintained unfortunately (ugh), but very useful. I have this line in my =.zshrc=, and a hook to set the
-environment variable =rust-racer-src-path=.
-: export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
-#+begin_src emacs-lisp
-  (use-package racer)
-(add-hook 'rustic-mode-hook 'racer-mode)
-(add-hook 'racer-mode-hook
-  (lambda ()
-    (setq racer-rust-src-path
-      "/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
-    (local-set-key (kbd "M-.") 'lsp-find-definition) ; succeeds more than racer
-    ))
-(define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
-#+end_src
-[[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
 
 * Org-babel rust integration
 #+begin_src emacs-lisp
@@ -76,3 +60,17 @@ environment variable =rust-racer-src-path=.
     (local-set-key [f9] 'compilation-next-error)
     ))
 #+end_src
+* DEPRECATED: Racer - LSP now eclipses Racer entirely
+Not well maintained unfortunately (ugh), but very useful. I have this line in my =.zshrc=, and a hook to set the
+environment variable =rust-racer-src-path=.
+: export RUST_SRC_PATH='/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library'
+: #+begin_src emacs-lisp
+  (use-package racer)
+(add-hook 'rustic-mode-hook 'racer-mode)
+(add-hook 'racer-mode-hook
+  (lambda ()
+    (setq racer-rust-src-path
+      "/home/thor/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library")
+    ))
+: #+end_src
+[[https://github.com/racer-rust/racer][rust-racer]]. [[https://github.com/racer-rust/emacs-racer][emacs-racer]].
