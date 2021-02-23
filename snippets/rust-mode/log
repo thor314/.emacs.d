@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: env::log
+# key: log
+# --
+env::log(format!("TEMPLOG ${1:this} is: {:?}", ${2:that}).as_bytes());
