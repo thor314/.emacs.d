@@ -108,9 +108,7 @@ time-prompt, tree-type, table-line-pos
 * Images via =org-download=
 Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
-;;(use-package org-download) ;; can't find?
-(add-to-list 'load-path "~/.emacs.d/org-download")
-(require 'org-download)
+(use-package org-download)
 (add-hook 'dired-mode-hook 'org-download-enable)
 #+end_src
 [[https://github.com/abo-abo/org-download][org-download]].
@@ -128,8 +126,8 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       ))
 #+end_src
 
-* =org-mobile=  Sync's my org directories to my phone.
-#+begin_src emacs-lisp
+* =org-mobile=  Sync's my org directories to my phone. - BUG: prevents quit until Dropbox installed
+:#+begin_src emacs-lisp
   (use-package org-mobile-sync)
   (setq org-mobile-inbox-for-pull "~/org/org_mobile_pull_inbox.org")
   (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
@@ -137,7 +135,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
   ; automate push if emacs is idle for 30s and on emacs exit
   (run-with-idle-timer 30 nil 'org-mobile-push)
   (add-hook 'kill-emacs-hook 'org-mobile-push)
-#+end_src
+: #+end_src
 [[https://mobileorg.github.io/features/][org-mobile]].
 
 * Org-roam - Cc n [lfgic]
@@ -145,11 +143,9 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 ** Setup
 Create a file: Org roam find file
 #+begin_src emacs-lisp
-  ;; tar not found:
-  ;;(use-package org-roam)
-  ;;(use-package company-org-roam)
-  (add-to-list 'load-path "~/.emacs.d/org-roam/org-roam")
-  (require 'org-roam)
+  (use-package org-roam)
+  ; (use-package company-org-roam) ; is unavailable?
+
   (add-hook 'org-mode-hook
     (lambda ()
       (local-set-key (kbd "C-c n r") 'org-roam)

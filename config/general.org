@@ -99,3 +99,9 @@ Most useful: replace a regexp across multiple files.
 (setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
 (setq-default abbrev-mode t)
 #+end_src
+
+* Path adjustments
+Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
+#+begin_src emacs-lisp
+  (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+#+end_src
