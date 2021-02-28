@@ -104,4 +104,5 @@ Most useful: replace a regexp across multiple files.
 Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
 #+begin_src emacs-lisp
   (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
+  (setq exec-path (append exec-path '("~/.cargo/bin")))
 #+end_src
