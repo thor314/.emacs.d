@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: format
+# key: fmt
+# --
+format!("{}$0", ${1:arg});
