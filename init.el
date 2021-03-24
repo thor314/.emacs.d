@@ -5,6 +5,7 @@
 ;; Literate to document the config unobtrusively.
 
 ;;; Code:
+; woah haow
 
 ;; Get package repositories
 (require 'package)
