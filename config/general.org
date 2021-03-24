@@ -102,7 +102,11 @@ Most useful: replace a regexp across multiple files.
 
 * Path adjustments
 Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
+
+Do try restarting emacs (closing and re-opening) before fiddling with this.
 #+begin_src emacs-lisp
+  (setenv "PATH" (concat (getenv "PATH") ":~/.nvm/versions/node/v15.11.0/bin"))
+  (setq exec-path (append exec-path '("~/.nvm/versions/node/v15.11.0/bin")))
   (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
   (setq exec-path (append exec-path '("~/.cargo/bin")))
 #+end_src

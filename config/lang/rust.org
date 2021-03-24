@@ -5,12 +5,20 @@
 (add-hook 'rustic-mode-hook
   (lambda ()
     (setq rustic-lsp-server 'rust-analyzer) ; not rls
-    (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+    ;; manage rust analyzer binary separate from emacs
+    ;(setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+    ;;(setq lsp-rust-analyzer-store-path "~/.cargo/bin/rust-analyzer")
     (define-key rustic-mode-map (kbd "TAB") 'company-indent-or-complete-common)
-    ;(setq rustic-format-on-save t) ; has annoying bug move point to other buffer bug
-    (local-set-key (kbd "C-c C-c C-o") 'cargo-process-fmt) ; sometimes rustic is buggy.
+
+    ;; if format on save bugging, comment out following line
+    (setq rustic-format-on-save t)
+    (local-set-key (kbd "C-c C-c C-o") 'cargo-process-fmt)
+
     (setq rustic-indent-offset 2)
     (setq rustic-match-angle-brackets nil)
+
+    ;; also try display-buffer-other-frame
+    (setq rustic-compile-display-method 'ignore)
     (setq-local buffer-save-without-query nil) ; save, don't ask me
     (setq lsp-rust-analyzer-cargo-watch-command "clippy") ; as opposed to check.
     ))

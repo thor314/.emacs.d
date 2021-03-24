@@ -79,6 +79,7 @@
 * Window and formatting
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-.") 'other-window)
+  (global-set-key (kbd "C-M-.") 'other-frame)
   (global-set-key (kbd "C-,") 'ivy-switch-buffer)
   (global-set-key (kbd "<home>") 'text-scale-increase)
   (global-set-key (kbd "<end>") 'text-scale-decrease)

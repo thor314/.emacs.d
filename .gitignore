@@ -13,7 +13,7 @@ forge*
 .cache
 .lsp*
 ref-previous-config*
-session.*
+*session.*
 bookmarks
 org-download/
 org-roam/
