@@ -105,8 +105,15 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
 
 Do try restarting emacs (closing and re-opening) before fiddling with this.
 #+begin_src emacs-lisp
-  (setenv "PATH" (concat (getenv "PATH") ":~/.nvm/versions/node/v15.11.0/bin"))
-  (setq exec-path (append exec-path '("~/.nvm/versions/node/v15.11.0/bin")))
+  ;;(setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v15.11.0/bin"))
+  (setq exec-path (append exec-path '(":~/.nvm/versions/node/v15.11.0/bin")))
   (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
-  (setq exec-path (append exec-path '("~/.cargo/bin")))
+  (setq exec-path (append exec-path '(":~/.cargo/bin")))
+  (setenv "NVM_DIR" "~/.nvm")
+#+end_src
+
+
+* Set github authentication
+#+begin_src emacs-lisp
+	(setq auth-sources '("~/.authinfo.gpg"))
 #+end_src
