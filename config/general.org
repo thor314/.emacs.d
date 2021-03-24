@@ -115,6 +115,6 @@ Do try restarting emacs (closing and re-opening) before fiddling with this.
 
 * Set github authentication
 #+begin_src emacs-lisp
-  ;;woah dude
+  ;;woah dude dude
 	(setq auth-sources '("~/.authinfo.gpg"))
 #+end_src
