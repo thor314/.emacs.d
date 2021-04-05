@@ -32,6 +32,13 @@ Surprisingly powerful.
   (popwin-mode 1)
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
+
+* =undo-tree= - GNU tool to explore and select undo history: =C-x u=
+#+begin_src emacs-lisp
+  (use-package undo-tree)
+  (global-undo-tree-mode)
+#+end_src
+[[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
 * <deprecated> =twittering-mode= - twitter
 Relies on cl-mode, breaks and occasionally forgets my credentials (?)
 [[https://www.emacswiki.org/emacs/TwitteringMode][tw-mode]].

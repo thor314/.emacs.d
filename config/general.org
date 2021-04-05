@@ -75,6 +75,15 @@ N2R: Some of these are on by default. I value explicitness.
 #+end_src
 [[https://github.com/tarsius/moody][moody]].
 
+** Parrot mode
+#+begin_src emacs-lisp
+(use-package parrot)
+(parrot-set-parrot-type "science")
+;;(parrot-mode) ; may not b necessary
+(add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
+#+end_src
+[[https://libraries.io/emacs/parrot][parrot]].
+
 * Eshell
 #+begin_src emacs-lisp
 (add-hook 'eshell-mode-hook
@@ -105,10 +114,10 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
 
 Do try restarting emacs (closing and re-opening) before fiddling with this.
 #+begin_src emacs-lisp
-  ;;(setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v15.11.0/bin"))
+  (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v15.11.0/bin"))
   (setq exec-path (append exec-path '(":~/.nvm/versions/node/v15.11.0/bin")))
-  (setenv "PATH" (concat (getenv "PATH") ":~/.cargo/bin"))
-  (setq exec-path (append exec-path '(":~/.cargo/bin")))
+  (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.cargo/bin"))
+  (setq exec-path (append exec-path '(":/home/thor/.cargo/bin")))
   (setenv "NVM_DIR" "~/.nvm")
 #+end_src
 

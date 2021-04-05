@@ -1,3 +1,11 @@
+* Parrot loading indicator
+#+begin_src emacs-lisp
+	(defun my/parrot-animate-when-compile-success (buffer result)
+    "animate parrot while compiling"
+    (if (string-match "^finished" result)
+      (parrot-start-animation)))
+#+end_src
+
 * Create Dir on Save
 #+begin_src emacs-lisp
   (defun offer-to-create-dir-on-save ()
