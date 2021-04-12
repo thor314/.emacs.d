@@ -47,7 +47,6 @@ N2R: Some of these are on by default. I value explicitness.
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
 (global-display-line-numbers-mode)
-(global-eldoc-mode) ; show in echo area the argument list of the function being written
 (global-font-lock-mode 1) ; decorate text
 (global-hl-line-mode 1)
 (global-prettify-symbols-mode 1) ; lambda -> symbol

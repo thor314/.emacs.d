@@ -2,8 +2,9 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ;; mispellings
-    ("acconut" "account" nil :count 1)
-    ("copmlete" "complete")
+     ("acconut" "account" nil :count 1)
+     ("tihs" "this" nil :count 1)
+     ("copmlete" "complete")
 
     ;; accounts
     ("tg" "thor314@gmail.com" nil :count 1)
@@ -14,5 +15,4 @@
 
     ;; hacks
     ("pln" "println!(\"{:?}\"," nil :count 0)
-    ("fn" "fn hack(&self){\\n}" )
-   ))
+     ))

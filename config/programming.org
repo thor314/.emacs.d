@@ -47,16 +47,38 @@
 #+begin_src emacs-lisp
 (setq lsp-keymap-prefix "M-n")
 (use-package lsp-mode
-  :hook (rustic-mode . lsp)
+  ;;:hook (rustic-mode . lsp)
   :commands lsp)
-(use-package lsp-ui :commands lsp-ui-mode)
+;; sometimes quite laggy:
+(use-package lsp-ui)
 (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+#+end_src
+
+** LSP configuration
+Definition with eldoc/equiv tends to be the most lag-inducing.
+[[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
+#+begin_src emacs-lisp
+(setq lsp-enable-symbol-highlighting t) ;; highlight instances
+(setq lsp-ui-doc-enable nil) ;; hover dialogs
+(setq lsp-lens-enable t) ;; number references to object
+(setq lsp-headerline-breadcrumb-enable nil) ;; top path
+(setq lsp-ui-sideline-show-code-actions nil)
+(setq lsp-modeline-code-actions-enable t)
+(setq lsp-diagnostics-provider :flycheck)
+(setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
+(setq lsp-eldoc-enable-hover t) ;;  modeline feedback
+(setq lsp-signature-render-documentation t) ;; render docs
 (setq lsp-completion-provider :capf) ; completion backend
-(setq lsp-idle-delay 0.2) ; refresh highlights
-(setq lsp-ui-peek-always-show t)
+(setq lsp-idle-delay 0.5) ; refresh highlights
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
+
+** Eglot - experimental alternative to lsp.
+:#+begin_src emacs-lisp
+(use-package eglot)
+;(add-to-list 'eglot-server-programs '(rustic-mode . ("foo-language-server" "--args")))
+(add-hook 'rustic-mode-hook 'eglot-ensure)
+:#+end_src
 
 * Prog mode
 #+begin_src emacs-lisp
@@ -68,7 +90,8 @@
     (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
     (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
     (subword-mode) ; ThisStuffIsFiveWords on M-f M-b
-    (eldoc-mode) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
+    ;; eldoc can lag significantly
+    (setq eldoc-mode nil) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
     (hs-minor-mode) ; code folding
     (show-paren-mode) ; higlight matching parens pairs at point
     (use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
