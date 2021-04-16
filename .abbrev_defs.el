@@ -103,7 +103,6 @@
   '(
     ("acconut" "account" nil 1)
     ("copmlete" "complete" nil 0)
-    ("fn" "fn hack(&self){\\n}" nil 6)
     ("pln" "println!(\"{:?}\"," nil 0)
     ("tg" "thor314@gmail.com" nil 1)
     ("tihs" "this" nil 1)
@@ -270,4 +269,3 @@
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-

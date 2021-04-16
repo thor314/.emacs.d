@@ -40,11 +40,13 @@
 (org-babel-load-file "~/.emacs.d/config/programming.org")
 ;(org-babel-load-file "~/.emacs.d/config/experimental.org")
 (org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
+(org-babel-load-file "~/.emacs.d/config/secret.org")
 
 ;; languages
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
 (org-babel-load-file "~/.emacs.d/config/lang/elisp.org")
+
 
 ;; org-babel doesn't clean up after herself, messy girl
 (shell-command "rm ~/.emacs.d/config/*.el")
