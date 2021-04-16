@@ -58,16 +58,17 @@
 Definition with eldoc/equiv tends to be the most lag-inducing.
 [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
 #+begin_src emacs-lisp
-(setq lsp-enable-symbol-highlighting t) ;; highlight instances
+(setq lsp-enable-symbol-highlighting nil) ;; highlight instances
 (setq lsp-ui-doc-enable nil) ;; hover dialogs
-(setq lsp-lens-enable t) ;; number references to object
+(setq lsp-lens-enable nil) ;; number references to object
 (setq lsp-headerline-breadcrumb-enable nil) ;; top path
 (setq lsp-ui-sideline-show-code-actions nil)
 (setq lsp-modeline-code-actions-enable t)
 (setq lsp-diagnostics-provider :flycheck)
 (setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
-(setq lsp-eldoc-enable-hover t) ;;  modeline feedback
-(setq lsp-signature-render-documentation t) ;; render docs
+(setq lsp-eldoc-enable-hover nil) ;;  modeline feedback and laggg
+(setq lsp-signature-auto-activate nil) ;; you could manually requiest them via `lsp-signature-activate`
+(setq lsp-signature-render-documentation nil) ;; render docs
 (setq lsp-completion-provider :capf) ; completion backend
 (setq lsp-idle-delay 0.5) ; refresh highlights
 #+end_src
@@ -124,35 +125,3 @@ I generally prefer the other way of defining maps, but I have an example of this
   (define-key prog-mode-map (kbd "C-M-]") 'hs-show-all)
 #+end_src
 [[https://www.emacswiki.org/emacs/HideShow][hide-show]].
-* Yas and company temp dump
-A temporary dump for some code I may find useful soon. from
-https://robert.kra.hn/posts/2021-02-07_rust-with-emacs/#code-navigation
-intended to make yas play nice with company.
-: #+begin_src emacs-lisp
-(defun company-yasnippet-or-completion ()
-  (interactive)
-  (or (do-yas-expand)
-      (company-complete-common)))
-
-(defun check-expansion ()
-  (save-excursion
-    (if (looking-at "\\_>") t
-      (backward-char 1)
-      (if (looking-at "\\.") t
-        (backward-char 1)
-        (if (looking-at "::") t nil)))))
-
-(defun do-yas-expand ()
-  (let ((yas/fallback-behavior 'return-nil))
-    (yas/expand)))
-
-(defun tab-indent-or-complete ()
-  (interactive)
-  (if (minibufferp)
-      (minibuffer-complete)
-    (if (or (not yas/minor-mode)
-            (null (do-yas-expand)))
-        (if (check-expansion)
-            (company-complete-common)
-          (indent-for-tab-command)))))
-: #+end_src
