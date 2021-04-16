@@ -71,6 +71,7 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
 (setq lsp-signature-render-documentation nil) ;; render docs
 (setq lsp-completion-provider :capf) ; completion backend
 (setq lsp-idle-delay 0.5) ; refresh highlights
+(setq lsp-show-snippet nil) ; hide yasnippets from company completes
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 
