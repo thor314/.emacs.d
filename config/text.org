@@ -29,7 +29,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 * Agenda
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
 #+begin_src emacs-lisp
-  (setq org-agenda-files '("~/org/agenda"))
+  (setq org-agenda-files '("~/org/agenda" "~/org/journal"))
   (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
     '(("d" "Dev" tags-todo "DEV")
      ("w" "Write" tags-todo "WRITE")
