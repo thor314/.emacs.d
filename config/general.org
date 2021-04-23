@@ -48,7 +48,8 @@ N2R: Some of these are on by default. I value explicitness.
 (setq auto-revert-verbose nil)
 (global-display-line-numbers-mode)
 (global-font-lock-mode 1) ; decorate text
-(global-hl-line-mode 1)
+(global-hl-line-mode 1) ; highlight current line
+(global-visual-line-mode) ; wrap long lines
 (global-prettify-symbols-mode 1) ; lambda -> symbol
 (mouse-wheel-mode 1) ; allow scroll by mouse-wheel
 (transient-mark-mode 1) ; don't hide active selected region
@@ -114,9 +115,9 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
 Do try restarting emacs (closing and re-opening) before fiddling with this.
 #+begin_src emacs-lisp
 (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v15.11.0/bin"))
-(setq exec-path (append exec-path '(":~/.nvm/versions/node/v15.11.0/bin")))
+(setq exec-path (append exec-path '("~/.nvm/versions/node/v15.11.0/bin")))
 (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.cargo/bin"))
-(setq exec-path (append exec-path '(":/home/thor/.cargo/bin")))
+(setq exec-path (append exec-path '("/home/thor/.cargo/bin")))
 (setenv "NVM_DIR" "~/.nvm")
 #+end_src
 
