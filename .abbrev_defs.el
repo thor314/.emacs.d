@@ -1,4 +1,5 @@
 ;;-*-coding: utf-8;-*-
+;; syntax: ("from" "to" <nil|some_fn_to_call_after_insert>, special: "counts", "system abbrev", etc)
 (define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'Custom-mode-abbrev-table '())
@@ -101,15 +102,15 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("acconut" "account" nil 1)
-    ("copmlete" "complete" nil 0)
-    ("pln" "println!(\"{:?}\"," nil 0)
-    ("tg" "thor314@gmail.com" nil 1)
-    ("tihs" "this" nil 1)
-    ("tm" "thor@mintbase.io" nil 1)
-    ("tn" "thork@tuta.io" nil 1)
-    ("tp" "thorck@protonmail.com" nil 1)
-    ("xk" "Kamphefner" nil 0)
+     ("acconut" "account" nil 1)
+     ("copmlete" "complete" nil 0)
+     ("tihs" "this" nil 1)
+     ("teh" "the" nil 1)
+     ("tg" "thor314@gmail.com" nil 1)
+     ("tm" "thor@mintbase.io" nil 1)
+     ("tn" "thork@tuta.io" nil 1)
+     ("tp" "thorck@protonmail.com" nil 1)
+     ("xk" "Kamphefner" nil 0)
    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
@@ -208,7 +209,10 @@
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
 
-(define-abbrev-table 'rust-mode-abbrev-table '())
+(define-abbrev-table 'rust-mode-abbrev-table
+  '(
+     ("pln" "println!(\"{:?}\"," nil 0)
+     ))
 
 (define-abbrev-table 'rustic-cargo-clippy-mode-abbrev-table '())
 
