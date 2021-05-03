@@ -9,7 +9,7 @@
 (setq next-line-add-newlines t) ; add newline on C-n at EOF
 (setq vc-follow-symlinks 't)
 (setq-default indent-tabs-mode nil) ; prefer spaces not tabs
-(setq-default fill-column 80)
+(setq-default fill-column 75)
 (setq-default dired-listing-switches "-alh") ; add human-readable units
 (setq-default tab-width 2)
 (setq-default c-basic-offset 2) ; programming modes often use this

@@ -212,6 +212,12 @@
 (define-abbrev-table 'rust-mode-abbrev-table
   '(
      ("pln" "println!(\"{:?}\"," nil 0)
+     ("tokne" "token" nil 0)
+     (".ts" ".to_string()" nil 0)
+     (".tss" ".to_string\(\)" nil 0)
+     (".tsss" ".to_string\\(\\)" nil 0)
+     (".tssss" ".to_string\\\(\\\)" nil 0)
+     (".tsssss" ".to_string\\\\(\\\\)" nil 0)
      ))
 
 (define-abbrev-table 'rustic-cargo-clippy-mode-abbrev-table '())

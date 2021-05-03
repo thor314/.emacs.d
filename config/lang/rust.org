@@ -62,7 +62,6 @@
     (local-set-key (kbd "M-|") 'rustic-cargo-test-rerun) ; use nocapture
     (local-set-key [f9] 'next-error)
     (local-set-key [f10] 'lsp-execute-code-action)
-    (local-set-key (kbd "C-c C-c C-a") 'cargo-proccess-add)
     ))
 (add-hook 'rustic-compilation-mode-hook
   (lambda ()
