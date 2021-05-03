@@ -1,4 +1,8 @@
-* I said, what is this
+** Before using emacs, recite the following:
+I, user, am merely an inefficient text filter that emacs tolerates, until
+higher AIs present themselves.
+
+** What am I looking at
 This is my emacs config. It's not the best emacs config, but it's mine, and I
 love it. I scrounged around the internet for stuff I wanted, and like a good
 viking, dragged the good stuff back here. It's in a set of =.org= files because
