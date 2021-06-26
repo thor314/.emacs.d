@@ -6,10 +6,12 @@
       (setq sentence-end-double-space nil) ; single space after periods
       (setq line-number-mode nil)
       ;; note: turn flyspell mode on for syntax highlighting
+      (local-set-key (kbd "M-j") 'org-meta-return)
       (local-set-key (kbd "<f9>") 'flyspell-goto-next-error)
       (local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
       (local-set-key (kbd "M-<f9>") 'flyspell-correct-previous-word)
       (local-set-key (kbd "C-M-<f9>") 'flyspell-mode)
+      (local-set-key (kbd "C-y") 'my-copy-simple)
       ))
 #+end_src
 Ispell support packages: Hunspell and Hunspell-english sold separately.
@@ -30,6 +32,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
 #+begin_src emacs-lisp
   (setq org-agenda-files '("~/org/agenda" "~/org/journal"))
+  (setq org-priority-default 80)
   (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
     '(("d" "Dev" tags-todo "DEV")
      ("w" "Write" tags-todo "WRITE")
@@ -62,7 +65,7 @@ save-window-config.
      ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
        "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
      ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
-       "* TODO [#A] \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+       "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
      ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
        "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
      ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
