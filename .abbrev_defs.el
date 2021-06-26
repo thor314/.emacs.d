@@ -1,5 +1,4 @@
 ;;-*-coding: utf-8;-*-
-;; syntax: ("from" "to" <nil|some_fn_to_call_after_insert>, special: "counts", "system abbrev", etc)
 (define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'Custom-mode-abbrev-table '())
@@ -8,11 +7,17 @@
 
 (define-abbrev-table 'array-mode-abbrev-table '())
 
+(define-abbrev-table 'awk-mode-abbrev-table '())
+
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'c++-mode-abbrev-table '())
+
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -42,6 +47,10 @@
 
 (define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
 
+(define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
+
+(define-abbrev-table 'diary-mode-abbrev-table '())
+
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
@@ -57,6 +66,8 @@
 (define-abbrev-table 'epa-key-list-mode-abbrev-table '())
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
+
+(define-abbrev-table 'eshell-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
@@ -102,15 +113,22 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-     ("acconut" "account" nil 1)
-     ("copmlete" "complete" nil 0)
-     ("tihs" "this" nil 1)
-     ("teh" "the" nil 1)
-     ("tg" "thor314@gmail.com" nil 1)
-     ("tm" "thor@mintbase.io" nil 1)
-     ("tn" "thork@tuta.io" nil 1)
-     ("tp" "thorck@protonmail.com" nil 1)
-     ("xk" "Kamphefner" nil 0)
+    ("acconut" "account" nil 1)
+    ("account_id" "account_id" nil 1)
+    ("amoutn" "amount" nil 1)
+    ("clustur" "cluster" nil 1)
+    ("copmlete" "complete" nil 0)
+    ("laguage" "language" nil 1)
+    ("networknig" "networking" nil 1)
+    ("teh" "the" nil 1)
+    ("tg" "thor314@gmail.com" nil 1)
+    ("tihs" "this" nil 1)
+    ("tm" "thor@mintbase.io" nil 1)
+    ("tn" "thork@tuta.io" nil 1)
+    ("tp" "thorck@protonmail.com" nil 1)
+    ("wokrer" "worker" nil 1)
+    ("worknig" "working" nil 1)
+    ("xk" "Kamphefner" nil 0)
    ))
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
@@ -119,11 +137,21 @@
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'html-mode-abbrev-table '())
+
 (define-abbrev-table 'ibuffer-mode-abbrev-table '())
+
+(define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
+
+(define-abbrev-table 'java-mode-abbrev-table '())
+
+(define-abbrev-table 'js-jsx-mode-abbrev-table '())
+
+(define-abbrev-table 'js-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -183,6 +211,8 @@
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'objc-mode-abbrev-table '())
+
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
@@ -196,6 +226,8 @@
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'poly-fallback-mode-abbrev-table '())
 
@@ -211,14 +243,14 @@
 
 (define-abbrev-table 'rust-mode-abbrev-table
   '(
-     ("pln" "println!(\"{:?}\"," nil 0)
-     ("tokne" "token" nil 0)
-     (".ts" ".to_string()" nil 0)
-     (".tss" ".to_string\(\)" nil 0)
-     (".tsss" ".to_string\\(\\)" nil 0)
-     (".tssss" ".to_string\\\(\\\)" nil 0)
-     (".tsssss" ".to_string\\\\(\\\\)" nil 0)
-     ))
+    (".ts" ".to_string()" nil 0)
+    (".tss" ".to_string()" nil 0)
+    (".tsss" ".to_string\\(\\)" nil 0)
+    (".tssss" ".to_string\\(\\)" nil 0)
+    (".tsssss" ".to_string\\\\(\\\\)" nil 0)
+    ("pln" "println!(\"{:?}\"," nil 0)
+    ("tokne" "token" nil 0)
+   ))
 
 (define-abbrev-table 'rustic-cargo-clippy-mode-abbrev-table '())
 
@@ -248,6 +280,10 @@
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
+(define-abbrev-table 'sgml-mode-abbrev-table '())
+
+(define-abbrev-table 'sh-mode-abbrev-table '())
+
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
@@ -255,6 +291,8 @@
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
+
+(define-abbrev-table 'term-mode-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
@@ -276,6 +314,13 @@
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-mtn-log-view-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
+(define-abbrev-table 'xref--transient-buffer-mode-abbrev-table '())
+
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+

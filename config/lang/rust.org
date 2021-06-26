@@ -13,6 +13,7 @@
     ;; if format on save bugging, comment out following line
     (setq rustic-format-on-save t)
     (local-set-key (kbd "C-c C-c C-o") 'cargo-process-fmt)
+    (local-set-key (kbd "C-c C-c C-a") 'rustic-cargo-add)
 
     (setq rustic-indent-offset 2)
     (setq rustic-match-angle-brackets nil)

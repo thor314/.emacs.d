@@ -92,7 +92,7 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
     (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
     (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
     (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
-    (subword-mode) ; ThisStuffIsFiveWords on M-f M-b
+    (subword-mode 1) ; ThisStuffIsFiveWords on M-f M-b
     ;; eldoc can lag significantly
     (setq eldoc-mode nil) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
     (hs-minor-mode) ; code folding
