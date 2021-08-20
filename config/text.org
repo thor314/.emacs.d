@@ -1,5 +1,12 @@
 * Text-mode hook
 #+begin_src emacs-lisp
+  (defun tk-fmt-and-space ()
+    "insert space and call fill-paragraph, so I don't have to
+  call M-q all the time. Note this prevents doublespaces."
+    (interactive)
+    (fill-paragraph)
+    (insert-char #x20))
+
   (add-hook 'text-mode-hook
             (lambda ()
               ;; nts. auto-fill looks nice, but makes a lot of formatting things
@@ -115,7 +122,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+end_src
 [[https://github.com/abo-abo/org-download][org-download]].
 
-* Key binds
+* Org-specific keybinds
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
@@ -147,10 +154,9 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 Create a file: Org roam find file
 #+begin_src emacs-lisp
   (use-package org-roam)
-  ; (use-package company-org-roam) ; is unavailable?
-
   (add-hook 'org-mode-hook
     (lambda ()
+      (setq company-mode nil) ;; gets annoying with text completes
       (local-set-key (kbd "C-c n r") 'org-roam)
       (local-set-key (kbd "C-c n i") 'org-roam-insert)
       (local-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
