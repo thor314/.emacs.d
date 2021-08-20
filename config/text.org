@@ -154,6 +154,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 Create a file: Org roam find file
 #+begin_src emacs-lisp
   (use-package org-roam)
+  (setq org-roam-v2-ack t)
   (add-hook 'org-mode-hook
     (lambda ()
       (setq company-mode nil) ;; gets annoying with text completes
@@ -174,29 +175,40 @@ Create a file: Org roam find file
   ;; (setq org-roam-index-file "index.org")
 #+end_src
 
-** roam-capture templates
+** roam-capture templates [[https://www.orgroam.com/manual.html#Template-Walkthrough][docs]]
 #+begin_src emacs-lisp
   (setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
+  (setq org-roam-capture-templates '(
+       ("a" "article" plain "%?"
+         :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
+                   "#+title: ${title}\n")
+                   :unnarrowed t)
+       ("p" "paper" plain "%?"
+         :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
+                   "#+title: ${title}\n")
+                   :unnarrowed t)
+       ))
+
+#+end_src
   (setq org-roam-capture-templates
     '(
-       ("a" "article" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "lit/article/%<%Y-%m-%d>-${slug}"
-         :head "#+title: ${slug}\n#+roam_tags: \"article\"\n#+roam_key: ${link}"
-         :unnarrowed t)
-       ("p" "paper" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "lit/paper/%<%Y-%m-%d>-${slug}"
-         :head "#+title: ${slug}\n#+roam_tags: \"paper\"\n#+roam_key: ${link}"
-         :unnarrowed t)
-       ("c" "concept" plain (function org-roam--capture-get-point)
-         "%?"
-         :file-name "concept/${slug}"
-         :head "#+title: ${slug}\n#+roam_tags: \"concept\""
-         :unnarrowed t)
+       ("a" "article" plain "%?"
+         :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
+                   "#+title: ${title}\n %^{ROAM_KEY}p"
+                   :unnarrowed t)
        )
-    )
-#+end_src
+    ))
+       ;; ("p" "paper" plain (function org-roam--capture-get-point)
+       ;;   "%?"
+       ;;   :file-name "lit/paper/%<%Y-%m-%d>-${slug}"
+       ;;   :head "#+title: ${slug}\n#+roam_tags: \"paper\"\n#+roam_key: ${link}"
+       ;;   :unnarrowed t)
+       ;; ("c" "concept" plain (function org-roam--capture-get-point)
+       ;;   "%?"
+       ;;   :file-name "concept/${slug}"
+       ;;   :head "#+title: ${slug}\n#+roam_tags: \"concept\""
+       ;;   :unnarrowed t)
+       ;;
 * Settings
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook

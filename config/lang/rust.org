@@ -27,10 +27,12 @@
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].
 
 * Cargo binds and .toml  mode font-lock
+2021-08-20 error:
+Error (use-package): Failed to install cargo: https://melpa.org/packages/cargo-20210615.1543.tar: Not found
 #+begin_src emacs-lisp
-(use-package cargo)
-(add-hook 'rust-mode-hook 'cargo-minor-mode)
-(use-package toml-mode) ; syntax highlighting in toml files
+;; (use-package cargo)
+;; (add-hook 'rust-mode-hook 'cargo-minor-mode)
+;; (use-package toml-mode) ; syntax highlighting in toml files
 #+end_src
 [[https://github.com/kwrooijen/cargo.el][cargo]]. [[https://github.com/dryman/toml-mode.el][toml-mode]].
 
