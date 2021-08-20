@@ -1,8 +1,10 @@
 * Text-mode hook
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook
-    (lambda ()
-      (turn-on-auto-fill)
+            (lambda ()
+              ;; nts. auto-fill looks nice, but makes a lot of formatting things
+              ;; a pain in the ass, and I'm too lazy to fix them all.
+      ;(turn-on-auto-fill)
       (setq sentence-end-double-space nil) ; single space after periods
       (setq line-number-mode nil)
       ;; note: turn flyspell mode on for syntax highlighting
@@ -11,7 +13,6 @@
       (local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
       (local-set-key (kbd "M-<f9>") 'flyspell-correct-previous-word)
       (local-set-key (kbd "C-M-<f9>") 'flyspell-mode)
-      (local-set-key (kbd "C-y") 'my-copy-simple)
       ))
 #+end_src
 Ispell support packages: Hunspell and Hunspell-english sold separately.
@@ -41,7 +42,6 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
      ("r" "Research" tags-todo "RSCH")
      ("z" "Misc" tags-todo "MISC")
      ("m" "Main" tags-todo "MAIN")
-     ("M" "Mintbase" tags-todo "MINT")
      ))
 (setq org-agenda-start-on-weekday nil) ; start today
 (setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
