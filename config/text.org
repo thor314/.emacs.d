@@ -159,6 +159,7 @@ Create a file: Org roam find file
     (lambda ()
       (setq company-mode nil) ;; gets annoying with text completes
       (local-set-key (kbd "C-c n r") 'org-roam)
+      (local-set-key (kbd "C-c n n") 'org-roam-ref-add)
       (local-set-key (kbd "C-c n i") 'org-roam-insert)
       (local-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
       (local-set-key (kbd "C-c n f") 'org-roam-find-file)
@@ -179,36 +180,28 @@ Create a file: Org roam find file
 #+begin_src emacs-lisp
   (setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
   (setq org-roam-capture-templates '(
+       ("c" "concept" plain "%?"
+         :if-new (file+head "concept/%<%Y-%m-%d>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :concept:\n* ")
+         :unnarrowed t)
+       ;; want article and paper to ask for a link
        ("a" "article" plain "%?"
-         :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
-                   "#+title: ${title}\n")
-                   :unnarrowed t)
-       ("p" "paper" plain "%?"
-         :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
-                   "#+title: ${title}\n")
-                   :unnarrowed t)
+           :if-new (file+head "lit/article/%<%Y-%m-%d>-{slug}.org"
+                              ":PROPERTIES:
+:ROAM_REFS: %^{reference}
+:END:
+#+filetags: :article:\n#+title: ${title}\n* ")
+           :unnarrowed t)
+       ("p" "article" plain "%?"
+           :if-new (file+head "lit/paper/%<%Y-%m-%d>-{slug}.org"
+                              ":PROPERTIES:
+:ROAM_REFS: %^{reference}
+:END:
+#+filetags: :paper:\n#+title: ${title}\n* ")
+           :unnarrowed t)
        ))
-
 #+end_src
-  (setq org-roam-capture-templates
-    '(
-       ("a" "article" plain "%?"
-         :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
-                   "#+title: ${title}\n %^{ROAM_KEY}p"
-                   :unnarrowed t)
-       )
-    ))
-       ;; ("p" "paper" plain (function org-roam--capture-get-point)
-       ;;   "%?"
-       ;;   :file-name "lit/paper/%<%Y-%m-%d>-${slug}"
-       ;;   :head "#+title: ${slug}\n#+roam_tags: \"paper\"\n#+roam_key: ${link}"
-       ;;   :unnarrowed t)
-       ;; ("c" "concept" plain (function org-roam--capture-get-point)
-       ;;   "%?"
-       ;;   :file-name "concept/${slug}"
-       ;;   :head "#+title: ${slug}\n#+roam_tags: \"concept\""
-       ;;   :unnarrowed t)
-       ;;
+
 * Settings
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
