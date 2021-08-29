@@ -179,11 +179,31 @@ Create a file: Org roam find file
 ** roam-capture templates [[https://www.orgroam.com/manual.html#Template-Walkthrough][docs]]
 #+begin_src emacs-lisp
   (setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
-  (setq org-roam-capture-templates '(
+  (setq org-roam-capture-templates
+    '(
        ("c" "concept" plain "%?"
          :if-new (file+head "concept/%<%Y-%m-%d>-${slug}.org"
                    "#+title: ${title}\n#+filetags: :concept:\n* ")
          :unnarrowed t)
+
+       ;; structure for reviews
+       ("w" "week review" plain "%?"
+         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review-${slug}.org"
+                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:\n* ")
+         :unnarrowed t)
+       ("m" "month review" plain "%?"
+         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review-${slug}.org"
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* ")
+         :unnarrowed t)
+       ("q" "quarter review" plain "%?"
+         :if-new (file+head "review/quarter/%<%Y-%m-%d>-week_review-${slug}.org"
+                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:\n* ")
+         :unnarrowed t)
+       ("y" "year review" plain "%?"
+         :if-new (file+head "review/year/%<%Y-%m-%d>-month_review-${slug}.org"
+                   "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:\n* ")
+         :unnarrowed t)
+
        ;; want article and paper to ask for a link
        ("a" "article" plain "%?"
            :if-new (file+head "lit/article/%<%Y-%m-%d>-{slug}.org"
