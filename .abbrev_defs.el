@@ -6,6 +6,7 @@
     ("amoutn" "amount" nil :count 4)
     ("aroudn" "around" nil :count 3)
     ("clustur" "cluster" nil :count 1)
+    ("colud" "could" nil :count 1)
     ("copmlete" "complete" nil :count 0)
     ("laguage" "language" nil :count 1)
     ("networknig" "networking" nil :count 1)
@@ -18,6 +19,11 @@
     ("wokrer" "worker" nil :count 1)
     ("worknig" "working" nil :count 4)
     ("xk" "Kamphefner" nil :count 0)
+   ))
+
+(define-abbrev-table 'org-journal-mode-abbrev-table
+  '(
+    ("jsut" "just" nil :count 0)
    ))
 
 (define-abbrev-table 'org-mode-abbrev-table

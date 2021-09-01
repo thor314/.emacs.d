@@ -15,7 +15,7 @@
   '(custom-safe-themes
      '("7f1d414afda803f3244c6fb4c2c64bea44dac040ed3731ec9d75275b9e831fe5" "42ec9eaa86da5f052feed0e35b578681015b9e21ab7b5377a5a34ea9a0a9e1b9" "830877f4aab227556548dc0a28bf395d0abe0e3a0ab95455731c9ea5ab5fe4e1" "00445e6f15d31e9afaa23ed0d765850e9cd5e929be5e8e63b114a3346236c44c" "285d1bf306091644fb49993341e0ad8bafe57130d9981b680c1dbd974475c5c7" default))
   '(org-agenda-files
-     '("/home/thor/org/agenda/dev.org" "/home/thor/org/agenda/emacs.org" "/home/thor/org/agenda/habits.org" "/home/thor/org/agenda/mintbase.org" "/home/thor/org/agenda/pers.org" "/home/thor/org/agenda/rsch.org" "/home/thor/org/agenda/write.org" "/home/thor/org/journal/20210829"))
+     '("/home/thor/org/agenda/dev.org" "/home/thor/org/agenda/emacs.org" "/home/thor/org/agenda/habits.org" "/home/thor/org/agenda/mintbase.org" "/home/thor/org/agenda/pers.org" "/home/thor/org/agenda/rsch.org" "/home/thor/org/agenda/write.org" "/home/thor/org/journal/20210901"))
  '(org-agenda-hide-tags-regexp ".*")
  '(org-agenda-include-deadlines t)
  '(org-agenda-include-diary t)

@@ -130,6 +130,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
       (local-set-key (kbd "<f1> d") 'insert-date)
+      (global-set-key (kbd "<f1> d") 'insert-date) ; experiment on blocking emacs overwrite 2021-08-30
       (local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
       (local-set-key (kbd "C-,") 'ivy-switch-buffer)
       (local-set-key (kbd "C-.") 'other-window)
@@ -153,8 +154,8 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 ** Setup
 Create a file: Org roam find file
 #+begin_src emacs-lisp
-  (use-package org-roam)
   (setq org-roam-v2-ack t)
+  (use-package org-roam)
   (add-hook 'org-mode-hook
     (lambda ()
       (setq company-mode nil) ;; gets annoying with text completes
@@ -169,7 +170,7 @@ Create a file: Org roam find file
       ))
 
   ;; enables org-roam on startup
-  (add-hook 'after-init-hook 'org-roam-mode)
+  ;(add-hook 'after-init-hook 'org-roam-mode) ; 2021-08-30 no such org roam mode
   (setq org-roam-directory "~/org/roam")
   (setq org-roam-completion-system 'ivy)
   ;; optional index file keeps links to main files
@@ -189,19 +190,75 @@ Create a file: Org roam find file
        ;; structure for reviews
        ("w" "week review" plain "%?"
          :if-new (file+head "review/week/%<%Y-%m-%d>-week_review-${slug}.org"
-                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:\n* ")
+                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
+* ${slug} In Review
+** Biggest Changes
+** Free Write
+** Concepts
+** Projects in Review
+** Projects for this Month
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+  ")
          :unnarrowed t)
        ("m" "month review" plain "%?"
-         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review-${slug}.org"
-                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* ")
+         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
+* ${slug} In Review
+** Biggest Changes
+** Free Write
+** Concepts
+** Projects in Review
+** Projects for this Month
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+")
          :unnarrowed t)
        ("q" "quarter review" plain "%?"
          :if-new (file+head "review/quarter/%<%Y-%m-%d>-week_review-${slug}.org"
-                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:\n* ")
+                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
+* ${slug} In Review
+** Biggest Changes
+** Free Write
+** Concepts
+** Projects in Review
+** Projects for this Month
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+")
          :unnarrowed t)
        ("y" "year review" plain "%?"
          :if-new (file+head "review/year/%<%Y-%m-%d>-month_review-${slug}.org"
-                   "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:\n* ")
+                   "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
+* ${slug} In Review
+** Biggest Changes
+** Free Write
+** Concepts
+** Projects in Review
+** Projects for this Month
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+")
          :unnarrowed t)
 
        ;; want article and paper to ask for a link
