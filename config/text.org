@@ -179,7 +179,7 @@ Create a file: Org roam find file
 
 ** roam-capture templates [[https://www.orgroam.com/manual.html#Template-Walkthrough][docs]]
 #+begin_src emacs-lisp
-  (setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
+  ;;(setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
   (setq org-roam-capture-templates
     '(
        ("c" "concept" plain "%?"
@@ -263,14 +263,14 @@ Create a file: Org roam find file
 
        ;; want article and paper to ask for a link
        ("a" "article" plain "%?"
-           :if-new (file+head "lit/article/%<%Y-%m-%d>-{slug}.org"
+           :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
                               ":PROPERTIES:
 :ROAM_REFS: %^{reference}
 :END:
 #+filetags: :article:\n#+title: ${title}\n* ")
            :unnarrowed t)
-       ("p" "article" plain "%?"
-           :if-new (file+head "lit/paper/%<%Y-%m-%d>-{slug}.org"
+       ("p" "paper" plain "%?"
+           :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
                               ":PROPERTIES:
 :ROAM_REFS: %^{reference}
 :END:

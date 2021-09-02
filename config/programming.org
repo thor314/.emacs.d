@@ -20,6 +20,11 @@
 * Company-mode text-completion
 #+begin_src emacs-lisp
   (use-package company)
+  (eval-after-load "company"
+  (progn
+    '(add-to-list 'company-backends 'company-shell)
+    '(add-to-list 'company-backends 'company-anaconda)
+  ))
   (use-package company-prescient)
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook
