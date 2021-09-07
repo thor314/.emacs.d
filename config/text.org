@@ -1,12 +1,5 @@
 * Text-mode hook
 #+begin_src emacs-lisp
-  (defun tk-fmt-and-space ()
-    "insert space and call fill-paragraph, so I don't have to
-  call M-q all the time. Note this prevents doublespaces."
-    (interactive)
-    (fill-paragraph)
-    (insert-char #x20))
-
   (add-hook 'text-mode-hook
             (lambda ()
               ;; nts. auto-fill looks nice, but makes a lot of formatting things
@@ -33,7 +26,7 @@ I basically only use markdown for README's.
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
-(setq org-tag-alist '(("dev" . ?d) ("pers" . ?p) ("write" . ?w) ("rsch" . ?r) ("main" . ?m) ("mint" . ?M) ("misc" . ?z)))
+(setq org-tag-alist '(("dev" . ?d) ("pers" . ?p) ("write" . ?w) ("rsch" . ?r) ("main" . ?m) ("misc" . ?z)))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
@@ -82,8 +75,6 @@ save-window-config.
        "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
      ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
        "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
-     ("M" "Mintbase" entry (file+headline "~/org/agenda/mintbase.org" "Mintbase")
-       "* TODO \t %? :MINT:\nAdded: %u" :empty-lines 1 )
      ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
      ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
      ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
@@ -190,14 +181,14 @@ Create a file: Org roam find file
 
        ;; structure for reviews
        ("w" "week review" plain "%?"
-         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review-${slug}.org"
+         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
                    "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
-* ${slug} In Review
+* Week In Review
 ** Biggest Changes
 ** Free Write
 ** Concepts
 ** Projects in Review
-** Projects for this Month
+** Projects for this Week
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -210,7 +201,7 @@ Create a file: Org roam find file
        ("m" "month review" plain "%?"
          :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
                    "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
-* ${slug} In Review
+* Month In Review
 ** Biggest Changes
 ** Free Write
 ** Concepts
@@ -226,14 +217,14 @@ Create a file: Org roam find file
 ")
          :unnarrowed t)
        ("q" "quarter review" plain "%?"
-         :if-new (file+head "review/quarter/%<%Y-%m-%d>-week_review-${slug}.org"
+         :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
                    "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
-* ${slug} In Review
+* Quarter In Review
 ** Biggest Changes
 ** Free Write
 ** Concepts
 ** Projects in Review
-** Projects for this Month
+** Projects for this Quarter
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -244,14 +235,14 @@ Create a file: Org roam find file
 ")
          :unnarrowed t)
        ("y" "year review" plain "%?"
-         :if-new (file+head "review/year/%<%Y-%m-%d>-month_review-${slug}.org"
+         :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
                    "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
-* ${slug} In Review
+* Year In Review
 ** Biggest Changes
 ** Free Write
 ** Concepts
 ** Projects in Review
-** Projects for this Month
+** Projects for this Year
 ** PPRESH check-in
 *** Professional -
 *** Projects -
