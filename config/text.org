@@ -184,11 +184,14 @@ Create a file: Org roam find file
          :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
                    "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
 * Week In Review
-** Biggest Changes
+** Big vibes
 ** Free Write
 ** Concepts
 ** Projects in Review
 ** Projects for this Week
+** Theme for Week:
+** Review of Predictions from last Week
+** Predictions for this Week
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -202,11 +205,14 @@ Create a file: Org roam find file
          :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
                    "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
 * Month In Review
-** Biggest Changes
+** Big vibes
 ** Free Write
 ** Concepts
 ** Projects in Review
 ** Projects for this Month
+** Theme for Month:
+** Review of Predictions from last Month
+** Predictions for this Month
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -220,11 +226,14 @@ Create a file: Org roam find file
          :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
                    "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
 * Quarter In Review
-** Biggest Changes
+** Big vibes
 ** Free Write
 ** Concepts
 ** Projects in Review
 ** Projects for this Quarter
+** Theme for Quarter:
+** Review of Predictions for last Quarter
+** Predictions for this Quarter
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -238,11 +247,14 @@ Create a file: Org roam find file
          :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
                    "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
 * Year In Review
-** Biggest Changes
+** Big vibes
 ** Free Write
 ** Concepts
 ** Projects in Review
 ** Projects for this Year
+** Theme for Year:
+** Review of Predictions for last Year
+** Predictions for this Year
 ** PPRESH check-in
 *** Professional -
 *** Projects -
