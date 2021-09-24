@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: euler_function
+# key: e()
+# --
+@time.timing
+def e$1():
+    $2

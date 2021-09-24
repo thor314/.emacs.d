@@ -185,13 +185,12 @@ Create a file: Org roam find file
                    "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
 * Week In Review
 ** Big vibes
-** Free Write
 ** Concepts
+** Free Write
 ** Projects in Review
 ** Projects for this Week
 ** Theme for Week:
 ** Review of Predictions from last Week
-** Predictions for this Week
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -199,6 +198,7 @@ Create a file: Org roam find file
 *** Emotional -
 *** Social -
 *** Health -
+** Predictions for this Week
   ")
          :unnarrowed t)
        ("m" "month review" plain "%?"
@@ -206,13 +206,12 @@ Create a file: Org roam find file
                    "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
 * Month In Review
 ** Big vibes
-** Free Write
 ** Concepts
+** Free Write
 ** Projects in Review
 ** Projects for this Month
 ** Theme for Month:
 ** Review of Predictions from last Month
-** Predictions for this Month
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -220,6 +219,7 @@ Create a file: Org roam find file
 *** Emotional -
 *** Social -
 *** Health -
+** Predictions for this Month
 ")
          :unnarrowed t)
        ("q" "quarter review" plain "%?"
@@ -227,13 +227,12 @@ Create a file: Org roam find file
                    "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
 * Quarter In Review
 ** Big vibes
-** Free Write
 ** Concepts
+** Free Write
 ** Projects in Review
 ** Projects for this Quarter
 ** Theme for Quarter:
 ** Review of Predictions for last Quarter
-** Predictions for this Quarter
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -241,6 +240,7 @@ Create a file: Org roam find file
 *** Emotional -
 *** Social -
 *** Health -
+** Predictions for this Quarter
 ")
          :unnarrowed t)
        ("y" "year review" plain "%?"
@@ -248,13 +248,12 @@ Create a file: Org roam find file
                    "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
 * Year In Review
 ** Big vibes
-** Free Write
 ** Concepts
+** Free Write
 ** Projects in Review
 ** Projects for this Year
 ** Theme for Year:
 ** Review of Predictions for last Year
-** Predictions for this Year
 ** PPRESH check-in
 *** Professional -
 *** Projects -
@@ -262,6 +261,7 @@ Create a file: Org roam find file
 *** Emotional -
 *** Social -
 *** Health -
+** Predictions for this Year
 ")
          :unnarrowed t)
 

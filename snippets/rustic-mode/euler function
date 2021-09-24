@@ -1,0 +1,7 @@
+# key: e()
+# name: euler function
+# --
+#[timings]
+fn e$1(){
+  $2
+}
