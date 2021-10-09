@@ -56,56 +56,6 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+end_src
 [[https://github.com/bastibe/org-journal][org-journal]].
 
-* Capture
-Annoyance: Org-capture does not save window configuration. I should pull the org-capture repo to emulate org-agenda
-save-window-config.
-#+begin_src emacs-lisp
-  (setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
-  (setq org-capture-templates
-    '(
-     ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
-       "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
-     ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
-       "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
-     ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
-       "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
-     ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
-       "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
-     ("r" "Research" entry (file+headline "~/org/agenda/rsch.org" "Rsch")
-       "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
-     ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
-       "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
-     ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
-     ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
-     ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
-     ;;   "* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
-     ("i" "Idea" entry (file "~/org/cap/ideas.org")
-       "* \t %? :IDEA:\nAdded: %u" )
-     ("n" "QNote" entry (file "~/org/cap/qnote.org")
-       "* \t %? :QNOTE: \nAdded: %u" )
-     ))
-#+end_src
-
-** Notes on org capture template.
-See [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-elements.html#Template-elements][this]] for option elements, and [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-expansion.html#Template-expansion][this]] for template escape sequences.
-Usage: (key description type target template properties)
-types: entry (org node), item (plain list item at location), checkitem (checkbox
-item), table-line, plain
-templates: [[https://orgmode.org/manual/Template-expansion.html#Template-expansion][many]]
-targets: file "file", id "existing id", file+headline "file" "node", datetree, clock
-properties: prepend, empty-lines, clock-in/keep/resume,
-time-prompt, tree-type, table-line-pos
-%? = point;
-%i = initial content
-%a = location stored from ; %l = literal
-%x,c = put pastebin, killring head
-%k title of currently clocked task; K = link to
-: %^g prompt for tags; G completion all tags all agenda files
-: %^t prompt date, T,u,U
-: %^{PROPMT|default|completion2|...} pick from a sequence of prompts
-%t = datestamp; T= time+datestamp; u,U = inactive timestamps - don't cause item
- to show up in agenda
-
 * Images via =org-download=
 Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp

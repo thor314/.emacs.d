@@ -1,109 +1,91 @@
+* Capture
+Annoyance: Org-capture does not save window configuration. I should pull the org-capture repo to emulate org-agenda
+save-window-config.
+#+begin_src emacs-lisp
+  (setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
+  (setq org-capture-templates
+    '(
+     ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
+       "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
+     ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
+       "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
+     ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
+       "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
+     ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
+       "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
+     ("r" "Research" entry (file+headline "~/org/agenda/rsch.org" "Rsch")
+       "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
+     ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
+       "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
+     ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
+     ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+     ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
+     ;;   "* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
+     ("i" "Idea" entry (file "~/org/cap/ideas.org")
+       "* \t %? :IDEA:\nAdded: %u" )
+     ("n" "QNote" entry (file "~/org/cap/qnote.org")
+       "* \t %? :QNOTE: \nAdded: %u" )
+     ))
+#+end_src
+
+** Notes on org capture template.
+See [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-elements.html#Template-elements][this]] for option elements, and [[https://www.gnu.org/software/emacs/manual/html_node/org/Template-expansion.html#Template-expansion][this]] for template escape sequences.
+Usage: (key description type target template properties)
+types: entry (org node), item (plain list item at location), checkitem (checkbox
+item), table-line, plain
+templates: [[https://orgmode.org/manual/Template-expansion.html#Template-expansion][many]]
+targets: file "file", id "existing id", file+headline "file" "node", datetree, clock
+properties: prepend, empty-lines, clock-in/keep/resume,
+time-prompt, tree-type, table-line-pos
+%? = point;
+%i = initial content
+%a = location stored from ; %l = literal
+%x,c = put pastebin, killring head
+%k title of currently clocked task; K = link to
+: %^g prompt for tags; G completion all tags all agenda files
+: %^t prompt date, T,u,U
+: %^{PROPMT|default|completion2|...} pick from a sequence of prompts
+%t = datestamp; T= time+datestamp; u,U = inactive timestamps - don't cause item
+ to show up in agenda
+
+
 * roam-capture templates [[https://www.orgroam.com/manual.html#Template-Walkthrough][docs]]
 #+begin_src emacs-lisp
   ;;(setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
   (setq org-roam-capture-templates
     '(
-       ("c" "concept" plain "%?"
+       ("c" "concept" plain "%?" ;; random thoughts, not used much
          :if-new (file+head "concept/%<%Y-%m-%d>-${slug}.org"
-                   "#+title: ${title}\n#+filetags: :concept:\n* ")
-         :unnarrowed t)
-       ("w" "week review" plain "%?"
-         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
-                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
-* Week In Review
-** Big vibes
-** Concepts
-** Free Write
-** Projects in Review
-** Projects for this Week
-** Theme for Week:
-** Review of Predictions from last Week
-** PPRESH check-in
-*** Professional -
-*** Projects -
-*** Romantic -
-*** Emotional -
-*** Social -
-*** Health -
-** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
-  ")
-         :unnarrowed t)
-       ("m" "month review" plain "%?"
-         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
-                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
-* Month In Review
-** Big vibes
-** Concepts
-** Free Write
-** Projects in Review
-** Projects for this Month
-** Theme for Month:
-** Review of Predictions from last Month
-** PPRESH check-in
-*** Professional -
-*** Projects -
-*** Romantic -
-*** Emotional -
-*** Social -
-*** Health -
-** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
-")
-         :unnarrowed t)
-       ("q" "quarter review" plain "%?"
-         :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
-                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
-* Quarter In Review
-** Big vibes
-** Free Write
-** Projects in Review
-** Projects for this Quarter
-** Theme for Quarter:
-** Review of Predictions for last Quarter
-** PPRESH check-in
-*** Professional -
-*** Projects -
-*** Romantic -
-*** Emotional -
-*** Social -
-*** Health -
-** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
-")
-         :unnarrowed t)
-       ("y" "year review" plain "%?"
-         :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
-                   "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
-* Year In Review
-** Big vibes
-** Free Write
-** Projects in Review
-** Projects for this Year
-** Theme for Year:
-** Review of Predictions for last Year
-** PPRESH check-in
-*** Professional -
-*** Projects -
-*** Romantic -
-*** Emotional -
-*** Social -
-*** Health -
-** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
-
-")
-         :unnarrowed t)
-       ;; want article and paper to ask for a link
-       ("a" "article" plain "%?"
-           :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
-                              ":PROPERTIES:
+                   "#+title: ${title}\n#+filetags: :concept:\n* ")   :unnarrowed t)
+       ("a" "article" plain "%?" ;; articles from the internet
+         :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
+                   ":PROPERTIES:
 :ROAM_REFS: %^{reference}
 :END:
 #+filetags: :article:\n#+title: ${title}\n* ")
-           :unnarrowed t)
-       ("p" "paper" plain "%?"
-           :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
-                              ":PROPERTIES:
+         :unnarrowed t)
+       ("p" "paper" plain "%?" ;; papers
+         :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
+                   ":PROPERTIES:
 :ROAM_REFS: %^{reference}
 :END:
 #+filetags: :paper:\n#+title: ${title}\n* ")
-           :unnarrowed t)
-       ))
+         :unnarrowed t)
+       ("w" "week review" plain "%?"
+         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
+                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:\n* Week In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Week\n** Theme for Week:\n** Review of Predictions from last Week\n** PPRESH check-in\n*** Professional -\n*** Projects -\n*** Romantic -\n*** Emotional -\n*** Social -\n*** Health -\n** Predictions https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0")
+         :unnarrowed t)
+       ("m" "month review" plain "%?"
+         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* Month In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Month\n** Theme for Month:\n** Review of Predictions from last Month\n** PPRESH check-in\n*** Professional -\n*** Projects -\n*** Romantic -\n*** Emotional -\n*** Social -\n*** Health -\n** Predictions https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0")
+         :unnarrowed t)
+       ("q" "quarter review" plain "%?"
+         :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
+                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:\n* Quarter In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Quarter\n** Theme for Quarter:\n** Review of Predictions from last Quarter\n** PPRESH check-in\n*** Professional -\n*** Projects -\n*** Romantic -\n*** Emotional -\n*** Social -\n*** Health -\n** Predictions https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0")
+         :unnarrowed t)
+       ("y" "year review" plain "%?"
+         :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
+                   "#+title: Year Review %<%Y-%m-%d> \n#+filetags: :year_review:\n* Year In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Year\n** Theme for Year:\n** Review of Predictions from last Year\n** PPRESH check-in\n*** Professional -\n*** Projects -\n*** Romantic -\n*** Emotional -\n*** Social -\n*** Health -\n** Predictions https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0")
+         :unnarrowed t)
+))
 #+end_src
