@@ -5,7 +5,7 @@
     ("acconut" "account" nil :count 1)
     ("account_id" "account_id" nil :count 1)
     ("amoutn" "amount" nil :count 5)
-    ("aroudn" "around" nil :count 3)
+    ("aroudn" "around" nil :count 6)
     ("clustur" "cluster" nil :count 1)
     ("colud" "could" nil :count 1)
     ("copmlete" "complete" nil :count 0)
@@ -14,9 +14,9 @@
     ("hera" "hear" nil :count 0)
     ("laguage" "language" nil :count 1)
     ("liike" "like" nil :count 0)
-    ("nad" "and" nil :count 0)
+    ("nad" "and" nil :count 2)
     ("networknig" "networking" nil :count 1)
-    ("taht" "that" nil :count 1)
+    ("taht" "that" nil :count 3)
     ("taknig" "taking" nil :count 0)
     ("talknig" "talking" nil :count 0)
     ("teh" "the" nil :count 15)
@@ -33,7 +33,8 @@
 
 (define-abbrev-table 'org-journal-mode-abbrev-table
   '(
-    ("cb" "- [ ]" nil :count 3)
+    ("cb" "- [ ]" nil :count 4)
+    ("gonig" "going" nil :count 0)
    ))
 
 (define-abbrev-table 'org-mode-abbrev-table
@@ -41,6 +42,7 @@
     ("spcae" "space" nil :count 0)
     ("talknig" "talknig" nil :count 4)
     ("tgo" "TechnoloGod" nil :count 15)
+    ("wolud" "would" nil :count 1)
    ))
 
 (define-abbrev-table 'rust-mode-abbrev-table

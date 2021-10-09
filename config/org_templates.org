@@ -1,0 +1,109 @@
+* roam-capture templates [[https://www.orgroam.com/manual.html#Template-Walkthrough][docs]]
+#+begin_src emacs-lisp
+  ;;(setq org-roam-capture--file-name-default "<%Y-%m%-%d>-${slug}")
+  (setq org-roam-capture-templates
+    '(
+       ("c" "concept" plain "%?"
+         :if-new (file+head "concept/%<%Y-%m-%d>-${slug}.org"
+                   "#+title: ${title}\n#+filetags: :concept:\n* ")
+         :unnarrowed t)
+       ("w" "week review" plain "%?"
+         :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
+                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:
+* Week In Review
+** Big vibes
+** Concepts
+** Free Write
+** Projects in Review
+** Projects for this Week
+** Theme for Week:
+** Review of Predictions from last Week
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
+  ")
+         :unnarrowed t)
+       ("m" "month review" plain "%?"
+         :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:
+* Month In Review
+** Big vibes
+** Concepts
+** Free Write
+** Projects in Review
+** Projects for this Month
+** Theme for Month:
+** Review of Predictions from last Month
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
+")
+         :unnarrowed t)
+       ("q" "quarter review" plain "%?"
+         :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
+                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:
+* Quarter In Review
+** Big vibes
+** Free Write
+** Projects in Review
+** Projects for this Quarter
+** Theme for Quarter:
+** Review of Predictions for last Quarter
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
+")
+         :unnarrowed t)
+       ("y" "year review" plain "%?"
+         :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
+                   "#+title: Year Review  %<%Y-%m-%d> \n#+filetags: :year_review:
+* Year In Review
+** Big vibes
+** Free Write
+** Projects in Review
+** Projects for this Year
+** Theme for Year:
+** Review of Predictions for last Year
+** PPRESH check-in
+*** Professional -
+*** Projects -
+*** Romantic -
+*** Emotional -
+*** Social -
+*** Health -
+** Predictions  https://docs.google.com/spreadsheets/d/1rCEwuUi1EkdswTg_rHkXfuCdoaIAFUpyVsoeyVHJWVY/edit#gid=0
+
+")
+         :unnarrowed t)
+       ;; want article and paper to ask for a link
+       ("a" "article" plain "%?"
+           :if-new (file+head "lit/article/%<%Y-%m-%d>-${slug}.org"
+                              ":PROPERTIES:
+:ROAM_REFS: %^{reference}
+:END:
+#+filetags: :article:\n#+title: ${title}\n* ")
+           :unnarrowed t)
+       ("p" "paper" plain "%?"
+           :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
+                              ":PROPERTIES:
+:ROAM_REFS: %^{reference}
+:END:
+#+filetags: :paper:\n#+title: ${title}\n* ")
+           :unnarrowed t)
+       ))
+#+end_src

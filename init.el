@@ -38,17 +38,15 @@
 (org-babel-load-file "~/.emacs.d/config/ivy.org")
 (org-babel-load-file "~/.emacs.d/config/misc_packages.org")
 (org-babel-load-file "~/.emacs.d/config/programming.org")
-;; 2021-09-28 exp
-;;(org-babel-load-file "~/.emacs.d/config/text.org") ;; experiment: Does this get evaluated?
+(org-babel-load-file "~/.emacs.d/config/text.org")
 ;(org-babel-load-file "~/.emacs.d/config/experimental.org")
 (org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
 ;(org-babel-load-file "~/.emacs.d/config/secret.org")
-
+(org-babel-load-file "~/.emacs.d/config/org_templates.org")
 ;; languages
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")
 (org-babel-load-file "~/.emacs.d/config/lang/elisp.org")
-(org-babel-load-file "~/.emacs.d/config/text.org") ;; experiment: Does this get evaluated?
 
 
 ;; org-babel doesn't clean up after herself, messy girl
