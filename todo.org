@@ -1,4 +1,6 @@
 * TODOS
 ** C-j in org mode on checkbox should create new checkbox
-** org-roam templates not getting loaded
+** DONE org-roam templates not getting loaded
+CLOSED: [2021-10-10 Sun 12:49]
 ** Org screenshot has dumb default behavior wrt pics
+** change org-roam order of operations: make file, then ask for slug
