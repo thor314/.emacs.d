@@ -27,19 +27,22 @@
      (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
      (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
      (add-hook 'org-mode-hook #'smartparens-mode)
-
- ;; note smartparens-strict-mode. This enforces that pairs are always balanced.
- ;; sp-cheat-sheet
-
+ (add-hook 'org-mode-hook
+   (lambda ()
+     ;(setq electric-pair-pairs (concat (electric-pair-pairs) "*")) ;; how do? 2021-10-13
+     (turn-on-smartparens-strict-mode)
+     ))
+;; note smartparens-strict-mode. This enforces that pairs are always balanced.
+;; sp-cheat-sheet
 #+end_src
-
+)
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
   (use-package magit)
-  (use-package forge
-    :after magit)
+(use-package forge
+  :after magit)
 
-  (setq auth-sources '("~/.authinfo.gpg"))
+;; (setq auth-sources ("~/.authinfo.gpg")) ; commented 2021-10-14
 #+end_src
 [[https://magit.vc/][magit]]. [[https://magit.vc/manual/forge/][forge]]. [[https://magit.vc/manual/forge/][forge manual]]. Setup requires ~/authinfo.gpg.
 
@@ -52,6 +55,7 @@
   (use-package flycheck)
   (global-flycheck-mode 1)
 #+end_src
+
 
 * Company-mode text-completion
 #+begin_src emacs-lisp
@@ -109,7 +113,7 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
 (setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
 (setq lsp-eldoc-enable-hover nil) ;;  modeline feedback and laggg
 (setq lsp-signature-auto-activate nil) ;; you could manually requiest them via `lsp-signature-activate`
-(setq lsp-signature-render-documentation nil) ;; render docs
+                                        ;;(setq lsp-signature-render-documentation nil) ;; render docs
 (setq lsp-completion-provider :capf) ; completion backend
 (setq lsp-idle-delay 0.5) ; refresh highlights
 (setq lsp-enable-snippet nil) ; hide yasnippets from company completes
@@ -119,7 +123,7 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
 
 ** Eglot - experimental alternative to lsp.
 :#+begin_src emacs-lisp
-(use-package eglot)
+(use-package eglot
 ;(add-to-list 'eglot-server-programs '(rustic-mode . ("foo-language-server" "--args")))
 (add-hook 'rustic-mode-hook 'eglot-ensure)
 :#+end_src

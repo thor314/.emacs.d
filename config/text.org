@@ -1,3 +1,12 @@
+* Electric Pair mode (auto-match pairs)
+https://stackoverflow.com/questions/27871876/custom-pairs-in-emacs-electric-pair-mode
+#+begin_src emacs-lisp
+  (defvar org-mode-electric-pairs '((?* . ?*) (?_ . ?_) (?~ . ?~) (?= . ?=)  "Electric pairs for org-mode."))
+  (defun org-mode-add-electric-pairs ()
+    (setq-local electric-pair-pairs (append electric-pair-pairs org-mode-electric-pairs))
+    (setq-local electric-pair-text-pairs electric-pair-pairs))
+#+end_src
+
 * Text-mode hook
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook
@@ -68,6 +77,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
+      (org-mode-add-electric-pairs)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
