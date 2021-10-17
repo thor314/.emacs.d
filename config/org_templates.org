@@ -5,26 +5,28 @@ save-window-config.
   (setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
   (setq org-capture-templates
     '(
-     ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
-       "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
-     ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
-       "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
-     ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
-       "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
-     ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
-       "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
-     ("r" "Research" entry (file+headline "~/org/agenda/rsch.org" "Rsch")
-       "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
-     ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
-       "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
-     ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
-     ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
-     ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
-     ;;   "* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
-     ("i" "Idea" entry (file "~/org/cap/ideas.org")
-       "* \t %? :IDEA:\nAdded: %u" )
-     ("n" "QNote" entry (file "~/org/cap/qnote.org")
-       "* \t %? :QNOTE: \nAdded: %u" )
+       ("P" "Project idea" entry (file+headline "~/org/agenda/project_ideas.org" "Projects")
+         "* \t %? :PROJECT:\nAdded: %u" :empty-lines 1 )
+       ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
+         "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
+       ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
+         "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
+       ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
+         "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
+       ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
+         "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
+       ("r" "Research" entry (file+headline "~/org/agenda/rsch.org" "Rsch")
+         "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
+       ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
+         "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
+       ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
+       ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
+       ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
+       ;;   "* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
+       ("i" "Idea" entry (file "~/org/cap/ideas.org")
+         "* \t %? :IDEA:\nAdded: %u" )
+       ("n" "QNote" entry (file "~/org/cap/qnote.org")
+         "* \t %? :QNOTE: \nAdded: %u" )
      ))
 #+end_src
 
@@ -63,6 +65,18 @@ time-prompt, tree-type, table-line-pos
 :ROAM_REFS: %^{reference}
 :END:
 #+filetags: :article:\n#+title: ${title}\n* ")
+         :unnarrowed t)
+       ("b" "book review" plain "%?"
+         :if-new (file+head "book/%<%Y-%m-%d>-${slug}.org"
+                   ":PROPERTIES:
+:END:
+#+filetags: :book:\n#+title: ${slug}\n")
+         :unnarrowed t)
+       ("P" "Project review" plain "%?"
+         :if-new (file+head "project/%<%Y-%m-%d>-${slug}.org"
+                   ":PROPERTIES:
+:END:
+  #+filetags: :project:\n#+title: ${slug}\n* ${slug}\n** Discussion\n** Links\n** Time taken: \n** Next project: ")
          :unnarrowed t)
        ("p" "paper" plain "%?" ;; papers
          :if-new (file+head "lit/paper/%<%Y-%m-%d>-${slug}.org"
