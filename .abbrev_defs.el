@@ -7,7 +7,7 @@
     ("amoutn" "amount" nil :count 5)
     ("aroudn" "around" nil :count 6)
     ("clustur" "cluster" nil :count 1)
-    ("colud" "could" nil :count 1)
+    ("colud" "could" nil :count 2)
     ("copmlete" "complete" nil :count 0)
     ("fro" "for" nil :count 0)
     ("fucknig" "fucking" nil :count 0)
@@ -42,7 +42,8 @@
     ("spcae" "space" nil :count 0)
     ("talknig" "talknig" nil :count 4)
     ("tgo" "TechnoloGod" nil :count 15)
-    ("wolud" "would" nil :count 1)
+    ("thinknig" "thinking" nil :count 0)
+    ("wolud" "would" nil :count 2)
    ))
 
 (define-abbrev-table 'rust-mode-abbrev-table
