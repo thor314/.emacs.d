@@ -15,7 +15,7 @@
   (global-set-key (kbd "<M-f11>") 'projectile-switch-to-buffer-other-frame)
   (global-set-key [f12] 'org-capture)
   (global-set-key (kbd "<C-f12>") 'org-roam-capture)
-  (global-set-key (kbd "<C-S-f12>") 'org-roam-find-file)
+  (global-set-key (kbd "<C-S-f12>") 'org-roam-node-find)
   (global-set-key (kbd "<M-f12>") 'org-journal-new-entry)
   ;; warning. Don't try to set C-M-f12. Turns screen off.
 #+end_src

@@ -1,9 +1,9 @@
 * Electric Pair mode (auto-match pairs)
 https://stackoverflow.com/questions/27871876/custom-pairs-in-emacs-electric-pair-mode
 #+begin_src emacs-lisp
-  (defvar org-mode-electric-pairs '((?* . ?*) (?_ . ?_) (?~ . ?~) (?= . ?=)  "Electric pairs for org-mode."))
+  (defvar tk-org-mode-electric-pairs '((?= . ?=)  "Custom electric pairs for org-mode."))
   (defun org-mode-add-electric-pairs ()
-    (setq-local electric-pair-pairs (append electric-pair-pairs org-mode-electric-pairs))
+    (setq-local electric-pair-pairs (append electric-pair-pairs tk-org-mode-electric-pairs))
     (setq-local electric-pair-text-pairs electric-pair-pairs))
 #+end_src
 
@@ -80,6 +80,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       (org-mode-add-electric-pairs)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
+      (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
       (local-set-key (kbd "<f1> d") 'insert-date)
       (global-set-key (kbd "<f1> d") 'insert-date) ; experiment on blocking emacs overwrite 2021-08-30

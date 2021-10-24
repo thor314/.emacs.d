@@ -25,13 +25,13 @@
               (local-set-key (kbd "M-k") 'sp-backward-kill-sexp)
               ))
      (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-     (add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-     (add-hook 'org-mode-hook #'smartparens-mode)
- (add-hook 'org-mode-hook
-   (lambda ()
-     ;(setq electric-pair-pairs (concat (electric-pair-pairs) "*")) ;; how do? 2021-10-13
-     (turn-on-smartparens-strict-mode)
-     ))
+     ;(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+     ;(add-hook 'org-mode-hook #'smartparens-mode)
+ ;; (add-hook 'org-mode-hook
+ ;;   (lambda ()
+ ;;     (setq electric-pair-pairs (concat (electric-pair-pairs) "*")) ;; how do? 2021-10-13
+ ;;     (turn-on-smartparens-strict-mode)
+ ;;     ))
 ;; note smartparens-strict-mode. This enforces that pairs are always balanced.
 ;; sp-cheat-sheet
 #+end_src

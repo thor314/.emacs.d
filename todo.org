@@ -4,3 +4,5 @@
 CLOSED: [2021-10-10 Sun 12:49]
 ** Org screenshot has dumb default behavior wrt pics
 ** change org-roam order of operations: make file, then ask for slug
+** I think smart-parens is interfering with my region-replace delete.
+** Investigate the concept of a human-task-stack to throw 2-30 minute tasks onto, external to the org-todo system.

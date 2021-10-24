@@ -108,6 +108,13 @@ there is a text selection, act on the region."
     (beginning-of-line)
     (insert "#+begin_src rust\n\t\n#+end_src")
     (previous-line))
+
+  (defun tk-org-insert-python-block ()
+    (interactive)
+    (beginning-of-line)
+    (insert "#+begin_src python\n\t\n#+end_src")
+    (previous-line))
+
 #+end_src
 ** Date
 #+begin_src emacs-lisp
