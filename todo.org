@@ -1,4 +1,5 @@
 * TODOS
+** TODO latex niceties in org-mode
 ** C-j in org mode on checkbox should create new checkbox
 ** DONE org-roam templates not getting loaded
 CLOSED: [2021-10-10 Sun 12:49]
