@@ -68,7 +68,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
-      (org-mode-add-electric-pairs)
+      ;(org-mode-add-electric-pairs)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
       (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
@@ -80,18 +80,6 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       (local-set-key (kbd "C-.") 'other-window)
       ))
 #+end_src
-
-* =org-mobile=  Sync's my org directories to my phone. - BUG: prevents quit until Dropbox installed
-:#+begin_src emacs-lisp
-  (use-package org-mobile-sync)
-  (setq org-mobile-inbox-for-pull "~/org/org_mobile_pull_inbox.org")
-  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-  (setq org-mobile-files '("~/org/agenda" "~/org/cap"  "~/org/note"))
-  ; automate push if emacs is idle for 30s and on emacs exit
-  (run-with-idle-timer 30 nil 'org-mobile-push)
-  (add-hook 'kill-emacs-hook 'org-mobile-push)
-: #+end_src
-[[https://mobileorg.github.io/features/][org-mobile]].
 
 * Org-roam- Cc n [lfgic]
 [[https://www.orgroam.com/manual/][docs]] and [[https://github.com/org-roam/org-roam][source]].
@@ -150,6 +138,18 @@ Create a file: Org roam find file
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 #+end_src
 [[https://polymode.github.io/usage/][polymode]].
+* =org-mobile=  Sync's my org directories to my phone. - BUG: prevents quit until Dropbox installed
+:#+begin_src emacs-lisp
+  (use-package org-mobile-sync)
+  (setq org-mobile-inbox-for-pull "~/org/org_mobile_pull_inbox.org")
+  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+  (setq org-mobile-files '("~/org/agenda" "~/org/cap"  "~/org/note"))
+  ; automate push if emacs is idle for 30s and on emacs exit
+  (run-with-idle-timer 30 nil 'org-mobile-push)
+  (add-hook 'kill-emacs-hook 'org-mobile-push)
+: #+end_src
+[[https://mobileorg.github.io/features/][org-mobile]].
+
 * Electric Pair mode (auto-match pairs)
 https://stackoverflow.com/questions/27871876/custom-pairs-in-emacs-electric-pair-mode
 Commented out 2021-11-05, too inconsistently useful.
