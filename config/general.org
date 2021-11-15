@@ -1,127 +1,133 @@
 * Global Settings
 ** Be less annoying and more nice
 #+begin_src emacs-lisp
-(defalias 'yes-or-no-p 'y-or-n-p) ; brevity is the soul of wit
-(setq inhibit-startup-message t)
-(setq gc-cons-threshold 2000000) ; default is 800KB, set to 20MB
-(setq read-process-output-max 3000000) ;; incr data read from process. default is 4kb.
-(setq require-final-newline t)
-(setq next-line-add-newlines t) ; add newline on C-n at EOF
-(setq vc-follow-symlinks 't)
-(setq-default indent-tabs-mode nil) ; prefer spaces not tabs
-(setq-default fill-column 75)
-(setq-default dired-listing-switches "-alh") ; add human-readable units
-(setq-default tab-width 2)
-(setq-default c-basic-offset 2) ; programming modes often use this
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; Put backups~ and #autosaves# in /tmp
-(setq backup-directory-alist
-  `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-  `((".*" ,temporary-file-directory t)))
+  (defalias 'yes-or-no-p 'y-or-n-p) ; brevity is the soul of wit
+  (setq inhibit-startup-message t)
+  (setq gc-cons-threshold 2000000) ; default is 800KB, set to 20MB
+  (setq read-process-output-max 3000000) ;; incr data read from process. default is 4kb.
+  (setq require-final-newline t) ; Whether to add a newline automatically at the end of the file.
+  (setq next-line-add-newlines t) ; add newline on C-n at EOF
+  (setq vc-follow-symlinks 't) ; What to do if visiting a symbolic link to a file under version control.
+  (setq-default indent-tabs-mode nil) ; prefer spaces not tabs
+  (setq-default fill-column 75)
+  (setq-default dired-listing-switches "-alh") ; add human-readable units
+  (setq-default tab-width 2)
+  (setq-default c-basic-offset 2) ; programming modes often use this
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; Put backups~ and #autosaves# in /tmp
+  (setq backup-directory-alist
+    `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+    `((".*" ,temporary-file-directory t)))
 #+end_src
 
 ** Turn theses modes off
 #+begin_src emacs-lisp
-(auto-composition-mode 0) ; text characters auto-composed by functions
-(blink-cursor-mode 0) ; annoyingly blink the cursor
-(file-name-shadow-mode 0) ; dims unused parts of files in minibuffer
-(line-number-mode 0) ; clutter mode line
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(scroll-bar-mode 0)
-(set-window-scroll-bars (minibuffer-window) nil nil) ; why scroll bar in minibuffer
+  (auto-composition-mode 0) ; turn off (small diff): text characters automatically composed by functions registered in composition-function-table
+  (blink-cursor-mode 0) ; annoying blinking cursor
+  (file-name-shadow-mode 0) ; dims unused parts of files in minibuffer
+  (line-number-mode 0) ; clutter mode line
+  (tool-bar-mode 0)
+  (menu-bar-mode 0)
+  (scroll-bar-mode 0)
+  (set-window-scroll-bars (minibuffer-window) nil nil) ; why scroll bar in minibuffer
 #+end_src
 
 ** Emacs played in minor key
-N2R: Some of these are on by default. I value explicitness.
+N2R: Some of these are on by default; explicitness seems good.
 #+begin_src emacs-lisp
-(auto-compression-mode 1) ; auto-handle (un)?zip on visit zipped file
-(auto-encryption-mode 1) ; automatic file (en|de)cryption
-(delete-selection-mode 1) ; delete region on entry
-(use-package diff-hl) ; highlight diffs from last commit in fringe
-(global-diff-hl-mode 1)
-(electric-indent-mode 1) ; auto-indent on enter
-(electric-pair-mode 1) ; match () {} ...
-(global-auto-revert-mode 1) ; revert buffers when file changes on disk
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
-(global-display-line-numbers-mode)
-(global-font-lock-mode 1) ; decorate text
-(global-hl-line-mode 1) ; highlight current line
-(global-visual-line-mode) ; wrap long lines
-(global-prettify-symbols-mode 1) ; lambda -> symbol
-(mouse-wheel-mode 1) ; allow scroll by mouse-wheel
-(transient-mark-mode 1) ; don't hide active selected region
-(use-package zoom) ; rebalance awkwardly balanced window divisions
-(zoom-mode 1)
+  (auto-compression-mode 1) ; auto-handle (un)?zip on visit zipped file
+  (auto-encryption-mode 1) ; automatic file (en|de)cryption
+  (delete-selection-mode 1) ; delete region on entry
+  (use-package diff-hl) ; highlight diffs from last commit in fringe; v convenient
+  (global-diff-hl-mode 1)
+  (electric-indent-mode 1) ; auto-indent on enter
+  (electric-pair-mode 1) ; match () {} ...
+  (global-auto-revert-mode 1) ; revert buffers when file changes on disk; convenient.
+  (setq global-auto-revert-non-file-buffers t)
+  (setq auto-revert-verbose nil)
+  (global-display-line-numbers-mode) ; not to be confused with line-number-mode
+  (global-font-lock-mode 1) ; decorate text
+  (global-hl-line-mode 1) ; highlight current line
+  (global-visual-line-mode) ; wrap long lines
+  (global-prettify-symbols-mode 1) ; lambda -> symbol
+  (mouse-wheel-mode 1) ; allow scroll by mouse-wheel
+  (transient-mark-mode) ; don't hide active selected region
+  (use-package zoom) ; rebalance awkwardly balanced window divisions
+  (zoom-mode 1)
 #+end_src
 [[https://github.com/dgutov/diff-hl][diff-hl]]. [[https://github.com/cyrus-and/zoom][zoom]].
 
 * Appearance
-** Theme
+** Theme [[https://github.com/bbatsov/solarized-emacs][sol-theme]].
 #+begin_src emacs-lisp
-(use-package solarized-theme)
-(load-theme 'solarized-gruvbox-dark t)
+  (use-package solarized-theme)
+  (load-theme 'solarized-gruvbox-dark t)
 #+end_src
-[[https://github.com/bbatsov/solarized-emacs][sol-theme]].
+** Slightly nicer mode line [[https://github.com/tarsius/moody][moody]].
+#+begin_src emacs-lisp
+  (use-package moody)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-eldoc-minibuffer-message-function)
+  (moody-replace-vc-mode) ; branch info
+  (setq moody-mode-line-height 25)
+#+end_src
+** Parrot mode [[https://github.com/dp12/parrot][parrot]].
+#+begin_src emacs-lisp
+  (use-package parrot)
+  (setq parrot-num-rotations 15)
+  (parrot-set-parrot-type "science")
+  (parrot-mode)
+  (global-set-key (kbd "M-'") 'parrot-start-animation)
+  ;; rotate the parrot when compilation finishes
+  (add-hook 'after-save-hook 'parrot-start-animation)
+  (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
+#+end_src
+* Eshell - convenient emacs lisp compatible shell
+#+begin_src emacs-lisp
+  (add-hook 'eshell-mode-hook
+    (lambda ()
+      (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
+      (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
+      ))
+#+end_src
+** Eshell tips
+*** [[https://masteringemacs.org/article/complete-guide-mastering-eshell][this]] link tldr's useful eshell stuff:
+- how eshell interacts with the OS
+- subshells
+- elisp commands (try: Ch f eshell/*)
+- aliases, eg: =alias ff 'find-file $1'=
+- pseudo-devices: try overwriting =dev/clip= or =/dev/kill=.
+- [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html][the]] manual
 
-** Slightly nicer mode line
-#+begin_src emacs-lisp
-(use-package moody)
-(moody-replace-mode-line-buffer-identification)
-(moody-replace-vc-mode) ; branch info
-(setq moody-mode-line-height 15)
-#+end_src
-[[https://github.com/tarsius/moody][moody]].
-
-** Parrot mode
-#+begin_src emacs-lisp
-(use-package parrot)
-(parrot-set-parrot-type "science")
-(parrot-mode)
-(add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
-#+end_src
-[[https://libraries.io/emacs/parrot][parrot]].
-
-* Eshell
-#+begin_src emacs-lisp
-(add-hook 'eshell-mode-hook
-  (lambda ()
-    (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
-    (local-set-key (kbd "M-n") 'eshell-previous-matching-input-from-input)
-    ))
-#+end_src
-* Dired
+* [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][Dired]] - simple, useful directory explorer, good regexp search replace
 Most useful: replace a regexp across multiple files.
 #+begin_src emacs-lisp
-(add-hook 'dired-mode-hook
-  (lambda ()
-    (local-set-key [f1] 'dired-do-find-regexp)
-    (local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
-    ))
+  (add-hook 'dired-mode-hook
+    (lambda ()
+      (local-set-key [f1] 'dired-do-find-regexp)
+      (local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
+      ))
 #+end_src
-* Abbrevs
+* [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
 #+begin_src emacs-lisp
-(setq abbrev-file-name             ;; tell emacs where to read abbrev
-        "~/.emacs.d/.abbrev_defs.el")
-(setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
-(setq-default abbrev-mode t)
+  (setq abbrev-file-name             ;; tell emacs where to read abbrev
+    "~/.emacs.d/.abbrev_defs.el")
+  (setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
+  (setq-default abbrev-mode t)
 #+end_src
 
 * Path adjustments
-Sometimes the PATH shell var isn't set correctly. Use this area to modify that.
-
-Do try restarting emacs (closing and re-opening) before fiddling with this.
+Sometimes the PATH shell var isn't set correctly. Use this area to modify that. Maybe worth restarting emacs (closing and re-opening) before fiddling with this. Also try =eshell/addpath=.
 #+begin_src emacs-lisp
-(setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v17.0.1/bin"))
-(setq exec-path (append exec-path '("/home/thor/.nvm/versions/node/v17.0.1/bin")))
-(setenv "PATH" (concat (getenv "PATH") ":/home/thor/.cargo/bin"))
-(setq exec-path (append exec-path '("/home/thor/.cargo/bin")))
-(setenv "NVM_DIR" "~/.nvm")
+  (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.nvm/versions/node/v17.0.1/bin"))
+  (setq exec-path (append exec-path '("/home/thor/.nvm/versions/node/v17.0.1/bin")))
+  (setenv "PATH" (concat (getenv "PATH") ":/home/thor/.cargo/bin"))
+  (setq exec-path (append exec-path '("/home/thor/.cargo/bin")))
+  (setenv "NVM_DIR" "~/.nvm")
 #+end_src
 
 * Set github authentication
 #+begin_src emacs-lisp
-(setq auth-sources '("~/.authinfo.gpg"))
+  (setq auth-sources '("~/.authinfo.gpg"))
 #+end_src
