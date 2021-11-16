@@ -78,7 +78,8 @@ N2R: Some of these are on by default; explicitness seems good.
   (setq parrot-num-rotations 15)
   (parrot-set-parrot-type "science")
   (parrot-mode)
-  (global-set-key (kbd "M-'") 'parrot-start-animation)
+  (global-unset-key (kbd "M-'"))
+  (global-set-key (kbd "M-' M-r") 'parrot-start-animation)
   ;; rotate the parrot when compilation finishes
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)

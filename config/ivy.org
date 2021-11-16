@@ -1,34 +1,45 @@
-* Counsel
- Chain actions. Allow regex. Useful rings.
-#+begin_src emacs-lisp
-(use-package counsel)
-#+end_src
-* Ivy, the ido replacement. M-o to get actions.
-N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping. I use =rigrep= to overcome this.
+* Ivy: interactive completion. Select items from lists.
+Principles: Minimalism, Simplicity, Customizeability, Discoverability.
+Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to extend. Helm has better grepping. Use =rigrep= to overcome this.
 [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][quick-guide]]. [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][ivy user manual]]: suggests many keybindings.
+
+* Reminder keys
+- =M-o= - hydra
+- =C-M-o= - dispatching done (keep minibuffer open)
+- =C-c r= - ivy resume
+- =C-c z/v/V= - save window layouts with [[https://oremacs.com/2016/06/27/ivy-push-view/][ivy view]]
+
+* Installation
 #+begin_src emacs-lisp
-(use-package ivy) ; intentional redundancy; counsel installs ivy.
+  (use-package ivy) ; intentional redundancy; counsel installs ivy.
   (setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
     ivy-count-format "%d/%d ")
-  (setq ivy-display-style 'fancy) ; regex-enabled
+  (setq ivy-display-style 'fancy)
   (ivy-mode 1)
+  ;; Counsel provides M-x and navigation.
+  (use-package counsel)
+  ;; better isearch
+  (use-package swiper)
 #+end_src
 
+* Local keybinds
+: #+begin_src emacs-lisp
+	(add-hook 'ivy-mode-hook
+    (lambda ()
+      ;; local keybinds
+      ))
+#+end_src
 * Ivy rich, more self-documenting interface
 #+begin_src emacs-lisp
-(use-package ivy-rich)
+  (use-package ivy-rich)
   (ivy-rich-mode 1)
-  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line) ; formatting
+  ;; formatting recommendation; dumb that it makes users do this
+  (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
   (setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/
 #+end_src
 [[https://github.com/Yevgnen/ivy-rich][ivy rich]].
 
-* Swiper
-#+begin_src emacs-lisp
-(use-package swiper) ; better isearch
-#+end_src
-
-* Counsel-Projectile
+* Counsel-Projectile - project navigation
 #+begin_src emacs-lisp
 (use-package projectile)
 (use-package counsel-projectile)
@@ -41,6 +52,14 @@ N2R. Ivy and Helm are nearly identical. Ivy is faster. Helm has better grepping.
 (use-package avy)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].
+* [[https://github.com/Lautaro-Garcia/counsel-spotify][Counsel Spotify]] - don't leave emacs, never leave emacs
+Takes a little setup thru spotify.
+#+begin_src emacs-lisp
+  (use-package counsel-spotify)
+  (setq counsel-spotify-client-id "78c85c7b50e34d74a2e879717259b650")
+  ;; set this in secrets
+  ;(setq counsel-spotify-client-secret "")
+#+end_src
 * Prescient completions
 #+begin_src emacs-lisp
  (use-package prescient)

@@ -27,6 +27,7 @@
     ("jsut" "just" nil :count 0)
     ("laguage" "language" nil :count 1)
     ("liike" "like" nil :count 1)
+    ("linsk" "links" nil :count 3)
     ("looknig" "looking" nil :count 1)
     ("montsh" "months" nil :count 0)
     ("nad" "and" nil :count 5)
