@@ -1,10 +1,10 @@
 * Text-mode hook
 #+begin_src emacs-lisp
   (add-hook 'text-mode-hook
-            (lambda ()
-              ;; nts. auto-fill looks nice, but makes a lot of formatting things
-              ;; a pain in the ass, and I'm too lazy to fix them all.
-      ;(turn-on-auto-fill)
+    (lambda ()
+      ;; nts. auto-fill looks nice, but makes a lot of formatting things
+      ;; a pain in the ass, and I'm too lazy to fix them all.
+                                        ;(turn-on-auto-fill)
       (setq sentence-end-double-space nil) ; single space after periods
       (setq line-number-mode nil)
       ;; note: turn flyspell mode on for syntax highlighting
@@ -59,8 +59,8 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 * Images via =org-download=
 Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
-(use-package org-download)
-(add-hook 'dired-mode-hook 'org-download-enable)
+  (use-package org-download)
+  (add-hook 'dired-mode-hook 'org-download-enable)
 #+end_src
 [[https://github.com/abo-abo/org-download][org-download]].
 
@@ -109,24 +109,15 @@ Create a file: Org roam find file
   ;; (setq org-roam-index-file "index.org")
 #+end_src
 
-
 * Settings
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
-      (setq org-src-fontify-natively t) ; font-lock src if org recognizes the code block
-      (setq org-src-tab-acts-natively t)
+      (setq org-src-fontify-natively t) ; syntax-highlight if org recognizes src block
+      (setq org-src-tab-acts-natively t) ; use programming major modes in src blocks
       (setq org-adapt-indentation nil) ; turn off special indentation in org subsections
       (setq org-directory "~/org")
       (setq org-log-done 'time) ; timstamp when TODO - DONE
-      ))
-#+end_src
-
-* Font lock
-#+begin_src emacs-lisp
-  (add-hook 'org-mode-hook ; mostly just an example
-    (lambda ()
-      (font-lock-add-keywords nil '(("\\<\\(thor\\|THOR\\|tk\\|TK\\)\\>" 1 font-lock-warning-face t)))
       ))
 #+end_src
 * Poly mode for native code blocks in org and markdown
@@ -138,6 +129,14 @@ Create a file: Org roam find file
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 #+end_src
 [[https://polymode.github.io/usage/][polymode]].
+* Font lock - highlighting, for when I want it
+: #+begin_src emacs-lisp
+  (add-hook 'org-mode-hook ; mostly just an example
+    (lambda ()
+      (font-lock-add-keywords nil '(("\\<\\(thor\\|THOR\\|tk\\|TK\\)\\>" 1 font-lock-warning-face t)))
+      ))
+#+end_src
+
 * =org-mobile=  Sync's my org directories to my phone. - BUG: prevents quit until Dropbox installed
 :#+begin_src emacs-lisp
   (use-package org-mobile-sync)

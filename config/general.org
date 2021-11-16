@@ -1,3 +1,4 @@
+
 * Global Settings
 ** Be less annoying and more nice
 #+begin_src emacs-lisp
@@ -57,7 +58,31 @@ N2R: Some of these are on by default; explicitness seems good.
   (zoom-mode 1)
 #+end_src
 [[https://github.com/dgutov/diff-hl][diff-hl]]. [[https://github.com/cyrus-and/zoom][zoom]].
-
+* Unset keys
+Explicitly unset some keys that aren't very useful, reserving them for future personal use patterns.
+#+begin_src emacs-lisp
+  ;; Use this for apps: eshell, dired, spotify, signal, telegram, twitter, stack exchange, etc.
+  (global-unset-key (kbd "C-r"))
+  ;; tbd what I'll do with these
+  (global-unset-key (kbd "C-l")) ; use C-M-l and C-v if needed
+  (global-unset-key (kbd "C-o"))
+  (global-unset-key (kbd "C-;"))
+  (global-unset-key (kbd "C-j"))
+  (global-unset-key (kbd "M-r"))
+  (global-unset-key (kbd "M-'"))
+  (global-unset-key (kbd "M-i"))
+  (global-unset-key (kbd "M-o"))
+  (global-unset-key (kbd "M-j"))
+  (global-unset-key (kbd "M-p"))
+  (global-unset-key (kbd "M-r"))
+  ;; back already? consider unsetting M-c,M-l,M-u,M-h,M-q.
+#+end_src
+* Notes about mode maps
+- M-g movement
+- M-s special searches
+- C-x 8 special characters
+- C-x v diff-hl
+- C-c ! flycheck
 * Appearance
 ** Theme [[https://github.com/bbatsov/solarized-emacs][sol-theme]].
 #+begin_src emacs-lisp
@@ -78,19 +103,11 @@ N2R: Some of these are on by default; explicitness seems good.
   (setq parrot-num-rotations 15)
   (parrot-set-parrot-type "science")
   (parrot-mode)
-  (global-unset-key (kbd "M-'"))
   (global-set-key (kbd "M-' M-r") 'parrot-start-animation)
   ;; rotate the parrot when compilation finishes
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
 #+end_src
-* Unset keys
-#+begin_src emacs-lisp
-  ;; Use C-r as prefix for interacting with the outside world; eg Spotify, Signal, Stack exchange, twitter, Window manager, etc. and lounching in-emacs frames and buffers
-  (global-unset-key (kbd "C-r"))
-  (global-unset-key (kbd "C-x l")) ;; launch dired, eshell, etc
-#+end_src
-
 * Eshell - convenient emacs lisp compatible shell
 #+begin_src emacs-lisp
   (add-hook 'eshell-mode-hook

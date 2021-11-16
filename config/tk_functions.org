@@ -190,6 +190,7 @@ there is a text selection, act on the region."
 #+end_src
 
 * Comment-dwim
+Similar behavior to other comment-dwim's, and less featureful
 #+begin_src emacs-lisp
   (defun tk-comment-dwim ()
     "Active region => (un)comment it. Else => (un)comment line."

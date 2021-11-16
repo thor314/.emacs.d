@@ -24,11 +24,11 @@
  '(org-agenda-restore-windows-after-quit t)
  '(org-agenda-skip-deadline-if-done t)
  '(org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
- '(org-agenda-start-on-weekday nil)
+ '(org-agenda-start-on-weekday nil t)
  '(org-agenda-todo-ignore-deadlines 'far)
  '(org-journal-enable-agenda-integration t)
   '(package-selected-packages
-     '(counsel-spotify moody smartparens-config smartparens request company-anaconda anaconda-mode lsp-ui parrot parrot-mode undo-tree company-prescient ivy-prescient prescient org-ref ivy-bibtex zweilight-theme company-org-roam twittering-mode org-roam poly-markdown poly-org polymode racer paredit rainbow-delimiters org-journal org-mobile languagetool popup popwin yasnippet-snippets yas-snippet-snippets yasnippet treemacs lsp-ivy rustic rustic-mode rust-mode lsp-mode flycheck ivy-rich free-keys sx hydra zoom use-package solarized-theme minions diff-hl counsel-projectile avy auto-compile))
+     '(counsel-spotify moody smartparens-config smartparens request company-anaconda anaconda-mode lsp-ui parrot parrot-mode undo-tree company-prescient ivy-prescient prescient org-ref ivy-bibtex zweilight-theme company-org-roam twittering-mode org-roam poly-markdown poly-org polymode racer paredit rainbow-delimiters org-journal org-mobile languagetool popup popwin yasnippet-snippets yas-snippet-snippets yasnippet lsp-ivy rustic rustic-mode rust-mode lsp-mode flycheck ivy-rich free-keys sx hydra zoom use-package solarized-theme minions diff-hl counsel-projectile avy auto-compile))
  '(popwin-mode t)
  '(popwin:popup-window-position 'right)
  '(ring-bell-function 'ignore)

@@ -2,33 +2,35 @@
 [[https://ebzzry.com/en/emacs-pairs/][Manual]]
 #+begin_src emacs-lisp
 	(use-package smartparens)
- (setq smartparens-global-mode t)
-   (add-hook 'smartparens-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-M-a") 'sp-beginning-of-sexp) ;; smart movement
-              (local-set-key (kbd "C-M-e") 'sp-end-of-sexp)
-              (local-set-key (kbd "C-M-n") 'sp-down-sexp)
-              (local-set-key (kbd "C-M-p") 'sp-up-sexp)
-              (local-set-key (kbd "C-M-f") 'sp-forward-sexp)
-              (local-set-key (kbd "C-M-b") 'sp-backward-sexp)
-              ;; use this to delete matching sexp
-              (local-set-key (kbd "M-[") 'sp-backward-unwrap-sexp)
-              (local-set-key (kbd "M-]") 'sp-unwrap-sexp)
-              ;; move sexp limits
-              (local-set-key (kbd "<C-right>") 'sp-forward-slurp-sexp)
-              (local-set-key (kbd "<M-right>") 'sp-backward-slurp-sexp)
-              (local-set-key (kbd "<C-left>") 'sp-forward-barf-sexp)
-              (local-set-key (kbd "<M-left>") 'sp-backward-barf-sexp)
-              (local-set-key (kbd "<C-M-t>") 'sp-transpose-sexp)
-              (local-set-key (kbd "C-M-k") 'sp-kill-sexp)
-              (local-set-key (kbd "C-k") 'sp-kill-hybrid-sexp)
-              (local-set-key (kbd "M-k") 'sp-backward-kill-sexp)
-              ))
-     (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-     ;(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
-     ;(add-hook 'org-mode-hook #'smartparens-mode)
- ;; (add-hook 'org-mode-hook
- ;;   (lambda ()
+  (setq smartparens-global-mode t)
+  (add-hook 'smartparens-mode-hook
+    (lambda ()
+      (local-set-key (kbd "C-M-a") 'sp-beginning-of-sexp) ;; smart movement
+      (local-set-key (kbd "C-M-e") 'sp-end-of-sexp)
+      (local-set-key (kbd "C-M-n") 'sp-down-sexp)
+      (local-set-key (kbd "C-M-p") 'sp-up-sexp)
+      (local-set-key (kbd "C-M-f") 'sp-forward-sexp)
+      (local-set-key (kbd "C-M-b") 'sp-backward-sexp)
+      ;; use this to delete matching sexp
+      (local-set-key (kbd "M-[") 'sp-backward-unwrap-sexp)
+      (local-set-key (kbd "M-]") 'sp-unwrap-sexp)
+      ;; move sexp limits
+      (local-set-key (kbd "<C-right>") 'sp-forward-slurp-sexp)
+      (local-set-key (kbd "<M-right>") 'sp-backward-slurp-sexp)
+      (local-set-key (kbd "<C-left>") 'sp-forward-barf-sexp)
+      (local-set-key (kbd "<M-left>") 'sp-backward-barf-sexp)
+      (local-set-key (kbd "<C-M-t>") 'sp-transpose-sexp)
+      (local-set-key (kbd "C-M-k") 'sp-kill-sexp)
+      (local-set-key (kbd "C-k") 'sp-kill-hybrid-sexp)
+      (local-set-key (kbd "M-k") 'sp-backward-kill-sexp)
+      ))
+
+ ;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+
+ ;;(add-hook 'markdown-mode-hook 'turn-on-smartparens-strict-mode)
+ ;;(add-hook 'org-mode-hook #'smartparens-mode)
+;; (add-hook 'org-mode-hook
+;;   (lambda ()
  ;;     (setq electric-pair-pairs (concat (electric-pair-pairs) "*")) ;; how do? 2021-10-13
  ;;     (turn-on-smartparens-strict-mode)
  ;;     ))
@@ -39,10 +41,8 @@
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
   (use-package magit)
-(use-package forge
-  :after magit)
-
-;; (setq auth-sources ("~/.authinfo.gpg")) ; commented 2021-10-14
+  (use-package forge
+    :after magit)
 #+end_src
 [[https://magit.vc/][magit]]. [[https://magit.vc/manual/forge/][forge]]. [[https://magit.vc/manual/forge/][forge manual]]. Setup requires ~/authinfo.gpg.
 
@@ -53,18 +53,16 @@
 * Flycheck error information on the fly
 #+begin_src emacs-lisp
   (use-package flycheck)
-  (global-flycheck-mode 1)
 #+end_src
-
 
 * Company-mode text-completion
 #+begin_src emacs-lisp
   (use-package company)
   (eval-after-load "company"
-  (progn
-    '(add-to-list 'company-backends 'company-shell)
-    '(add-to-list 'company-backends 'company-anaconda)
-  ))
+    (progn
+      '(add-to-list 'company-backends 'company-shell)
+      '(add-to-list 'company-backends 'company-anaconda)
+      ))
   (use-package company-prescient)
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook
@@ -80,44 +78,36 @@
 #+end_src
 [[http://company-mode.github.io/][company]].
 
-* Treemacs - interact w dir structure in sidebar
-#+begin_src emacs-lisp
-  (use-package treemacs)
-  (use-package treemacs-projectile)
-  (add-hook 'treemacs-mode-hook (lambda () (local-set-key (kbd "M-p") 'avy-goto-char)))
-#+end_src
-[[https://github.com/Alexander-Miller/treemacs][treemacs]]. Btw, great hydra example.
-
 * LSP
 #+begin_src emacs-lisp
-(setq lsp-keymap-prefix "M-n")
-(use-package lsp-mode
-  ;;:hook (rustic-mode . lsp)
-  :commands lsp)
-;; sometimes quite laggy:
-(use-package lsp-ui)
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (setq lsp-keymap-prefix "M-n")
+  (use-package lsp-mode
+    ;;:hook (rustic-mode . lsp)
+    :commands lsp)
+  ;; sometimes quite laggy:
+  (use-package lsp-ui)
+  (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
 #+end_src
 
 ** LSP configuration
 Definition with eldoc/equiv tends to be the most lag-inducing.
 [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
 #+begin_src emacs-lisp
-(setq lsp-enable-symbol-highlighting nil) ;; highlight instances
-(setq lsp-ui-doc-enable nil) ;; hover dialogs
-(setq lsp-lens-enable nil) ;; number references to object
-(setq lsp-headerline-breadcrumb-enable nil) ;; top path
-(setq lsp-ui-sideline-show-code-actions nil)
-(setq lsp-modeline-code-actions-enable t)
-(setq lsp-diagnostics-provider :flycheck)
-(setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
-(setq lsp-eldoc-enable-hover nil) ;;  modeline feedback and laggg
-(setq lsp-signature-auto-activate nil) ;; you could manually requiest them via `lsp-signature-activate`
-                                        ;;(setq lsp-signature-render-documentation nil) ;; render docs
-(setq lsp-completion-provider :capf) ; completion backend
-(setq lsp-idle-delay 0.5) ; refresh highlights
-(setq lsp-enable-snippet nil) ; hide yasnippets from company completes
-(setq lsp-show-snippet nil)
+  (setq lsp-enable-symbol-highlighting nil) ;; highlight instances
+  (setq lsp-ui-doc-enable nil) ;; hover dialogs
+  (setq lsp-lens-enable nil) ;; number references to object
+  (setq lsp-headerline-breadcrumb-enable nil) ;; top path
+  (setq lsp-ui-sideline-show-code-actions nil)
+  (setq lsp-modeline-code-actions-enable t)
+  (setq lsp-diagnostics-provider :flycheck)
+  (setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
+  (setq lsp-eldoc-enable-hover nil) ;;  modeline feedback and laggg
+  (setq lsp-signature-auto-activate nil) ;; you could manually requiest them via `lsp-signature-activate`
+  ;;(setq lsp-signature-render-documentation nil) ;; render docs
+  (setq lsp-completion-provider :capf) ; completion backend
+  (setq lsp-idle-delay 0.5) ; refresh highlights
+  (setq lsp-enable-snippet nil) ; hide yasnippets from company completes
+  (setq lsp-show-snippet nil)
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 
@@ -130,25 +120,26 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
 
 * Prog mode
 #+begin_src emacs-lisp
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-(add-hook 'prog-mode-hook
-  (lambda ()
-    (local-set-key [f8] 'yas-visit-snippet-file)
-    (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
-    (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
-    (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
-    (subword-mode 1) ; ThisStuffIsFiveWords on M-f M-b
-    ;; eldoc can lag significantly
-    (setq eldoc-mode nil) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
-    ;(hs-minor-mode) ; code folding
-    (show-paren-mode) ; higlight matching parens pairs at point
-    (use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
-    (rainbow-delimiters-mode)
-    (use-package yasnippet)
-    (use-package yasnippet-snippets)
-    (yas-reload-all)
-    (yas-minor-mode)
-    ))
+  (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+  (add-hook 'prog-mode-hook
+    (lambda ()
+      (flycheck-mode)
+      (local-set-key [f8] 'yas-visit-snippet-file)
+      (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
+      (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
+      (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
+      (subword-mode 1) ; ThisStuffIsFiveWords on M-f M-b
+      ;; eldoc can lag significantly
+      (setq eldoc-mode nil) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
+                                        ;(hs-minor-mode) ; code folding
+      (show-paren-mode) ; higlight matching parens pairs at point
+      (use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
+      (rainbow-delimiters-mode)
+      (use-package yasnippet)
+      (use-package yasnippet-snippets)
+      (yas-reload-all)
+      (yas-minor-mode)
+      ))
 #+end_src
  [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
 
@@ -158,7 +149,13 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
     (lambda ()
       (local-set-key [f4] 'flycheck-next-error)
       (local-set-key (kbd "<C-f4>") 'flycheck-previous-error)
-      (local-set-key [f5] 'tk-comment-dwim)
     ))
 #+end_src
 * Hide-show mode frequently used, removed 2021-10-13.
+* Treemacs - interact w dir structure in sidebar - rarely used
+:#+begin_src emacs-lisp
+  (use-package treemacs)
+  (use-package treemacs-projectile)
+  (add-hook 'treemacs-mode-hook (lambda () (local-set-key (kbd "M-p") 'avy-goto-char)))
+#+end_src
+[[https://github.com/Alexander-Miller/treemacs][treemacs]]. Btw, great hydra example.
