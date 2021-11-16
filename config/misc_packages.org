@@ -3,7 +3,7 @@ Surprisingly powerful.
 #+begin_src emacs-lisp
 (use-package sx
   :config
-  (bind-keys :prefix "C-c s"
+  (bind-keys :prefix "C-r s"
     :prefix-map my-sx-map
     :prefix-docstring "Global keymap for SX."
     ("q" . sx-tab-all-questions)
@@ -15,7 +15,7 @@ Surprisingly powerful.
 #+end_src
 [[https://github.com/vermiculus/sx.el/][sx]].
 
-* =free-keys= Show what keys are unbound
+* =free-keys= Show what keys are unbound, v useful
 #+begin_src emacs-lisp
 (use-package free-keys)
 #+end_src
@@ -33,12 +33,9 @@ Surprisingly powerful.
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
-* =undo-tree= - GNU tool to explore and select undo history: =C-x u=
+* =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree)
   (global-undo-tree-mode)
 #+end_src
 [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
-* <deprecated> =twittering-mode= - twitter
-Relies on cl-mode, breaks and occasionally forgets my credentials (?)
-[[https://www.emacswiki.org/emacs/TwitteringMode][tw-mode]].

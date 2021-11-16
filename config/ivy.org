@@ -3,12 +3,13 @@ Principles: Minimalism, Simplicity, Customizeability, Discoverability.
 Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to extend. Helm has better grepping. Use =rigrep= to overcome this.
 [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][quick-guide]]. [[https://writequit.org/denver-emacs/presentations/2017-04-11-ivy.html][ivy user manual]]: suggests many keybindings.
 
-* Reminder keys
+* Reminder keys - also see global_keybinds.org
 - =M-o= - hydra
 - =C-M-o= - dispatching done (keep minibuffer open)
+- =C-M-m= - ivy-call (keep minibuffer open)
+- =C-c C-o= - while in Minibuffer, ivy-occur
 - =C-c r= - ivy resume
 - =C-c z/v/V= - save window layouts with [[https://oremacs.com/2016/06/27/ivy-push-view/][ivy view]]
-
 * Installation
 #+begin_src emacs-lisp
   (use-package ivy) ; intentional redundancy; counsel installs ivy.
@@ -47,7 +48,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 #+end_src
 [[https://github.com/ericdanan/counsel-projectile][counsel projectile]].
 
-* Avy
+* Avy - jump to stuff like a pro
 #+begin_src emacs-lisp
 (use-package avy)
 #+end_src
@@ -58,7 +59,7 @@ Takes a little setup thru spotify.
   (use-package counsel-spotify)
   (setq counsel-spotify-client-id "78c85c7b50e34d74a2e879717259b650")
   ;; set this in secrets
-  ;(setq counsel-spotify-client-secret "")
+  ;(setq counsel-spotify-client-secret "go here: https://developer.spotify.com/dashboard/applications/78c85c7b50e34d74a2e879717259b650")
 #+end_src
 * Prescient completions
 #+begin_src emacs-lisp

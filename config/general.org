@@ -84,6 +84,13 @@ N2R: Some of these are on by default; explicitness seems good.
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
 #+end_src
+* Unset keys
+#+begin_src emacs-lisp
+  ;; Use C-r as prefix for interacting with the outside world; eg Spotify, Signal, Stack exchange, twitter, Window manager, etc. and lounching in-emacs frames and buffers
+  (global-unset-key (kbd "C-r"))
+  (global-unset-key (kbd "C-x l")) ;; launch dired, eshell, etc
+#+end_src
+
 * Eshell - convenient emacs lisp compatible shell
 #+begin_src emacs-lisp
   (add-hook 'eshell-mode-hook
@@ -106,8 +113,8 @@ Most useful: replace a regexp across multiple files.
 #+begin_src emacs-lisp
   (add-hook 'dired-mode-hook
     (lambda ()
-      (local-set-key [f1] 'dired-do-find-regexp)
-      (local-set-key (kbd "<C-f1>") 'dired-do-find-regexp-and-replace)
+      (local-set-key (kbd "C-%") 'dired-do-query-replace-regexp)
+      (local-set-key (kbd "M-%") 'dired-do-find-regexp-and-replace)
       ))
 #+end_src
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
@@ -117,7 +124,6 @@ Most useful: replace a regexp across multiple files.
   (setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
   (setq-default abbrev-mode t)
 #+end_src
-
 * Path adjustments
 Sometimes the PATH shell var isn't set correctly. Use this area to modify that. Maybe worth restarting emacs (closing and re-opening) before fiddling with this. Also try =eshell/addpath=.
 #+begin_src emacs-lisp
@@ -127,7 +133,6 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that. 
   (setq exec-path (append exec-path '("/home/thor/.cargo/bin")))
   (setenv "NVM_DIR" "~/.nvm")
 #+end_src
-
 * Set github authentication
 #+begin_src emacs-lisp
   (setq auth-sources '("~/.authinfo.gpg"))

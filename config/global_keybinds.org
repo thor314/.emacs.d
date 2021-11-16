@@ -1,18 +1,18 @@
 * F keys
 #+begin_src emacs-lisp
-; f1 contains inserts.
-  (global-set-key [f2] 'eshell)
-  (global-set-key (kbd "<C-f2>") 'projectile-run-eshell) ; runs eshell in project root
-  (global-set-key [f3] 'kmacro-end-or-call-macro)
-  (global-set-key (kbd "<C-f3>") 'kmacro-start-macro-or-insert-counter)
-  (global-set-key (kbd "<M-f3>") 'kmacro-edit-macro-repeat)
-  (global-set-key (kbd "<C-M-f3>") 'kmacro-step-edit-macro)
-  ; give f5-f10 to major mode bindings
+  ;; f1: insert something.
+  ;; f2: macros
+  (global-set-key [f2] 'kmacro-end-or-call-macro)
+  (global-set-key (kbd "<C-f2>") 'kmacro-start-macro-or-insert-counter)
+  (global-set-key (kbd "<M-f2>") 'kmacro-edit-macro-repeat)
+  (global-set-key (kbd "<C-M-f2>") 'kmacro-step-edit-macro)
 
   (global-set-key [f10] 'nil)
-  (global-set-key [f11] 'treemacs) ; not convinced I want treemacs annd projectile here.
+  ;; f11: project and file navigation
+  (global-set-key [f11] 'counsel-projectile-find-file) ; not convinced I want treemacs annd projectile here.
   (global-set-key (kbd "<C-f11>") 'projectile-switch-project)
   (global-set-key (kbd "<M-f11>") 'projectile-switch-to-buffer-other-frame)
+  ;; f12 journal, org-capture, org-roam
   (global-set-key [f12] 'org-capture)
   (global-set-key (kbd "<C-f12>") 'org-roam-capture)
   (global-set-key (kbd "<C-S-f12>") 'org-roam-node-find)
@@ -20,27 +20,25 @@
   ;; warning. Don't try to set C-M-f12. Turns screen off.
 #+end_src
 
-* Nice stuff
+* Search-replace (used heavily)
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-%") 'replace-regexp)
   (global-set-key (kbd "M-%") 'replace-string)
   (global-set-key (kbd "C-M-%") 'query-replace-string)
+#+end_src
+* Dired and Eshell (C-r l e|d)
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-r l d") 'dired-jump) ; easier to remember than CxCj
+  (global-set-key (kbd "C-r l e") 'eshell)
 #+end_src
 * My functions
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-!") 'window-split-toggle)
   (global-set-key (kbd "C-h C-h") 'describe-thing)
 #+end_src
-
-* Dired and Eshell
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-x C-d") 'dired-jump) ; easier to remember than CxCj
-#+end_src
-
 * Ivy, Avy, Swiper
 #+begin_src emacs-lisp
-  (global-set-key (kbd "M-p") 'avy-goto-char)
-  (global-set-key (kbd "C-'") 'avy-goto-char)
+  (global-set-key (kbd "M-'") 'avy-goto-char)
   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
   (global-set-key (kbd "C-c v") 'ivy-push-view)
   (global-set-key (kbd "C-c V") 'ivy-pop-view)
@@ -54,7 +52,7 @@
   ;;(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (global-set-key (kbd "C-c p SPC") 'counsel-projectile)
   (global-set-key (kbd "C-c p d") 'counsel-projectile-find-dir)
-  (global-set-key (kbd "C-c p s") 'projectile-switch-project)
+  (global-set-key (kbd "C-c p s") 'counsel-projectile-switch-project)
   (global-set-key (kbd "C-c p r") 'projectile-remove-known-project)
   (global-set-key (kbd "C-c p a") 'projectile-add-known-project)
 
@@ -73,19 +71,19 @@
   (global-set-key (kbd "C-h i") 'info)
   (global-set-key (kbd "C-c u") 'counsel-unicode-char)
 
-  (global-set-key (kbd "C-c m") 'counsel-linux-app) ; launch an application
-  (global-set-key (kbd "C-c w") 'counsel-wmctrl) ; switch windows
+  (global-set-key (kbd "C-r m") 'counsel-linux-app) ; launch an application
+  (global-set-key (kbd "C-r w") 'counsel-wmctrl) ; switch windows
   (global-set-key (kbd "C-c C-L") 'counsel-locate) ; competes with org store link
 
-  (global-set-key (kbd "C-c C-s C-p") 'counsel-spotify-play)
-  (global-set-key (kbd "C-c C-s C-u") 'counsel-spotify-toggle-play-pause)
-  (global-set-key (kbd "C-c C-s C-b") 'counsel-spotify-previous)
-  (global-set-key (kbd "C-c C-s C-f") 'counsel-spotify-next)
-  (global-set-key (kbd "C-c C-s C-s C-s") 'counsel-spotify-search)
-  (global-set-key (kbd "C-c C-s C-s C-a") 'counsel-spotify-search-artist)
-  (global-set-key (kbd "C-c C-s C-s C-l") 'counsel-spotify-search-album)
-  (global-set-key (kbd "C-c C-s C-s C-r") 'counsel-spotify-search-tracks-by-artist)
-  (global-set-key (kbd "C-c C-s C-s C-b") 'counsel-spotify-search-tracks-by-album)
+  (global-set-key (kbd "C-r C-s C-p") 'counsel-spotify-play)
+  (global-set-key (kbd "C-r C-s C-u") 'counsel-spotify-toggle-play-pause)
+  (global-set-key (kbd "C-r C-s C-b") 'counsel-spotify-previous)
+  (global-set-key (kbd "C-r C-s C-f") 'counsel-spotify-next)
+  (global-set-key (kbd "C-r C-s C-s C-s") 'counsel-spotify-search)
+  (global-set-key (kbd "C-r C-s C-s C-a") 'counsel-spotify-search-artist)
+  (global-set-key (kbd "C-r C-s C-s C-l") 'counsel-spotify-search-album)
+  (global-set-key (kbd "C-r C-s C-s C-r") 'counsel-spotify-search-tracks-by-artist)
+  (global-set-key (kbd "C-r C-s C-s C-b") 'counsel-spotify-search-tracks-by-album)
   ;; counsel also has good git grepping, look into at some point if needed
 #+end_src
 
@@ -100,10 +98,10 @@
 #+end_src
 * Misc packages
 #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c t") 'twit)
+  ;(global-set-key (kbd "C-r t") 'twit)
 #+end_src
 
-* Org things
+* Org launchers
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-c l") 'org-store-link) ; a link to dir in org file
   (global-set-key (kbd "C-c a") 'org-agenda)

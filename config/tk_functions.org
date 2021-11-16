@@ -1,3 +1,14 @@
+* Link last word from kill ring WIP
+: #+begin_src emacs-lisp
+	(defun link-last-word-from-kill ()
+    (interactive)
+    (push-mark)
+    (backward-word)
+    (org-insert-link 0 (yank) (buffer-substring (region-beginning) (region-end)))
+    (pop-mark)
+    )
+#+end_src
+
 * Copy/yank without newlines
 https://emacs.stackexchange.com/questions/1051/copy-region-from-emacs-without-newlines
 #+begin_src emacs-lisp
