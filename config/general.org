@@ -101,6 +101,7 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   (use-package beacon)
   (beacon-mode 1)
   (setq beacon-color "#f4a460")
+  ;; make blink small, fast
   (setq beacon-size 10)
   (setq beacon-blink-duration 0.2)
   (setq beacon-blink-delay 0.2)

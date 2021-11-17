@@ -33,6 +33,18 @@ Surprisingly powerful.
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
+* [[https://github.com/hayamiz/twittering-mode][twittering-mode]]
+#+begin_src emacs-lisp
+  (use-package twittering-mode
+    :config
+    (bind-keys :prefix "C-r t"
+    :prefix-map my-twit-mode
+    :prefix-docstring "Global keymap for twit mode."
+      ("t" . twit)
+      ("p" . twittering-update-status-from-pop-up-buffer)
+      ))
+#+end_src
+
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree)
