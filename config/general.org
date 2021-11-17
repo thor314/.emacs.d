@@ -1,4 +1,3 @@
-
 * Global Settings
 ** Be less annoying and more nice
 #+begin_src emacs-lisp
@@ -64,7 +63,6 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   ;; Use this for apps: eshell, dired, spotify, signal, telegram, twitter, stack exchange, etc.
   (global-unset-key (kbd "C-r"))
   ;; tbd what I'll do with these
-  (global-unset-key (kbd "C-l")) ; use C-M-l and C-v if needed
   (global-unset-key (kbd "C-o"))
   (global-unset-key (kbd "C-;"))
   (global-unset-key (kbd "C-j"))
@@ -72,9 +70,10 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   (global-unset-key (kbd "M-'"))
   (global-unset-key (kbd "M-i"))
   (global-unset-key (kbd "M-o"))
-  (global-unset-key (kbd "M-j"))
   (global-unset-key (kbd "M-p"))
   (global-unset-key (kbd "M-r"))
+  ;(global-unset-key (kbd "C-l")) ;;
+  ;(global-unset-key (kbd "M-j")) ;; actually useful
   ;; back already? consider unsetting M-c,M-l,M-u,M-h,M-q.
 #+end_src
 * Notes about mode maps
@@ -97,13 +96,22 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   (moody-replace-vc-mode) ; branch info
   (setq moody-mode-line-height 25)
 #+end_src
+** [[https://github.com/Malabarba/beacon][Beacon]]: pulse line when changing buffer
+#+begin_src emacs-lisp
+  (use-package beacon)
+  (beacon-mode 1)
+  (setq beacon-color "#f4a460")
+  (setq beacon-size 10)
+  (setq beacon-blink-duration 0.2)
+  (setq beacon-blink-delay 0.2)
+#+end_src
 ** Parrot mode [[https://github.com/dp12/parrot][parrot]].
 #+begin_src emacs-lisp
   (use-package parrot)
   (setq parrot-num-rotations 15)
   (parrot-set-parrot-type "science")
   (parrot-mode)
-  (global-set-key (kbd "M-' M-r") 'parrot-start-animation)
+  (global-set-key (kbd "M-r M-r") 'parrot-start-animation)
   ;; rotate the parrot when compilation finishes
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
