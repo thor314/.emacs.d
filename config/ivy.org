@@ -34,7 +34,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 * Ivy rich, more self-documenting interface
 #+begin_src emacs-lisp
   (use-package ivy-rich)
-  (ivy-rich-mode 1)
+  (ivy-rich-mode t)
   ;; formatting recommendation; dumb that it makes users do this
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
   (setq ivy-rich-path-style 'abbrev) ; abbreviate paths with ~/

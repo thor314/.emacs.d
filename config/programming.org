@@ -139,6 +139,13 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
       (use-package yasnippet-snippets)
       (yas-reload-all)
       (yas-minor-mode)
+
+      ;; *compilation* buffer
+      ;; skip some lines in compilation messages; rustic ignores this
+      ;; (setq compilation-context-lines t)
+      ;; scroll to first error; rustic ignores
+      (setq compilation-scroll-output 'first-error)
+
       ))
 #+end_src
  [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].

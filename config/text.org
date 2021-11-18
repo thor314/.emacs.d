@@ -43,8 +43,22 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
      ("z" "Misc" tags-todo "MISC")
      ("m" "Main" tags-todo "MAIN")
      ))
-(setq org-agenda-start-on-weekday nil) ; start today
-(setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
+
+  (setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
+  (add-hook 'org-agenda-mode-hook
+    (lambda ()
+      (setq org-agenda-start-on-weekday nil) ; start today
+      (setq org-agenda-hide-tags-regexp ".*")
+      (setq org-agenda-include-deadlines t)
+      (setq org-agenda-include-diary t)
+      (setq org-agenda-loop-over-headlines-in-active-region nil)
+      (setq org-agenda-restore-windows-after-quit t)
+      (setq org-agenda-skip-deadline-if-done t)
+      (setq org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled)
+      (setq org-agenda-start-on-weekday nil)
+      (setq org-agenda-todo-ignore-deadlines 'far)
+      (setq org-journal-enable-agenda-integration t)
+      ))
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
 

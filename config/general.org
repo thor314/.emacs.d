@@ -13,6 +13,7 @@
   (setq-default dired-listing-switches "-alh") ; add human-readable units
   (setq-default tab-width 2)
   (setq-default c-basic-offset 2) ; programming modes often use this
+  (setq ring-bell-function 'ignore)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   ;; Put backups~ and #autosaves# in /tmp
   (setq backup-directory-alist

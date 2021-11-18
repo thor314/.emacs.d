@@ -19,9 +19,10 @@
     (setq rustic-match-angle-brackets nil)
 
     ;; also try display-buffer-other-frame
-    (setq rustic-compile-display-method 'ignore)
+    (setq rustic-compile-display-method 'ignore) ; don't pop up a buffer
     (setq-local buffer-save-without-query nil) ; save, don't ask me
     (setq lsp-rust-analyzer-cargo-watch-command "clippy") ; as opposed to check.
+    (setq rustic-match-angle-brackets t)
     ))
 #+end_src
 [[https://github.com/brotzeit/rustic][rustic]]. [[https://rust-analyzer.github.io/manual.html][rust-analyzer]].

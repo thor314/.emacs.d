@@ -26,10 +26,13 @@ Surprisingly powerful.
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
 * =pop-win= - less annoying help and compilation buffers
+Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
   ;(use-package popup) ; not making use atm. Creates dropdown ui.
   (use-package popwin)
   (popwin-mode 1)
+  ;; popup buffers, if I want to use them
+  (setq popwin:popup-window-position 'right)
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
