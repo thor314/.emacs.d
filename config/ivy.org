@@ -10,6 +10,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 - =C-c C-o= - while in Minibuffer, ivy-occur
 - =C-c r= - ivy resume
 - =C-c z/v/V= - save window layouts with [[https://oremacs.com/2016/06/27/ivy-push-view/][ivy view]]
+- If defining a new function, can extend behavior with ivy-actions, [[https://oremacs.com/swiper/#example---define-a-new-command-with-several-actions][ex]]
 * Installation
 #+begin_src emacs-lisp
   (use-package ivy) ; intentional redundancy; counsel installs ivy.
@@ -61,10 +62,17 @@ Takes a little setup thru spotify.
   ;; set this in secrets
   ;(setq counsel-spotify-client-secret "go here: https://developer.spotify.com/dashboard/applications/78c85c7b50e34d74a2e879717259b650")
 #+end_src
-* Prescient completions
+* [[https://github.com/raxod502/prescient.el][prescient]] completions
+Turning prescient on:
+- remembers the last commands used
+-
 #+begin_src emacs-lisp
  (use-package prescient)
  (use-package ivy-prescient)
+ (use-package company-prescient)
  (ivy-prescient-mode)
+ (company-prescient-mode)
+ (prescient-persist-mode) ;; save commonly used commands in var/prescient-save.el
+ (setq prescient-history-length 1000)
+ (setq prescient-frequency-decay .999)
 #+end_src
-[[https://github.com/raxod502/prescient.el][prescient]].
