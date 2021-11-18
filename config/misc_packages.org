@@ -51,3 +51,4 @@ Surprisingly powerful.
   (global-undo-tree-mode)
 #+end_src
 [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
+* [[https://github.com/atykhonov/emacs-howdoi][howdoi]] - deprecated; package unfunctional, not maintained
