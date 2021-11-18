@@ -2,23 +2,24 @@
 ** Be less annoying and more nice
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p) ; brevity is the soul of wit
-  (setq inhibit-startup-message t)
-  (setq gc-cons-threshold 2000000) ; default is 800KB, set to 20MB
-  (setq read-process-output-max 3000000) ;; incr data read from process. default is 4kb.
-  (setq require-final-newline t) ; Whether to add a newline automatically at the end of the file.
-  (setq next-line-add-newlines t) ; add newline on C-n at EOF
-  (setq vc-follow-symlinks 't) ; What to do if visiting a symbolic link to a file under version control.
-  (setq-default indent-tabs-mode nil) ; prefer spaces not tabs
-  (setq-default fill-column 75)
-  (setq-default dired-listing-switches "-alh") ; add human-readable units
-  (setq-default tab-width 2)
-  (setq-default c-basic-offset 2) ; programming modes often use this
-  (setq ring-bell-function 'ignore)
+  (setq inhibit-startup-message t
+    gc-cons-threshold 2000000 ; default is 800KB, set to 20MB
+    read-process-output-max 3000000 ;; incr data read from process. default is 4kb.
+    require-final-newline t ; Whether to add a newline automatically at the end of the file.
+    next-line-add-newlines t ; add newline on C-n at EOF
+    vc-follow-symlinks 't ; What to do if visiting a symbolic link to a file under version control.
+    ring-bell-function 'ignore)
+  ;; reminder: setq-default: affects global default; setq: sets local value;  all buffers;
+  (setq-default indent-tabs-mode nil ; prefer spaces not tabs
+    fill-column 75
+    dired-listing-switches "-alh" ; add human-readable units
+    tab-width 2
+    c-basic-offset 2) ; programming modes often use this
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   ;; Put backups~ and #autosaves# in /tmp
   (setq backup-directory-alist
-    `((".*" . ,temporary-file-directory)))
-  (setq auto-save-file-name-transforms
+    `((".*" . ,temporary-file-directory))
+    auto-save-file-name-transforms
     `((".*" ,temporary-file-directory t)))
 #+end_src
 
@@ -101,20 +102,20 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
 #+begin_src emacs-lisp
   (use-package beacon)
   (beacon-mode 1)
-  (setq beacon-color "#f4a460")
   ;; make blink small, fast
-  (setq beacon-size 10)
-  (setq beacon-blink-duration 0.2)
-  (setq beacon-blink-delay 0.2)
+  (setq beacon-color "#f4a460"
+    beacon-size 10
+    beacon-blink-duration 0.2
+    beacon-blink-delay 0.2)
 #+end_src
 ** Parrot mode [[https://github.com/dp12/parrot][parrot]].
 #+begin_src emacs-lisp
   (use-package parrot)
-  (setq parrot-num-rotations 15)
-  (parrot-set-parrot-type "science")
+  (setq parrot-num-rotations 15
+   parrot-type 'science)
   (parrot-mode)
   (global-set-key (kbd "M-r M-r") 'parrot-start-animation)
-  ;; rotate the parrot when compilation finishes
+  ;; rotate the parrot when save or compilation finishes
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
 #+end_src
@@ -155,8 +156,8 @@ Most useful: replace a regexp across multiple files.
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
 #+begin_src emacs-lisp
   (setq abbrev-file-name             ;; tell emacs where to read abbrev
-    "~/.emacs.d/.abbrev_defs.el")
-  (setq save-abbrevs 'silent)        ;; save abbrevs when files are saved
+    "~/.emacs.d/.abbrev_defs.el"
+  save-abbrevs 'silent)        ;; save abbrevs when files are saved
   (setq-default abbrev-mode t)
 #+end_src
 * [[https://github.com/iqbalansari/restart-emacs/blob/master/restart-emacs.el][restart-emacs]] - smol package for restarting emacs
