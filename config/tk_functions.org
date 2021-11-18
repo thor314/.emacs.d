@@ -1,12 +1,15 @@
 * Link last word from kill ring WIP
-: #+begin_src emacs-lisp
-	(defun link-last-word-from-kill ()
+#+begin_src emacs-lisp
+  (defun link-last-word-from-kill ()
     (interactive)
     (push-mark)
     (backward-word)
-    (org-insert-link 0 (yank) (buffer-substring (region-beginning) (region-end)))
-    (pop-mark)
-    )
+    (insert "[[")
+    (yank)
+    (insert "][")
+    (forward-word)
+    (insert "]]")
+    (pop-mark))
 #+end_src
 
 * Copy/yank without newlines

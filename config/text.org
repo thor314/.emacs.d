@@ -66,6 +66,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
     (lambda ()
       ;(org-mode-add-electric-pairs)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
+      (local-set-key (kbd "C-c y") 'link-last-word-from-kill)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
       (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
