@@ -4,6 +4,7 @@
     ("abotu" "about" nil :count 5)
     ("acconut" "account" nil :count 2)
     ("account_id" "account_id" nil :count 1)
+    ("accoutn" "account" nil :count 1)
     ("accoutns" "accounts" nil :count 3)
     ("acutally" "actually" nil :count 0)
     ("amoutn" "amount" nil :count 11)
@@ -45,7 +46,6 @@
     ("teh" "the" nil :count 24)
     ("tg" "thor314@gmail.com" nil :count 2)
     ("theri" "their" nil :count 0)
-    ("thor" "Thor" nil :count 4)
     ("ti" "it" nil :count 1)
     ("tihnk" "think" nil :count 1)
     ("tihs" "this" nil :count 1)
@@ -85,4 +85,3 @@
     ("pln" "println!(\"{:?}\"," nil :count 0)
     ("tokne" "token" nil :count 0)
    ))
-

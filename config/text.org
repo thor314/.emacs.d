@@ -125,6 +125,15 @@ Create a file: Org roam find file
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 #+end_src
 [[https://polymode.github.io/usage/][polymode]].
+* Flyspell
+#+begin_src emacs-lisp
+  (add-hook 'flyspell-mode-hook
+    (lambda ()
+      (define-key flyspell-mode-map (kbd "C-.") nil)
+      (define-key flyspell-mode-map (kbd "C-,") nil)
+      ))
+#+end_src
+
 * [[https://github.com/SavchenkoValeriy/emacs-powerthesaurus][Thesaurus]] - not great; only gives one word without a pro subscription ($30/yr).
 #+begin_src emacs-lisp
 	(use-package powerthesaurus)
