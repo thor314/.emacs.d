@@ -134,12 +134,14 @@ dependency: =pip3 install pywal=
   ;; update the rest of linux when I update emacs' theme
   (theme-magic-export-theme-mode)
 #+end_src
-* Eshell - convenient emacs lisp compatible shell
+* Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
 #+begin_src emacs-lisp
+  (use-package esh-autosuggest)
   (add-hook 'eshell-mode-hook
     (lambda ()
       (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
       (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
+      (esh-autosuggest-mode)
       ))
 #+end_src
 ** Eshell tips
