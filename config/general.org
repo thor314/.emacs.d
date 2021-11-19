@@ -41,8 +41,6 @@ N2R: Some of these are on by default; explicitness seems good.
   (auto-compression-mode 1) ; auto-handle (un)?zip on visit zipped file
   (auto-encryption-mode 1) ; automatic file (en|de)cryption
   (delete-selection-mode 1) ; delete region on entry
-  (use-package diff-hl) ; highlight diffs from last commit in fringe; v convenient
-  (global-diff-hl-mode 1)
   (electric-indent-mode 1) ; auto-indent on enter
   (electric-pair-mode 1) ; match () {} ...
   (global-auto-revert-mode 1) ; revert buffers when file changes on disk; convenient.
@@ -55,10 +53,7 @@ N2R: Some of these are on by default; explicitness seems good.
   (global-prettify-symbols-mode 1) ; lambda -> symbol
   (mouse-wheel-mode 1) ; allow scroll by mouse-wheel
   (transient-mark-mode) ; don't hide active selected region
-  (use-package zoom) ; rebalance awkwardly balanced window divisions
-  (zoom-mode 1)
 #+end_src
-[[https://github.com/dgutov/diff-hl][diff-hl]]. [[https://github.com/cyrus-and/zoom][zoom]].
 * Unset keys
 Explicitly unset some keys that aren't very useful, reserving them for future personal use patterns.
 #+begin_src emacs-lisp
@@ -90,6 +85,18 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   (use-package solarized-theme)
   (load-theme 'solarized-gruvbox-dark t)
 #+end_src
+** [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
+#+begin_src emacs-lisp
+	(use-package zoom)
+  (zoom-mode 1)
+#+end_src
+
+** [[https://github.com/dgutov/diff-hl][diff-hl]] - highlight changes since last git commit
+#+begin_src emacs-lisp
+	(use-package diff-hl) ; rebalance awkwardly balanced window divisions
+  (global-diff-hl-mode)
+#+end_src
+
 ** Slightly nicer mode line [[https://github.com/tarsius/moody][moody]].
 #+begin_src emacs-lisp
   (use-package moody)
@@ -163,8 +170,8 @@ Most useful: replace a regexp across multiple files.
 * [[https://github.com/iqbalansari/restart-emacs/blob/master/restart-emacs.el][restart-emacs]] - smol package for restarting emacs
 #+begin_src emacs-lisp
 	(use-package restart-emacs)
- (setq restart-emacs-restore-frames t) ;; try to restore frames
- (global-set-key (kbd "C-x c") 'restart-emacs)
+  (setq restart-emacs-restore-frames t) ;; try to restore frames
+  (global-set-key (kbd "C-x c") 'restart-emacs)
 #+end_src
 * Path adjustments
 Sometimes the PATH shell var isn't set correctly. Use this area to modify that. Maybe worth restarting emacs (closing and re-opening) before fiddling with this. Also try =eshell/addpath=.
