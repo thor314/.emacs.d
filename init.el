@@ -45,6 +45,7 @@
 (org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
 (org-babel-load-file "~/.emacs.d/config/secret.org")
 (org-babel-load-file "~/.emacs.d/config/org_templates.org")
+(org-babel-load-file "~/.emacs.d/config/messaging.org")
 ;; languages
 (org-babel-load-file "~/.emacs.d/config/lang/rust.org")
 (org-babel-load-file "~/.emacs.d/config/lang/sh.org")

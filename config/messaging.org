@@ -1,0 +1,40 @@
+* [[https://github.com/emacs-circe/circe][Circe]], the IRC client. Relies on a irc daemon like [[https://www.bitlbee.org/user-guide.html][bitlbee]]
+Experiment. Want: Signal, Telegram, Discord all in Emacs.
+#+begin_src emacs-lisp
+  (use-package circe)
+  (setq lui-flyspell-p t
+    lui-fill-column 75
+    lui-time-stamp-format "[%H:%M:%S]"
+    lui-time-stamp-position 'right
+    )
+  (setq circe-network-options
+    '(("Libera"
+        :host "irc.eu.libera.chat"
+        :port "6697"
+        :tls t
+        :nick "cryptograthor"
+        ;:sasl-username
+        ;:sasl-password libera-password
+        :channels ("#emacs")
+        )))
+
+  ;; get desktop notification for buffers in 'tracking-buffers
+  (use-package circe-notifications)
+  (add-hook 'circe-server-connected-hook 'enable-circe-notifications)
+
+  ;;(eval-after-load "circe-notifications"
+  ;;'(setq circe-notifications-watch-strings
+  ;;    '("people" "you" "like" "to" "hear" "from")))
+
+;; (defun bitlbee ()
+;;   (interactive)
+;;   (circe "localhost" :port "6667" :nick "Thor" )
+;;   (save-window-excursion
+;;     (set-buffer "localhost:6667")
+;;     (with-circe-server-buffer
+;;       (circe-server-send
+;;        (format "PRIVMSG &bitlbee :identify %s"
+;;          my-bitlbee-password)))))
+
+
+#+end_src

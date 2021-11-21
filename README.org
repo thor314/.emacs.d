@@ -4,7 +4,7 @@ I, user, am merely an inefficient text filter that emacs tolerates, until higher
 ** What am I looking at
 This is my emacs config. It's not the best emacs config, but it's mine, and I love it. I scrounged around the internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of =.org= files because organization is good, and I like collapsable sectioning and pretty text. The literate setup divides and collapses the sections in a way I enjoy. For most of the packages I use, I include a link to the documentation for. This makes it easy for myself (and possibly others) to use my config reasonably efficiently for reference.
  Quick note to anyone rippin mah binds: I use a Dvorak keyboard layout. Your ergonomics may vary.
- If you're starting out with emacs, (yay, good for you), cool, congrats! You should probably look at others' configs before you look at mine, they likely did it clearer and better. But in any case, my favorite packages that I use all the time include:
+ If you're starting out with emacs, cool, congrats! You should probably look at others' configs before you look at mine, they likely did it clearer and better. But in any case, my favorite packages that I use all the time include:
 - =ivy-mode=, =avy-mode=, =ivy-rich=, and =counsel=, for better navigation and stuff
 - =use-package= in place of 'require for installing packages, though I hear =straight= is the new hot thing
 - =org-mode=, =org-roam= are reasons onto themselves to use emacs

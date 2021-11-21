@@ -1,7 +1,7 @@
 ;;-*-coding: utf-8;-*-
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("abotu" "about" nil :count 5)
+    ("abotu" "about" nil :count 6)
     ("acconut" "account" nil :count 2)
     ("account_id" "account_id" nil :count 1)
     ("accoutn" "account" nil :count 1)
@@ -9,6 +9,7 @@
     ("acutally" "actually" nil :count 0)
     ("amoutn" "amount" nil :count 11)
     ("amoutns" "amounts" nil :count 0)
+    ("anythnig" "anything" nil :count 1)
     ("aronud" "around" nil :count 2)
     ("aroudn" "around" nil :count 14)
     ("belife" "belief" nil :count 0)
@@ -20,9 +21,10 @@
     ("copmlete" "complete" nil :count 0)
     ("donig" "doing" nil :count 0)
     ("empyt" "empty" nil :count 0)
+    ("enuf" "enough" nil :count 1)
     ("feelnig" "feeling" nil :count 1)
     ("fro" "for" nil :count 1)
-    ("fucknig" "fucking" nil :count 4)
+    ("fucknig" "fucking" nil :count 5)
     ("gulit" "guilt" nil :count 0)
     ("hera" "hear" nil :count 0)
     ("jsut" "just" nil :count 0)
@@ -47,11 +49,12 @@
     ("tg" "thor314@gmail.com" nil :count 2)
     ("theri" "their" nil :count 0)
     ("ti" "it" nil :count 1)
-    ("tihnk" "think" nil :count 1)
+    ("tihnk" "think" nil :count 2)
     ("tihs" "this" nil :count 1)
     ("tm" "thor@mintbase.io" nil :count 1)
     ("tn" "thork@tuta.io" nil :count 1)
     ("tp" "thorck@protonmail.com" nil :count 1)
+    ("ustd" "understand" nil :count 3)
     ("waht" "what" nil :count 5)
     ("wokrer" "worker" nil :count 1)
     ("worknig" "working" nil :count 5)
@@ -85,3 +88,4 @@
     ("pln" "println!(\"{:?}\"," nil :count 0)
     ("tokne" "token" nil :count 0)
    ))
+
