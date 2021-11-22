@@ -25,17 +25,6 @@ Surprisingly powerful.
 (use-package re-builder)
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
-* =pop-win= - less annoying help and compilation buffers
-Not currently using; useful to customize how compilation buffers appear.
-#+begin_src emacs-lisp
-  ;(use-package popup) ; not making use atm. Creates dropdown ui.
-  (use-package popwin)
-  (popwin-mode 1)
-  ;; popup buffers, if I want to use them
-  (setq popwin:popup-window-position 'right)
-#+end_src
-[[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
-
 * [[https://github.com/hayamiz/twittering-mode][twittering-mode]]
 #+begin_src emacs-lisp
   (use-package twittering-mode
@@ -54,4 +43,15 @@ Not currently using; useful to customize how compilation buffers appear.
   (global-undo-tree-mode)
 #+end_src
 [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
+* =pop-win= - less annoying help and compilation buffers
+Not currently using; useful to customize how compilation buffers appear.
+#+begin_src emacs-lisp
+  ;(use-package popup) ; not making use atm. Creates dropdown ui.
+  (use-package popwin)
+  (popwin-mode 1)
+  ;; popup buffers, if I want to use them
+  (setq popwin:popup-window-position 'right)
+#+end_src
+[[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
+
 * [[https://github.com/atykhonov/emacs-howdoi][howdoi]] - deprecated; package unfunctional, not maintained
