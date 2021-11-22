@@ -1,4 +1,5 @@
 * [[https://github.com/emacs-circe/circe][Circe]], the IRC client. Relies on a irc daemon like [[https://www.bitlbee.org/user-guide.html][bitlbee]]
+Circe [[https://www.nongnu.org/circe/][homepage]].
 Experiment. Want: Signal, Telegram, Discord all in Emacs.
 #+begin_src emacs-lisp
   (use-package circe)
@@ -7,12 +8,28 @@ Experiment. Want: Signal, Telegram, Discord all in Emacs.
     lui-time-stamp-format "[%H:%M:%S]"
     lui-time-stamp-position 'right
     )
+
+  ;; https://github.com/emacs-circe/circe/wiki/Configuration
+  ;; passwd set in ~/.authinfo.gpg, loaded in general
+  (defun my-fetch-password (&rest params)
+    (require 'auth-source)
+    (let ((match (car (apply 'auth-source-search params))))
+      (if match
+        (let ((secret (plist-get match :secret)))
+          (if (functionp secret)
+            (funcall secret)
+            secret))
+        (error "Password not found for %S" params))))
+  (defun my-nickserv-password (server)
+    (my-fetch-password :user "cryptograthor" :machine "irc.libera.chat"))
+
   (setq circe-network-options
     '(("Libera"
         :host "irc.eu.libera.chat"
         :port "6697"
         :tls t
         :nick "cryptograthor"
+        :nickserve-password my-nickserv-password
         ;:sasl-username
         ;:sasl-password libera-password
         :channels ("#emacs")
@@ -21,20 +38,19 @@ Experiment. Want: Signal, Telegram, Discord all in Emacs.
   ;; get desktop notification for buffers in 'tracking-buffers
   (use-package circe-notifications)
   (add-hook 'circe-server-connected-hook 'enable-circe-notifications)
-
   ;;(eval-after-load "circe-notifications"
   ;;'(setq circe-notifications-watch-strings
   ;;    '("people" "you" "like" "to" "hear" "from")))
 
 ;; (defun bitlbee ()
 ;;   (interactive)
-;;   (circe "localhost" :port "6667" :nick "Thor" )
+;;   (circe "localhost" :port "6667" :nick "cryptograthor" )
 ;;   (save-window-excursion
 ;;     (set-buffer "localhost:6667")
 ;;     (with-circe-server-buffer
 ;;       (circe-server-send
 ;;        (format "PRIVMSG &bitlbee :identify %s"
-;;          my-bitlbee-password)))))
+;;          my-fetch-password)))))
 
 
 #+end_src

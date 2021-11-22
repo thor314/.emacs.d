@@ -12,7 +12,7 @@
      '(("\\(?:^\\|[[:space:]]\\)\\(\\*[^*[:space:]]+?\\*\\)\\(?:$\\|[[:space:]]\\)" 1 lui-strong-face)
         ("\\(?:^\\|[[:space:]]\\)\\(_[^_[:space:]]+?_\\)\\(?:$\\|[[:space:]]\\)" 1 lui-emphasis-face)))
   '(org-agenda-files
-     '("/home/thor/org/agenda/dev.org" "/home/thor/org/agenda/emacs.org" "/home/thor/org/agenda/habits.org" "/home/thor/org/agenda/mintbase.org" "/home/thor/org/agenda/misc.org" "/home/thor/org/agenda/pers.org" "/home/thor/org/agenda/project_ideas.org" "/home/thor/org/agenda/rsch.org" "/home/thor/org/agenda/write.org" "/home/thor/org/journal/20211121.org"))
+     '("/home/thor/org/agenda/dev.org" "/home/thor/org/agenda/emacs.org" "/home/thor/org/agenda/habits.org" "/home/thor/org/agenda/mintbase.org" "/home/thor/org/agenda/misc.org" "/home/thor/org/agenda/pers.org" "/home/thor/org/agenda/project_ideas.org" "/home/thor/org/agenda/rsch.org" "/home/thor/org/agenda/write.org" "/home/thor/org/journal/20211122.org"))
   '(package-selected-packages
      '(esh-autosuggest circe-notifications powerthesaurus theme-magic restart-emacs circe sx all-the-icons-gnus beacon counsel-spotify moody smartparens-config smartparens request company-anaconda anaconda-mode lsp-ui parrot parrot-mode undo-tree company-prescient ivy-prescient prescient org-ref ivy-bibtex zweilight-theme company-org-roam twittering-mode org-roam poly-markdown poly-org polymode racer paredit rainbow-delimiters org-journal org-mobile languagetool popup popwin yasnippet-snippets yas-snippet-snippets yasnippet lsp-ivy rustic rustic-mode rust-mode lsp-mode flycheck ivy-rich free-keys hydra zoom use-package solarized-theme minions diff-hl counsel-projectile avy auto-compile))
   '(rustic-ansi-faces
