@@ -64,7 +64,6 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
-      ;(org-mode-add-electric-pairs)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "C-c y") 'link-last-word-from-kill)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)

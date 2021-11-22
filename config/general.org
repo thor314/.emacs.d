@@ -74,9 +74,12 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   ;; back already? consider unsetting M-c,M-l,M-u,M-h,M-q.
 #+end_src
 * Notes about mode maps
-- M-g movement
+** Defaults
+- M-g movement by line
 - M-s special searches
 - C-x 8 special characters
+** Packages and mine
+- C-M-. Movement by smartparens
 - C-x v diff-hl
 - C-c ! flycheck
 * Appearance

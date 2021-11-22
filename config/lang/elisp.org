@@ -4,6 +4,44 @@
 ;; turn off the ;;; Code type recommendations
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+
+  (add-hook 'emacs-lisp-mode-hook
+    (lambda ()
+
+      (setq sp-pairs
+        ;; copied from default, exclude \'
+'((t
+   (:open "\\\\(" :close "\\\\)" :actions
+     (insert wrap autoskip navigate))
+   (:open "\\{" :close "\\}" :actions
+     (insert wrap autoskip navigate))
+   (:open "\\(" :close "\\)" :actions
+     (insert wrap autoskip navigate))
+   (:open "\\\"" :close "\\\"" :actions
+     (insert wrap autoskip navigate))
+   (:open "\"" :close "\"" :actions
+     (insert wrap autoskip navigate escape)
+     :unless
+     (sp-in-string-quotes-p)
+     :post-handlers
+     (sp-escape-wrapped-region sp-escape-quotes-after-insert))
+    ;; exclude: \' from chars
+                                        ;(:open "'" :close "'" :actions
+                                        ; (insert wrap autoskip navigate escape)
+                                        ;:unless
+                                        ;(sp-in-string-quotes-p sp-point-after-word-p)
+                                        ;:post-handlers
+                                        ;(sp-escape-wrapped-region sp-escape-quotes-after-insert))
+   (:open "(" :close ")" :actions
+     (insert wrap autoskip navigate))
+   (:open "[" :close "]" :actions
+     (insert wrap autoskip navigate))
+   (:open "{" :close "}" :actions
+     (insert wrap autoskip navigate))
+   (:open "`" :close "`" :actions
+     (insert wrap autoskip navigate))))
+      )))
+
 #+end_src
 * <deprecated> =paredit= - use smartparens instead
 (reason: smartparens has better cross-language support, also see  [[https://www.reddit.com/r/emacs/comments/1q99wi/moving_from_paredit_to_smartparens/][boz's]] recc)
