@@ -27,8 +27,8 @@
   (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook
     (lambda ()
-      (setq company-idle-delay 0.5) ;; how long to wait until popup
-      (setq company-minimum-prefix-length 1)
+      (setq company-idle-delay 0.5 ;; how long to wait until popup
+        company-minimum-prefix-length 1)
       (company-prescient-mode)
       (define-key company-active-map (kbd "C-n") 'company-select-next)
       (define-key company-active-map (kbd "C-p") 'company-select-previous)
@@ -53,21 +53,21 @@
 Definition with eldoc/equiv tends to be the most lag-inducing.
 [[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
 #+begin_src emacs-lisp
-  (setq lsp-enable-symbol-highlighting nil) ;; highlight instances
-  (setq lsp-ui-doc-enable nil) ;; hover dialogs
-  (setq lsp-lens-enable nil) ;; number references to object
-  (setq lsp-headerline-breadcrumb-enable nil) ;; top path
-  (setq lsp-ui-sideline-show-code-actions nil)
-  (setq lsp-modeline-code-actions-enable t)
-  (setq lsp-diagnostics-provider :flycheck)
-  (setq lsp-ui-sideline-show-diagnostics t) ;; sideline errors
-  (setq lsp-eldoc-enable-hover nil) ;;  modeline feedback and laggg
-  (setq lsp-signature-auto-activate nil) ;; you could manually requiest them via `lsp-signature-activate`
-  ;;(setq lsp-signature-render-documentation nil) ;; render docs
-  (setq lsp-completion-provider :capf) ; completion backend
-  (setq lsp-idle-delay 0.5) ; refresh highlights
-  (setq lsp-enable-snippet nil) ; hide yasnippets from company completes
-  (setq lsp-show-snippet nil)
+  (setq lsp-enable-symbol-highlighting nil ;; highlight instances
+    lsp-ui-doc-enable nil ;; hover dialogs
+    lsp-lens-enable nil ;; number references to object
+    lsp-headerline-breadcrumb-enable nil ;; top path
+    lsp-ui-sideline-show-code-actions nil
+    lsp-modeline-code-actions-enable t
+    lsp-diagnostics-provider :flycheck
+    lsp-ui-sideline-show-diagnostics t ;; sideline errors
+    lsp-eldoc-enable-hover nil ;;  modeline feedback and laggg
+    lsp-signature-auto-activate nil ;; you could manually requiest them via `lsp-signature-activate`
+    ;;( lsp-signature-render-documentation nil ;; render docs
+    lsp-completion-provider :capf ; completion backend
+    lsp-idle-delay 0.5 ; refresh highlights
+    lsp-enable-snippet nil ; hide yasnippets from company completes
+    lsp-show-snippet nil)
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 

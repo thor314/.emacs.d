@@ -48,6 +48,7 @@ Movement and transformations based on sexps is paradigm for text editing, whenev
 	(require 'smartparens-text)
 	(require 'smartparens-markdown)
 #+end_src
+
 ** Org-mode
 [[https://github.com/Fuco1/smartparens/blob/master/smartparens-org.el][reference]]
 #+begin_src emacs-lisp
@@ -64,10 +65,8 @@ Movement and transformations based on sexps is paradigm for text editing, whenev
 
 ** Elisp
 #+begin_src emacs-lisp
-  ;; ignore '
-  (sp-with-modes 'emacs-lisp-mode-hook (sp-local-pair "'" nil :actions nil))
-  ;; equivalent:
-  ;;  (add-hook 'emacs-lisp-mode-hook '(sp-pair "'" nil :actions :rem))
+  ;; ignore single quote
+  (sp-with-modes 'emacs-lisp-mode (sp-local-pair "'" nil :actions nil))
 #+end_src
 ** Latex
 #+begin_src emacs-lisp
