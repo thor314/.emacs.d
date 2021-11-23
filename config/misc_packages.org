@@ -20,6 +20,10 @@ Surprisingly powerful.
 (use-package free-keys)
 #+end_src
 [[https://github.com/Fuco1/free-keys][free-keys]].
+* =command-log-mode= - infrequently used mode, useful for demos and alternative to C-h k
+#+begin_src emacs-lisp
+	(use-package command-log-mode :commands command-log-mode)
+#+end_src
 * =re-builder= - Build and test regex
 #+begin_src emacs-lisp
 (use-package re-builder)
