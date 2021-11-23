@@ -34,7 +34,6 @@
 * My functions
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-!") 'window-split-toggle)
-  (global-set-key (kbd "C-h C-h") 'describe-thing)
 #+end_src
 * Ivy, Avy, Swiper
 #+begin_src emacs-lisp
@@ -49,6 +48,7 @@
 #+end_src
 
 * Counsel (and Projectile)
+note that there's a new mode called =counsel-mode= that does most of this remapping for new users.
 #+begin_src emacs-lisp
   ;;(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (global-set-key (kbd "C-c p SPC") 'counsel-projectile)
@@ -57,7 +57,19 @@
   (global-set-key (kbd "C-c p r") 'projectile-remove-known-project)
   (global-set-key (kbd "C-c p a") 'projectile-add-known-project)
 
+  ;; Note that the built-in `describe-function' includes both functions
+  ;; and macros. `helpful-function' is functions only, so we provide
+  ;; `helpful-callable' as a drop-in replacement.
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
+  (global-set-key (kbd "C-h C-h") #'helpful-at-point)
+  (setq counsel-describe-function-function #'helpful-callable)
+  (setq counsel-describe-variable-function #'helpful-variable)
+  (global-set-key (kbd "C-h s") 'helpful-symbol)
   (global-set-key (kbd "C-h b") 'counsel-descbinds) ; Very Useful^tm, much more so than the default
+  (global-set-key (kbd "C-h B") 'describe-bindings) ; Very Useful^tm, much more so than the default
+  (global-set-key (kbd "C-h i") 'info)
   (global-set-key (kbd "C-h l") 'counsel-find-library)
   (global-set-key (kbd "C-c b") 'counsel-bookmark) ; note: bkmks overlap with ivy-view
   (global-set-key (kbd "C-c k") 'counsel-rg)
@@ -67,10 +79,6 @@
   (global-set-key (kbd "C-x f") 'counsel-find-file)
   (global-set-key (kbd "C-c o") 'counsel-outline) ; jump to a different outline heading
   (global-set-key (kbd "M-y") 'counsel-yank-pop) ; nicer kill ring
-  (global-set-key (kbd "C-h f") 'counsel-describe-function)
-  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-  (global-set-key (kbd "C-h s") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "C-h i") 'info)
   (global-set-key (kbd "C-c u") 'counsel-unicode-char)
 
   (global-set-key (kbd "C-r m") 'counsel-linux-app) ; launch an application

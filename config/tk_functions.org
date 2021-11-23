@@ -97,17 +97,6 @@ there is a text selection, act on the region."
           (switch-to-buffer (other-buffer))))))
 #+end_src
 
-* A no guesswork helper
-#+begin_src emacs-lisp
-  (defun describe-thing ()
-    "Describe fn or var in other window."
-    (interactive)
-    (let ((thing (symbol-at-point)))
-      (cond
-        ((fboundp thing) (describe-function thing))
-        ((boundp thing) (describe-variable thing)))))
-#+end_src
-
 * Insert
 ** org-src-blocks
 #+begin_src emacs-lisp
