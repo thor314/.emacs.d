@@ -6,6 +6,14 @@
 
 ;;; Code:
 
+
+;; Tell emacs to time startup
+(let ((emacs-start-time (current-time)))
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (let ((elapsed (float-time (time-subtract (current-time) emacs-start-time))))
+                (message "[Emacs initialized in %.3fs]" elapsed)))))
+
 ;; Get package repositories
 (require 'package)
 ;;(require 'cl-lib) ; not currently needed

@@ -63,9 +63,7 @@ Takes a little setup thru spotify.
   ;(setq counsel-spotify-client-secret "go here: https://developer.spotify.com/dashboard/applications/78c85c7b50e34d74a2e879717259b650")
 #+end_src
 * [[https://github.com/raxod502/prescient.el][prescient]] completions
-Turning prescient on:
-- remembers the last commands used
--
+Turning prescient on remembers the last 1000 commands used and puts them at the top of the list
 #+begin_src emacs-lisp
  (use-package prescient)
  (use-package ivy-prescient)
