@@ -3,8 +3,10 @@
   (use-package magit)
   (use-package forge
     :after magit)
+  ;; NOTE: Make sure to configure a GitHub token before using this package
+  ;; in ~/.authinfo.gpg, include the line machine api.github.com login thor314^forge password <https://magit.vc/manual/ghub/Creating-a-Token.html#Creating-a-Token>
 #+end_src
-[[https://magit.vc/][magit]]. [[https://magit.vc/manual/forge/][forge]]. [[https://magit.vc/manual/forge/][forge manual]]. Setup requires ~/authinfo.gpg.
+[[https://magit.vc/manual/magit.html][magit]]. [[https://magit.vc/manual/forge.html][forge]].
 
 ** Why forge, not $x:
 0. Don't leave emacs. Write text in an editor that makes sense.
