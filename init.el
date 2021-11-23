@@ -42,6 +42,9 @@
   (auto-compile-on-save-mode t)
   (auto-compile-on-load-mode t))
 
+;; consider automatic package updates: auto-package-update https://github.com/rranelli/auto-package-update.el
+;; why not used: not that important
+
 ;; general config files live in ./config. Tangle these files, then remove the *.el artifacts after loading.
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")
 (org-babel-load-file "~/.emacs.d/config/general.org")

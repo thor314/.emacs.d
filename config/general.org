@@ -17,6 +17,8 @@
     c-basic-offset 2) ; programming modes often use this
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   ;; Put backups~ and #autosaves# in /tmp
+  ;; also look at https://github.com/emacscollective/no-littering/blob/master/no-littering.el
+  ;; why not used: meh
   (setq backup-directory-alist
     `((".*" . ,temporary-file-directory))
     auto-save-file-name-transforms
@@ -30,9 +32,13 @@
   (file-name-shadow-mode 0) ; dims unused parts of files in minibuffer
   (line-number-mode 0) ; clutter mode line
   (tool-bar-mode 0)
+  (set-fringe-mode 0) ;; smaller fringe
   (menu-bar-mode 0)
+  (column-number-mode 0)
+  (electric-pair-mode 0) ;; prefer smartparens (more complex tho)
   (scroll-bar-mode 0)
   (set-window-scroll-bars (minibuffer-window) nil nil) ; why scroll bar in minibuffer
+  (setq visible-bell 0)
 #+end_src
 
 ** Emacs played in minor key
@@ -42,17 +48,23 @@ N2R: Some of these are on by default; explicitness seems good.
   (auto-encryption-mode 1) ; automatic file (en|de)cryption
   (delete-selection-mode 1) ; delete region on entry
   (electric-indent-mode 1) ; auto-indent on enter
-  (electric-pair-mode 0) ;; prefer smartparens (more complex tho)
   (global-auto-revert-mode 1) ; revert buffers when file changes on disk; convenient.
-  (setq global-auto-revert-non-file-buffers t)
-  (setq auto-revert-verbose nil)
+  (setq global-auto-revert-non-file-buffers t
+    auto-revert-verbose nil)
   (global-display-line-numbers-mode) ; not to be confused with line-number-mode
   (global-font-lock-mode 1) ; decorate text
   (global-hl-line-mode 1) ; highlight current line
   (global-visual-line-mode) ; wrap long lines
-  (global-prettify-symbols-mode 1) ; lambda -> symbol
   (mouse-wheel-mode 1) ; allow scroll by mouse-wheel
   (transient-mark-mode) ; don't hide active selected region
+
+  ;; Set frame transparency, maximize screen by default
+  (defvar tk/frame-transparency '(95 . 95))
+  (set-frame-parameter nil 'alpha tk/frame-transparency)
+  (set-frame-parameter nil 'fullscreen 'maximized)
+  ;; put in default frame settings
+  (add-to-list 'default-frame-alist `(alpha . ,tk/frame-transparency))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 * Unset keys
 Explicitly unset some keys that aren't very useful, reserving them for future personal use patterns.
@@ -83,6 +95,21 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
 - C-x v diff-hl
 - C-c ! flycheck
 * Appearance
+** Fonts
+It's =pragma 'nov 2021'=. Get yourself some nice ligatures with [[https://github.com/tonsky/FiraCode][Fira Code]].
+Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature.el]], for ligature settings, as of Emacs 28.
+#+begin_src emacs-lisp
+  (defvar tk/default-font-size 105)
+  (defvar tk/default-variable-font-size 105)
+  (set-face-attribute 'default nil :font "Fira Code Retina" :height tk/default-font-size)
+  (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height tk/default-font-size)
+  ;(ligature-set-ligatures 't '("www"))
+  (set-face-attribute 'variable-pitch nil :font "Cantarell" :height tk/default-variable-font-size :weight 'regular)
+  (global-prettify-symbols-mode 1) ; lambda -> symbol
+  (use-package fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '("[]" "x"))  ; ligatures you don't want
+  :hook prog-mode)
+#+end_src
 ** Theme [[https://github.com/bbatsov/solarized-emacs][sol-theme]].
 #+begin_src emacs-lisp
   (use-package solarized-theme)
@@ -142,6 +169,14 @@ dependency: =pip3 install pywal=
   (use-package esh-autosuggest)
   (add-hook 'eshell-mode-hook
     (lambda ()
+      ;; enable password caching
+      ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
+      (require 'em-tramp)
+      (setq eshell-prefer-lisp-functions t)
+      (setq eshell-prefer-lisp-variables t)
+      ;; also need to set an alias: alias sudo 'eshell/sudo $*'
+      (setq password-cache t) ;; enable passwd caching
+      (setq password-cache-expiry 600) ; for 10 minutes
       (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
       (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
       (esh-autosuggest-mode)
