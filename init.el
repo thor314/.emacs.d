@@ -5,14 +5,13 @@
 ;; Literate to document the config unobtrusively.
 
 ;;; Code:
-
-
-;; Tell emacs to time startup
-;; (let ((emacs-start-time (current-time)))
-;;   (add-hook 'emacs-startup-hook
-;;             (lambda () ; throwing float-time errors
-;;               (let ((elapsed (float-time (time-subtract (current-time) 'emacs-start-time))))
-;;                 (message "[Emacs initialized in %.3fs]" elapsed)))))
+(defun tk/display-startup-time ()
+  (message "Emacs loaded in %s with %d garbage collections."
+           (format "%.2f seconds"
+                   (float-time
+                   (time-subtract after-init-time before-init-time)))
+           gcs-done))
+(add-hook 'emacs-startup-hook 'tk/display-startup-time)
 
 ;; Get package repositories
 (require 'package)

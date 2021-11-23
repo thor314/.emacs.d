@@ -24,26 +24,15 @@ Surprisingly powerful.
 #+begin_src emacs-lisp
 	(use-package command-log-mode :commands command-log-mode)
 #+end_src
+* [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
+#+begin_src emacs-lisp
+	(use-package bug-hunter)
+#+end_src
 * =re-builder= - Build and test regex
 #+begin_src emacs-lisp
 (use-package re-builder)
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
-* [[https://github.com/hayamiz/twittering-mode][twittering-mode]]
-#+begin_src emacs-lisp
-  (use-package twittering-mode
-    :config
-    (bind-keys :prefix "C-r t"
-    :prefix-map my-twit-mode
-    :prefix-docstring "Global keymap for twit mode."
-      ("t" . twit)
-      ("p" . twittering-update-status-from-pop-up-buffer)
-      ))
-  ;; (setq twittering-use-master-password nil)
-  ;; fails w/ error: setq: Symbol’s function definition is void: epa--decode-coding-string
-  ;; so just put up with authenticating each session
-#+end_src
-
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree)
@@ -61,4 +50,26 @@ Not currently using; useful to customize how compilation buffers appear.
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
+* [[https://github.com/hayamiz/twittering-mode][twittering-mode]] - deprecated; not maintaned, too many warnings and errors, bad auth, okay but not great client
+:#+begin_src emacs-lisp
+  (use-package twittering-mode
+    :config
+    (bind-keys :prefix "C-r t"
+    :prefix-map my-twit-mode
+    :prefix-docstring "Global keymap for twit mode."
+      ("t" . twit)
+      ("p" . gtwittering-update-status-from-pop-up-buffer)
+      ))
+  ;; (setq twittering-use-master-password nil)
+  ;; fails w/ error: setq: Symbol’s function definition is void: epa--decode-coding-string
+  ;; so just put up with authenticating each session
+#+end_src
 * [[https://github.com/atykhonov/emacs-howdoi][howdoi]] - deprecated; package unfunctional, not maintained
+* deprecated: [[https://github.com/jcaw/theme-magic][theme-magic]] Make the rest of linux look more like emacs - package buggy, not maintained
+dependency: =pip3 install pywal=
+:#+begin_src emacs-lisp
+	(use-package theme-magic)
+  (theme-magic-from-emacs)
+  ;; update the rest of linux when I update emacs' theme
+  (theme-magic-export-theme-mode)
+#+end_src
