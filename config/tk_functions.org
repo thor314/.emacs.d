@@ -105,7 +105,7 @@ there is a text selection, act on the region."
     (let ((thing (symbol-at-point)))
       (cond
         ((fboundp thing) (describe-function thing))
-        ((boundp thing) (describe-var thing)))))
+        ((boundp thing) (describe-variable thing)))))
 #+end_src
 
 * Insert

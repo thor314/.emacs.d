@@ -42,7 +42,7 @@ N2R: Some of these are on by default; explicitness seems good.
   (auto-encryption-mode 1) ; automatic file (en|de)cryption
   (delete-selection-mode 1) ; delete region on entry
   (electric-indent-mode 1) ; auto-indent on enter
-  (electric-pair-mode 1) ; match () {} ...
+  (electric-pair-mode 0) ;; prefer smartparens (more complex tho)
   (global-auto-revert-mode 1) ; revert buffers when file changes on disk; convenient.
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose nil)
@@ -61,10 +61,10 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
   (global-unset-key (kbd "C-r"))
   ;; tbd what I'll do with these
   (global-unset-key (kbd "C-o"))
-  (global-unset-key (kbd "C-;"))
+  (global-unset-key (kbd "C-;")) ; decorate text, sp-wrap
   (global-unset-key (kbd "C-j"))
   (global-unset-key (kbd "M-r"))
-  (global-unset-key (kbd "M-'"))
+  (global-unset-key (kbd "M-'")) ; avy jump
   (global-unset-key (kbd "M-i"))
   (global-unset-key (kbd "M-o"))
   (global-unset-key (kbd "M-p"))

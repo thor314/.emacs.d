@@ -34,21 +34,21 @@ Movement and transformations based on sexps is paradigm for text editing, whenev
       (local-set-key (kbd "C-<backspace>") 'sp-backward-kill-word)
       (local-set-key (kbd "M-<backspace>") 'backward-kill-word)
 
-      (local-set-key (kbd "C-c (") 'sp-wrap-round)
-      (local-set-key (kbd "C-c {") 'sp-wrap-curly)
-      (local-set-key (kbd "C-c [") 'sp-wrap-square)
+      (local-set-key (kbd "C-; (") 'sp-wrap-round)
+      (local-set-key (kbd "C-; {") 'sp-wrap-curly)
+      (local-set-key (kbd "C-; [") 'sp-wrap-square)
       ;; custom pairs, do this:
-      (sp-pair "`" "`" :wrap "C-`" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
+      (sp-pair "`" "`" :wrap "C-; `" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
       ))
  ;;(sp-local-pair 'org-mode "\\left(" "\\right)" :insert "C-b l" :trigger "\\l(")
  (sp-with-modes 'org-mode
   (sp-local-pair "*" "*"
                  :unless '(sp-point-after-word-p sp-point-at-bol-p)
-                 :skip-match 'sp--org-skip-asterisk)
-  (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
-  (sp-local-pair "/" "/" :unless '(sp-point-after-word-p sp-org-point-after-left-square-bracket-p) :post-handlers '(("[d1]" "SPC"))) ;; deletes the matching pair if I press space
-  (sp-local-pair "~" "~" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")))
-  (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC"))))
+                 :skip-match 'sp--org-skip-asterisk :wrap "C-; *")
+   (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
+  (sp-local-pair "/" "/" :unless '(sp-point-after-word-p sp-org-point-after-left-square-bracket-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; /") ;; deletes the matching pair if I press space
+  (sp-local-pair "~" "~" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; ~")
+  (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; ="))
 #+end_src
 
 * =sx= Browse stack exchange
