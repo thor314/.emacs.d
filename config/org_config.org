@@ -1,0 +1,106 @@
+* Tags
+Default tags available in org files. Syntax =?x= for literal ASCII value of x.
+#+begin_src emacs-lisp
+(setq org-tag-alist '(("dev" . ?d) ("pers" . ?p) ("write" . ?w) ("rsch" . ?r) ("main" . ?m) ("misc" . ?z)))
+#+end_src
+[[https://orgmode.org/manual/Tags.html#Tags][tags]].
+* Agenda
+[[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
+#+begin_src emacs-lisp
+  (setq org-agenda-files '("~/org/agenda/")
+   org-priority-default 80)
+   (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
+    '(("d" "Dev" tags-todo "DEV")
+     ("w" "Write" tags-todo "WRITE")
+     ("e" "Emacs" tags-todo "EMACS")
+     ("p" "Personal" tags-todo "PERS")
+     ("r" "Research" tags-todo "RSCH")
+     ("z" "Misc" tags-todo "MISC")
+     ("m" "Main" tags-todo "MAIN")
+     ))
+
+  (setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
+  (add-hook 'org-agenda-mode-hook
+    (lambda ()
+      (setq org-agenda-start-on-weekday nil ; start today
+        org-agenda-hide-tags-regexp ".*"
+        org-agenda-include-deadlines t
+        org-agenda-include-diary t
+        org-agenda-loop-over-headlines-in-active-region nil
+        org-agenda-restore-windows-after-quit t
+        org-agenda-skip-deadline-if-done t
+        org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+        org-agenda-start-on-weekday nil
+        org-agenda-todo-ignore-deadlines 'far
+        org-journal-enable-agenda-integration t)
+      ))
+#+end_src
+[[https://orgmode.org/manual/Agenda-Views.html][agenda]].
+* Journal
+#+begin_src emacs-lisp
+  (use-package org-journal)
+  (setq org-journal-dir "~/org/journal"
+    org-journal-file-format "%Y%m%d.org")
+#+end_src
+[[https://github.com/bastibe/org-journal][org-journal]].
+* Images via =org-download=
+Drag images into org or dired buffers. Saves in a folder in dir called images.
+#+begin_src emacs-lisp
+  (use-package org-download)
+  (add-hook 'dired-mode-hook 'org-download-enable)
+#+end_src
+[[https://github.com/abo-abo/org-download][org-download]].
+* Org-specific keybinds
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+    (lambda ()
+      (local-set-key (kbd "C-c C-r") 'org-schedule)
+      (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
+      (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
+      (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
+      (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
+      (local-set-key (kbd "<f1> d") 'insert-date)
+      (global-set-key (kbd "<f1> d") 'insert-date) ; experiment on blocking emacs overwrite 2021-08-30
+      (local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
+      (local-set-key (kbd "C-,") 'ivy-switch-buffer)
+      (local-set-key (kbd "C-.") 'other-window)
+      ))
+#+end_src
+* Org-roam- Cc n [lfgic]
+[[https://www.orgroam.com/manual/][docs]] and [[https://github.com/org-roam/org-roam][source]].
+** Setup
+Create a file: Org roam find file
+#+begin_src emacs-lisp
+  (setq org-roam-v2-ack t)
+  (use-package org-roam)
+  (add-hook 'org-mode-hook
+    (lambda ()
+      (setq company-mode nil) ;; gets annoying with text completes
+      (local-set-key (kbd "C-c n r") 'org-roam)
+      (local-set-key (kbd "C-c n n") 'org-roam-ref-add)
+      (local-set-key (kbd "C-c n i") 'org-roam-insert)
+      (local-set-key (kbd "C-c n I") 'org-roam-insert-immediate)
+      (local-set-key (kbd "C-c n f") 'org-roam-find-file)
+      (local-set-key (kbd "C-c n g") 'org-roam-graph)
+      (local-set-key (kbd "C-c n a") 'org-roam-tag-add)
+      (local-set-key (kbd "C-c n d") 'org-roam-tag-delete)
+      ))
+
+  ;; enables org-roam on startup
+  ;(add-hook 'after-init-hook 'org-roam-mode) ; 2021-08-30 no such org roam mode
+  (setq org-roam-directory "~/org/roam")
+  (setq org-roam-completion-system 'ivy)
+  ;; optional index file keeps links to main files
+  ;; (setq org-roam-index-file "index.org")
+#+end_src
+* Settings
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+    (lambda ()
+      (setq org-src-fontify-natively t ; syntax-highlight if org recognizes src block
+       org-src-tab-acts-natively t ; use programming major modes in src blocks
+       org-adapt-indentation nil ; turn off special indentation in org subsections
+       org-directory "~/org"
+       org-log-done 'time) ; timstamp when TODO - DONE
+      ))
+#+end_src

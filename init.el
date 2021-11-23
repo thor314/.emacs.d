@@ -52,6 +52,7 @@
 (org-babel-load-file "~/.emacs.d/config/misc_packages.org")
 (org-babel-load-file "~/.emacs.d/config/programming.org")
 (org-babel-load-file "~/.emacs.d/config/text.org")
+(org-babel-load-file "~/.emacs.d/config/org_config.org")
 ;(org-babel-load-file "~/.emacs.d/config/experimental.org")
 (org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
 (org-babel-load-file "~/.emacs.d/config/secret.org")
