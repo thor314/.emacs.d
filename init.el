@@ -38,6 +38,7 @@
 (org-babel-load-file "~/.emacs.d/config/tk_functions.org")
 (org-babel-load-file "~/.emacs.d/config/general.org")
 (org-babel-load-file "~/.emacs.d/config/ivy.org")
+(org-babel-load-file "~/.emacs.d/config/smartparens.org")
 (org-babel-load-file "~/.emacs.d/config/misc_packages.org")
 (org-babel-load-file "~/.emacs.d/config/programming.org")
 (org-babel-load-file "~/.emacs.d/config/text.org")
