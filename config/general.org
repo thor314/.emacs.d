@@ -3,7 +3,7 @@
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p) ; brevity is the soul of wit
   (setq inhibit-startup-message t
-    gc-cons-threshold 2000000 ; default is 800KB, set to 20MB
+    gc-cons-threshold 20000000 ; default is 800KB, set to 200MB
     read-process-output-max 3000000 ;; incr data read from process. default is 4kb.
     require-final-newline t ; Whether to add a newline automatically at the end of the file.
     next-line-add-newlines t ; add newline on C-n at EOF
@@ -138,11 +138,11 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 ** Slightly nicer mode line [[https://github.com/tarsius/moody][moody]].
 Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
 #+begin_src emacs-lisp
-  (use-package moody)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-eldoc-minibuffer-message-function)
-  (moody-replace-vc-mode) ; branch info
-  (setq moody-mode-line-height 25)
+  ;; (use-package moody)
+  ;; (moody-replace-mode-line-buffer-identification)
+  ;; (moody-replace-eldoc-minibuffer-message-function)
+  ;; (moody-replace-vc-mode) ; branch info
+  ;; (setq moody-mode-line-height 25)
 #+end_src
 ** [[https://github.com/Wilfred/helpful][Helpful]] - make emacs help buffers better
 #+begin_src emacs-lisp
@@ -168,14 +168,6 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
   ;; rotate the parrot when save or compilation finishes
   (add-hook 'after-save-hook 'parrot-start-animation)
   (add-to-list 'compilation-finish-functions 'my/parrot-animate-when-compile-success)
-#+end_src
-** [[https://github.com/jcaw/theme-magic][theme-magic]] Make the rest of linux look more like emacs
-dependency: =pip3 install pywal=
-#+begin_src emacs-lisp
-	(use-package theme-magic)
-  (theme-magic-from-emacs)
-  ;; update the rest of linux when I update emacs' theme
-  (theme-magic-export-theme-mode)
 #+end_src
 * Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
 #+begin_src emacs-lisp
