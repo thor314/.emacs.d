@@ -35,8 +35,11 @@ Surprisingly powerful.
       ("t" . twit)
       ("p" . twittering-update-status-from-pop-up-buffer)
       ))
+  ;; the following doesn't work as intended, see next note
+  ;(setq twittering-use-master-password t
+    ;twittering-cert-file "~/authinfo.gpg")
 #+end_src
-
+I'd like to tell twittering-mode to not have to authorize every time I reboot, but can't figure out set the auth file. I have a file set for auth-sources, authinfo.gpg. [[https://www.emacswiki.org/emacs/TwitteringMode#h5o-5][This]] emacswiki link suggests to use the (setq twittering-cert-file "..."), but I can't figure out how to tell twitter what to load unfortunately, so I'm stuck.
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree)
