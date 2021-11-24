@@ -26,6 +26,14 @@ Surprisingly powerful.
 	(use-package command-log-mode :commands command-log-mode
     :defer t)
 #+end_src
+* [[https://github.com/iqbalansari/restart-emacs/blob/master/restart-emacs.el][restart-emacs]] - smol package for restarting emacs
+#+begin_src emacs-lisp
+	(use-package restart-emacs
+    :defer t
+    :config
+    (setq restart-emacs-restore-frames t) ;; try to restore frames
+    (global-set-key (kbd "C-x c") 'restart-emacs))
+#+end_src
 * [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
 #+begin_src emacs-lisp
 	(use-package bug-hunter
