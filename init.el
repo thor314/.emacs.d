@@ -5,13 +5,17 @@
 ;; Literate to document the config unobtrusively.
 
 ;;; Code:
+;; https://blog.d46.us/advanced-emacs-startup/
 (defun tk/display-startup-time ()
   (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                   (time-subtract after-init-time before-init-time)))
-           gcs-done))
+    (format "%.2f seconds"
+      (float-time
+        (time-subtract after-init-time before-init-time)))
+    gcs-done))
+;; get default time: emacs -q --eval='(message "%s" (emacs-init-time))'
+;; also, check out this startup profiler when optimizing: https://github.com/jschaf/esup
 (add-hook 'emacs-startup-hook 'tk/display-startup-time)
+
 ;; Get package repositories
 (require 'package)
 ;;(require 'cl-lib) ; not currently needed

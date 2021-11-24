@@ -24,6 +24,16 @@ Surprisingly powerful.
 #+begin_src emacs-lisp
 	(use-package command-log-mode :commands command-log-mode)
 #+end_src
+* =esup= the startup profiler
+[[https://github.com/jschaf/esup][esup: ESUP - Emacs Start Up Profiler]]
+Usage: Run M-x esup to get profiling data. This plus the following are
+wonderful for startup info.
+#+begin_src emacs-lisp
+	(use-package esup
+    :ensure t
+    ;; To use MELPA Stable use ":pin melpa-stable",
+    :pin melpa)
+#+end_src
 * [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
 #+begin_src emacs-lisp
 	(use-package bug-hunter)
