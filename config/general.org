@@ -182,6 +182,9 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
       ;; also need to set an alias: alias sudo 'eshell/sudo $*'
       (setq password-cache t) ;; enable passwd caching
       (setq password-cache-expiry 600) ; for 10 minutes
+      (setq eshell-history-size 10000
+        eshell-buffer-maximum-lines 10000
+        eshell-scroll-to-bottom-on-input t)
       (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
       (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
       (esh-autosuggest-mode)
@@ -204,6 +207,8 @@ Most useful: replace a regexp across multiple files.
       (local-set-key (kbd "C-%") 'dired-do-query-replace-regexp)
       (local-set-key (kbd "M-%") 'dired-do-find-regexp-and-replace)
       ))
+  (use-package all-the-icons-dired
+    :hook (dired-mode . all-the-icons-dired-mode))
 #+end_src
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
 #+begin_src emacs-lisp
