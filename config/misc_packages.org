@@ -1,68 +1,68 @@
 * =sx= Browse stack exchange
+[[https://github.com/vermiculus/sx.el/][sx.el: Stack Exchange for Emacs]]
 Surprisingly powerful.
 #+begin_src emacs-lisp
-(use-package sx
-  :config
-  (bind-keys :prefix "C-r s"
-    :prefix-map my-sx-map
-    :prefix-docstring "Global keymap for SX."
-    ("q" . sx-tab-all-questions)
-    ("i" . sx-inbox)
-    ("o" . sx-open-link)
-    ("u" . sx-tab-unanswered-my-tags)
-    ("a" . sx-ask)
-    ("s" . sx-search)))
+  (use-package sx
+    :defer t
+    :config
+    (bind-keys :prefix "C-r s"
+      :prefix-map my-sx-map
+      :prefix-docstring "Global keymap for SX."
+      ("q" . sx-tab-all-questions)
+      ("i" . sx-inbox)
+      ("o" . sx-open-link)
+      ("u" . sx-tab-unanswered-my-tags)
+      ("a" . sx-ask)
+      ("s" . sx-search)))
 #+end_src
-[[https://github.com/vermiculus/sx.el/][sx]].
-
 * =free-keys= Show what keys are unbound, v useful
 #+begin_src emacs-lisp
-(use-package free-keys)
+  (use-package free-keys
+    :defer t)
 #+end_src
 [[https://github.com/Fuco1/free-keys][free-keys]].
 * =command-log-mode= - infrequently used mode, useful for demos and alternative to C-h k
 #+begin_src emacs-lisp
-	(use-package command-log-mode :commands command-log-mode)
-#+end_src
-* =esup= the startup profiler
-[[https://github.com/jschaf/esup][esup: ESUP - Emacs Start Up Profiler]]
-Usage: Run M-x esup to get profiling data. This plus the following are
-wonderful for startup info.
-#+begin_src emacs-lisp
-	(use-package esup
-    :ensure t
-    ;; To use MELPA Stable use ":pin melpa-stable",
-    :pin melpa)
+	(use-package command-log-mode :commands command-log-mode
+    :defer t)
 #+end_src
 * [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
 #+begin_src emacs-lisp
-	(use-package bug-hunter)
+	(use-package bug-hunter
+    :defer t)
 #+end_src
 * =re-builder= - Build and test regex
 #+begin_src emacs-lisp
-(use-package re-builder)
+  (use-package re-builder
+    :defer t)
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
 * =crontab-mode=
 [[https://www.emacswiki.org/emacs/CrontabMode][EmacsWiki: Crontab Mode]] Major mode for editting crontab files
 #+begin_src emacs-lisp
-	(use-package crontab-mode)
-  (add-to-list 'auto-mode-alist '("\\.?cron\\(tab\\)?\\." . crontab-mode))
+	(use-package crontab-mode
+    :defer t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.?cron\\(tab\\)?\\." . crontab-mode)))
 #+end_src
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
-  (use-package undo-tree)
-  (global-undo-tree-mode)
+  (use-package undo-tree
+    :defer t
+    :config
+    (global-undo-tree-mode))
 #+end_src
 [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
 * =pop-win= - less annoying help and compilation buffers
 Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
   ;(use-package popup) ; not making use atm. Creates dropdown ui.
-  (use-package popwin)
-  (popwin-mode 1)
-  ;; popup buffers, if I want to use them
-  (setq popwin:popup-window-position 'right)
+  (use-package popwin
+    :defer t
+    :config
+    (popwin-mode 1)
+    ;; popup buffers, if I want to use them
+    (setq popwin:popup-window-position 'right))
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
@@ -88,4 +88,16 @@ dependency: =pip3 install pywal=
   (theme-magic-from-emacs)
   ;; update the rest of linux when I update emacs' theme
   (theme-magic-export-theme-mode)
+#+end_src
+* =esup= the startup profiler - deprecated until issue solved
+[[https://github.com/jschaf/esup][esup: ESUP - Emacs Start Up Profiler]]
+Usage: Run M-x esup to get profiling data. This plus the following are
+wonderful for startup info.
+: #+begin_src emacs-lisp
+	(use-package esup
+    :ensure t
+    ;; To use MELPA Stable use ":pin melpa-stable",
+    :pin melpa)
+
+
 #+end_src
