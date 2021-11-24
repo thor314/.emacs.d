@@ -33,6 +33,12 @@ Surprisingly powerful.
 (use-package re-builder)
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
+* =crontab-mode=
+[[https://www.emacswiki.org/emacs/CrontabMode][EmacsWiki: Crontab Mode]] Major mode for editting crontab files
+#+begin_src emacs-lisp
+	(use-package crontab-mode)
+  (add-to-list 'auto-mode-alist '("\\.?cron\\(tab\\)?\\." . crontab-mode))
+#+end_src
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree)
