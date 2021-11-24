@@ -6,14 +6,19 @@ I basically only use markdown for README's.
       (turn-off-auto-fill)))
 #+end_src
 * Poly mode for native code blocks in org and markdown
+[[https://github.com/polymode/polymode][polymode: Framework for Multiple Major Modes in Emacs]]
+[[https://github.com/polymode/poly-markdown][poly-markdown: Polymode for markdown-mode]]
+[[https://github.com/polymode/poly-org][poly-org: Polymode for org-mode]]
 #+begin_src emacs-lisp
   (use-package polymode)
+  ;; known issue with indentation, polymode sometimes indents elisp blocks 2 spaces, and sometimes only one, unclear why
+  ;; second known issue, polymode seems to run flycheck on the text at the top outline section.
+  ;;
   (use-package poly-org)
   (add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
   (use-package poly-markdown)
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 #+end_src
-[[https://polymode.github.io/usage/][polymode]].
 * Flyspell
 #+begin_src emacs-lisp
   (add-hook 'flyspell-mode-hook

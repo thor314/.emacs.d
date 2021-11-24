@@ -1,68 +1,70 @@
-* Appearance
-[[https://github.com/sabof/org-bullets][org-bullets]].
+* nice quick packages
+- [[https://github.com/sabof/org-bullets][org-bullets: utf-8 bullets for org-mode]]
+- [[https://github.com/rexim/org-cliplink][org-cliplink: Insert org-mode links from clipboard]]
+- [[https://github.com/abo-abo/org-download][org-download: Drag and drop images to Emacs org-mode]]
+- [[https://github.com/bastibe/org-journal][org-journal: A simple org-mode based journaling mode]]
 #+begin_src emacs-lisp
-	(use-package org-bullets) ; Prettier bullet points
+  (use-package org-bullets) ; Prettier bullet points
+  ;; issue: supposed to work with twitter threads, currently broken though, couldn't figure out how to fix.
+  (use-package org-cliplink) ; bound to C-c y
+  (use-package org-download)
+  (add-hook 'dired-mode-hook 'org-download-enable)
+  ;; Use the heck out of this
+  (use-package org-journal)
+  (setq org-journal-dir "~/org/journal"
+    org-journal-file-format "%Y%m%d.org")
 #+end_src
-
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
-(setq org-tag-alist '(("dev" . ?d) ("pers" . ?p) ("write" . ?w) ("rsch" . ?r) ("main" . ?m) ("misc" . ?z)))
+  (setq org-tag-alist
+    '(("crypto" . ?c)
+       ("emacs" . ?e)
+       ("math" . ?m)
+       ("pers" . ?p)
+       ("rust" . ?r)
+       ("write" . ?w)
+       ("misc" . ?z)))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
-[[https://github.com/alphapapa/org-super-agenda][look into super agenda eventually]].
+[[https://github.com/alphapapa/org-super-agenda][look into super agenda, eventually]].
 #+begin_src emacs-lisp
   (setq org-agenda-files '("~/org/agenda/")
-   org-priority-default 80)
+   org-priority-default 80) ;; between C and B
    (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
-    '(("d" "Dev" tags-todo "DEV")
-     ("w" "Write" tags-todo "WRITE")
-     ("e" "Emacs" tags-todo "EMACS")
-     ("p" "Personal" tags-todo "PERS")
-     ("r" "Research" tags-todo "RSCH")
-     ("z" "Misc" tags-todo "MISC")
-     ("m" "Main" tags-todo "MAIN")
+     '(("c" "crypto" tags-todo "CRYPTO")
+        ("e" "Emacs" tags-todo "EMACS")
+        ("m" "Math" tags-todo "MATH")
+        ("r" "Rust" tags-todo "RUST")
+        ("p" "Personal" tags-todo "PERS")
+        ("w" "Write" tags-todo "WRITE")
+        ("z" "Misc" tags-todo "MISC")
      ))
 
-  (setq org-journal-enable-agenda-integration t) ; if I make a todo in journal, stick it into agenda
   (add-hook 'org-agenda-mode-hook
     (lambda ()
       (setq org-agenda-start-on-weekday nil ; start today
-        org-agenda-hide-tags-regexp ".*"
+        org-agenda-hide-tags-regexp ".*" ; hide all tags
         org-agenda-include-deadlines t
         org-agenda-include-diary t
         org-agenda-loop-over-headlines-in-active-region nil
         org-agenda-restore-windows-after-quit t
         org-agenda-skip-deadline-if-done t
         org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-        org-agenda-start-on-weekday nil
         org-agenda-todo-ignore-deadlines 'far
-        org-journal-enable-agenda-integration t)
+        org-journal-enable-agenda-integration t)  ; include org-journal todos in agenda
       ))
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
-* Journal
-#+begin_src emacs-lisp
-  (use-package org-journal)
-  (setq org-journal-dir "~/org/journal"
-    org-journal-file-format "%Y%m%d.org")
-#+end_src
-[[https://github.com/bastibe/org-journal][org-journal]].
-* Images via =org-download=
-Drag images into org or dired buffers. Saves in a folder in dir called images.
-#+begin_src emacs-lisp
-  (use-package org-download)
-  (add-hook 'dired-mode-hook 'org-download-enable)
-#+end_src
-[[https://github.com/abo-abo/org-download][org-download]].
 * Org-specific keybinds
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
       (org-bullets-mode)
-      (local-set-key (kbd "C-c C-r") 'org-schedule)
+      (local-set-key (kbd "C-c y") 'org-cliplink) ;; similar to my function (see next line)
       (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
+      (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
       (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
@@ -70,8 +72,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
       (global-set-key (kbd "<f1> d") 'insert-date) ; experiment on blocking emacs overwrite 2021-08-30
       (local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
       (local-set-key (kbd "C-,") 'ivy-switch-buffer)
-      (local-set-key (kbd "C-.") 'other-window)
-      ))
+      (local-set-key (kbd "C-.") 'other-window)))
 #+end_src
 * Org-roam- Cc n [lfgic]
 [[https://www.orgroam.com/manual/][docs]] and [[https://github.com/org-roam/org-roam][source]].
@@ -100,7 +101,7 @@ Create a file: Org roam find file
   ;; optional index file keeps links to main files
   ;; (setq org-roam-index-file "index.org")
 #+end_src
-* Settings
+* Hook
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()

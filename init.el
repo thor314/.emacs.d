@@ -12,7 +12,6 @@
                    (time-subtract after-init-time before-init-time)))
            gcs-done))
 (add-hook 'emacs-startup-hook 'tk/display-startup-time)
-
 ;; Get package repositories
 (require 'package)
 ;;(require 'cl-lib) ; not currently needed
