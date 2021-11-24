@@ -1,3 +1,9 @@
+* Appearance
+[[https://github.com/sabof/org-bullets][org-bullets]].
+#+begin_src emacs-lisp
+	(use-package org-bullets) ; Prettier bullet points
+#+end_src
+
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
@@ -54,6 +60,7 @@ Drag images into org or dired buffers. Saves in a folder in dir called images.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
+      (org-bullets-mode)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
       (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
       (local-set-key (kbd "<f1> e") 'tk-org-insert-lisp-block)
