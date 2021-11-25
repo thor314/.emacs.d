@@ -1,33 +1,49 @@
-* Capture
-Annoyance: Org-capture does not save window configuration. I should pull the org-capture repo to emulate org-agenda
-save-window-config.
+* [[https://orgmode.org/manual/Capture-templates.html][Capture templates (The Org Manual)]]
+This can be one of the most useful functions in all of Emacs, automating a lot of boilerplate text.
 #+begin_src emacs-lisp
   (setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
   (setq org-capture-templates
     '(
-       ("P" "Project idea" entry (file+headline "~/org/agenda/project_ideas.org" "Projects")
-         "* \t %? :PROJECT:\nAdded: %u" :empty-lines 1 )
-       ("d" "Dev" entry (file+headline "~/org/agenda/dev.org" "Dev")
-         "* TODO \t %? :DEV:\nAdded: %u" :empty-lines 1 )
-       ("w" "Write" entry (file+headline "~/org/agenda/write.org" "Write")
+       ;; Use this format to create quicknotes in projects
+       ("n" "Notes files in various directories")
+       ("ne" "Emacs usage note" entry (file "~/.emacs.d/notes.org")
+         "* Note from %u: %? :NOTE:\n" :prepend t)
+       ("no" "Org usage note" entry (file "~/org/notes.org")
+         "* Note from %u: %? :NOTE:\n" :prepend t)
+
+       ;; Store todos in file agenda/todo.org
+       ("c" "Crypto" entry (file+headline "~/org/agenda/todo.org" "Crypto")
+         "* TODO \t %? :CRYPTO:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("e" "Emacs" entry (file+headline "~/org/agenda/todo.org" "Emacs")
+         "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("l" "Linux" entry (file+headline "~/org/agenda/todo.org" "Linux")
+         "* TODO \t %? :LINUX:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("m" "Math" entry (file+headline "~/org/agenda/todo.org" "Math")
+         "* TODO \t %? :MATH:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("p" "Personal" entry (file+headline "~/org/agenda/todo.org" "Pers")
+         "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("r" "Rust" entry (file+headline "~/org/agenda/todo.org" "Rust")
+         "* TODO \t %? :RUST:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("w" "Write" entry (file+headline "~/org/agenda/todo.org" "Write")
          "* TODO [#A] \t %? :WRITE:\nAdded: %u" :empty-lines 1 )
-       ("e" "Emacs" entry (file+headline "~/org/agenda/emacs.org" "Emacs")
-         "* TODO \t %? :EMACS:\nAdded: %u" :empty-lines 1 )
-       ("p" "Personal" entry (file+headline "~/org/agenda/pers.org" "Pers")
-         "* TODO \t %? :PERS:\nAdded: %u" :empty-lines 1 )
-       ("r" "Research" entry (file+headline "~/org/agenda/rsch.org" "Rsch")
-         "* TODO \t %? :RSCH:\nAdded: %u" :empty-lines 1 )
-       ("z" "Misc todo" entry (file+headline "~/org/agenda/misc.org" "Misc")
-         "* TODO \t %? :MISC:\nAdded: %u:" :empty-lines 1 )
-       ;; ("M" "Main Dev" entry (file+headline "~/org/agenda/main.org" "Main")
-       ;;   "* TODO \t %? :MAIN:DEV:\nAdded: %u" :empty-lines 1 )
-       ;; ("R" "Main Rsch" entry (file+headline "~/org/agenda/main.org" "Main")
-       ;;   "* TODO [#A] \t %? :MAIN:RSCH:\nAdded: %u" :empty-lines 1 )
-       ("i" "Idea" entry (file "~/org/cap/ideas.org")
-         "* \t %? :IDEA:\nAdded: %u" )
-       ("n" "QNote" entry (file "~/org/cap/qnote.org")
-         "* \t %? :QNOTE: \nAdded: %u" )
-     ))
+       ("z" "Misc todo" entry (file+headline "~/org/agenda/todo.org" "Misc")
+         "* TODO \t %? :MISC:\nAdded: %u" :empty-lines 1 :prepend t )
+       ;; Declare new habits
+       ("h" "Habits of various intervals")
+       ("hw" "Weekly Habit" entry (file+headline "~/org/agenda/habit.org" "Weekly Habits")
+         "* TODO \t %? :HABIT:WEEKLY:\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("hm" "Monthly Habit" entry (file+headline "~/org/agenda/habit.org" "Monthly Habits")
+         "* TODO \t %? :HABIT:MONTHLY:\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("hq" "Quarterly Habit" entry (file+headline "~/org/agenda/habit.org" "Quarterly Habits")
+         "* TODO \t %? :HABIT:QUARTERLY:\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\nAdded: %u" :empty-lines 1 :prepend t)
+       ("hy" "Yearly Habit" entry (file+headline "~/org/agenda/habit.org" "Yearly Habits")
+         "* TODO \t %? :HABIT:YEARLY:\nSCHEDULED: %^t\n:PROPERTIES:\n:STYLE: habit\n:END:\nAdded: %u" :empty-lines 1 :prepend t)
+       ;; Misc templates
+       ("P" "Project idea" entry (file+headline "~/org/agenda/ideas.org" "Projects")
+         "* \t %? :PROJECT:\nAdded: %u\n" :empty-lines 1 :prepend t)
+       ("I" "Idea" entry (file+headlinee "~/org/agenda/ideas.org" "Ideas")
+         "* \t %? :IDEA:\nAdded: %u\n" :empty-lines 1 :prepend t)
+       ))
 #+end_src
 
 ** Notes on org capture template.
@@ -91,7 +107,7 @@ time-prompt, tree-type, table-line-pos
          :unnarrowed t)
        ("m" "month review" plain "%?"
          :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
-                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* Month In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Month\n** Theme for Month:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Review of Crypto Finances\n")
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* Month In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Month\n** Theme for Month:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Value Review:\n*** Self-love\n*** Placing curiosity above judgement\n*** Creating community\n*** Learning and building\n** Review of Crypto Finances\n")
          :unnarrowed t)
        ("q" "quarter review" plain "%?"
          :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
