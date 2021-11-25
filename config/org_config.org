@@ -2,13 +2,8 @@
 Prefer variable-spaced font when looking at text, monospaced when looking at code. Variable-pitch screws a bunch of things up, so copy pasta a soln in.
 https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font-faces
 #+begin_src emacs-lisp
-  ;; (variable-pitch-mode 0) ;; trippy, give it a look
   (defun tk/org-font-setup ()
-    ;; Replace list hyphen with dot
-    (font-lock-add-keywords 'org-mode
-      '(("^ *\\([-]\\) "
-          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
+    """variable-pitch-mode makes text display inconsistent; fix the inconsistencies"""
     ;; Set faces for heading levels
     (dolist (face '((org-level-1 . 1.2)
                      (org-level-2 . 1.1)
@@ -38,69 +33,93 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
 - [[https://github.com/abo-abo/org-download][org-download: Drag and drop images to Emacs org-mode]]
 - [[https://github.com/bastibe/org-journal][org-journal: A simple org-mode based journaling mode]]
 #+begin_src emacs-lisp
-  (use-package org-bullets) ; Prettier bullet points
-  ;; Turn on the following with org-bullets for nicer looking outlines
-  (org-indent-mode)
-  ;; issue: supposed to work with twitter threads, currently broken though, couldn't figure out how to fix.
-  (use-package org-cliplink) ; bound to C-c y
-  (use-package org-download)
-  (add-hook 'dired-mode-hook 'org-download-enable)
-  ;; Use the heck out of this
-  (use-package org-journal)
-  ;; variable pitch mode looks good in text buffers without code  blocks
-  (add-hook 'org-journal-mode-hook 'variable-pitch-mode)
-  (setq org-journal-dir "~/org/journal"
-    org-journal-file-format "%Y%m%d.org")
-  (add-hook 'polymode-minor-mode-hook (variable-pitch-mode 0))
+  (defun tk/org-load-packages ()
+    (use-package org-bullets
+      :config (org-bullets-mode)) ;; Prettier bullet points
+    (setq org-ellipsis " ▾")
+    ;; Turn on the following with org-bullets for nicer looking outlines
+    (org-indent-mode)
+    ;; issue: supposed to work with twitter threads, currently broken though, couldn't figure out how to fix.
+    (use-package org-cliplink) ; bound to C-c y
+    (use-package org-download)
+    (add-hook 'dired-mode-hook 'org-download-enable)
+    ;; Use the heck out of org-journal
+    (use-package org-journal)
+
+    ;; org-habit is a built in library for tracking stuff about repeating tasks
+    (require 'org-habit)
+    (add-to-list 'org-modules 'org-habit)
+    (setq org-habit-graph-column 60)
+
+    ;; variable pitch mode looks good in text buffers without code blocks
+    (setq org-journal-dir "~/org/journal"
+      org-journal-file-format "%Y%m%d.org"))
+
 #+end_src
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
-  (setq org-tag-alist
-    '(("crypto" . ?c)
-       ("emacs" . ?e)
-       ("math" . ?m)
-       ("pers" . ?p)
-       ("rust" . ?r)
-       ("write" . ?w)
-       ("misc" . ?z)))
+  (defun tk/org-setup-tags ()
+    (setq org-tag-alist
+      '((:startgroup)
+         ;; Put mutually exclusive tags here
+         (:endgroup)
+         ("CRYPTO" . ?c)
+         ("EMACS" . ?e)
+         ("LINUX" . ?l)
+         ("MATH" . ?m)
+         ("NOTE" . ?n)
+         ("PERS" . ?p)
+         ("RUST" . ?r)
+         ("WRITE" . ?w)
+         ("MISC" . ?z))))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda, eventually]].
 #+begin_src emacs-lisp
-  (setq org-agenda-files '("~/org/agenda/")
-   org-priority-default 80) ;; between C and B
-   (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
-     '(("c" "crypto" tags-todo "CRYPTO")
-        ("e" "Emacs" tags-todo "EMACS")
-        ("m" "Math" tags-todo "MATH")
-        ("r" "Rust" tags-todo "RUST")
-        ("p" "Personal" tags-todo "PERS")
-        ("w" "Write" tags-todo "WRITE")
-        ("z" "Misc" tags-todo "MISC")
-     ))
+  (defun tk/org-setup-agenda ()
+    (setq org-agenda-files '("~/org/agenda/")
+      org-priority-default 80 ;; between C and B
+      org-agenda-start-with-log-mode t ;; log includes done entries
+      org-log-done 'time ;; add timestamps
+      org-log-into-drawer t) ;; Non-nil=>insert state change notes, timestamps into a drawer.
 
-  (add-hook 'org-agenda-mode-hook
-    (lambda ()
-      (setq org-agenda-start-on-weekday nil ; start today
-        org-agenda-hide-tags-regexp ".*" ; hide all tags
-        org-agenda-include-deadlines t
-        org-agenda-include-diary t
-        org-agenda-loop-over-headlines-in-active-region nil
-        org-agenda-restore-windows-after-quit t
-        org-agenda-skip-deadline-if-done t
-        org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
-        org-agenda-todo-ignore-deadlines 'far
-        org-journal-enable-agenda-integration t)  ; include org-journal todos in agenda
-      ))
+    (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
+      '(("c" "crypto" tags-todo "CRYPTO")
+         ("e" "Emacs" tags-todo "EMACS")
+         ("m" "Math" tags-todo "MATH")
+         ("r" "Rust" tags-todo "RUST")
+         ("p" "Personal" tags-todo "PERS")
+         ("w" "Write" tags-todo "WRITE")
+         ("z" "Misc" tags-todo "MISC")
+         ;; demo of more powerful agenda template
+         ("d" "Dashboard"
+     ((agenda "" ((org-deadline-warning-days 7)))
+      (todo "NEXT"
+        ((org-agenda-overriding-header "Next Tasks")))
+      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+
+         ))
+    (add-hook 'org-agenda-mode-hook
+      (lambda ()
+        (setq org-agenda-start-on-weekday nil ; start today
+          org-agenda-hide-tags-regexp ".*" ; hide all tags
+          org-agenda-include-deadlines t
+          org-agenda-include-diary t
+          org-agenda-loop-over-headlines-in-active-region nil
+          org-agenda-restore-windows-after-quit t
+          org-agenda-skip-deadline-if-done t
+          org-agenda-skip-deadline-prewarning-if-scheduled 'pre-scheduled
+          org-agenda-todo-ignore-deadlines 'far
+          org-journal-enable-agenda-integration t)  ; include org-journal todos in agenda
+        )))
 #+end_src
 [[https://orgmode.org/manual/Agenda-Views.html][agenda]].
 * Org-specific keybinds
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
-      (org-bullets-mode)
       (local-set-key (kbd "C-c y") 'org-cliplink) ;; similar to my function (see next line)
       (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
@@ -108,7 +127,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
       (local-set-key (kbd "<f1> p") 'tk-org-insert-python-block)
       (local-set-key (kbd "<f1> r") 'tk-org-insert-rust-block)
       (local-set-key (kbd "<f1> d") 'insert-date)
-      (global-set-key (kbd "<f1> d") 'insert-date) ; experiment on blocking emacs overwrite 2021-08-30
+      (global-set-key (kbd "<f1> d") 'insert-date)
       (local-set-key (kbd "C-'") 'avy-goto-char) ; overwrite switch agenda files
       (local-set-key (kbd "C-,") 'ivy-switch-buffer)
       (local-set-key (kbd "C-.") 'other-window)))
@@ -142,12 +161,31 @@ Create a file: Org roam find file
 #+end_src
 * Hook
 #+begin_src emacs-lisp
-  (add-hook 'org-mode-hook
-    (lambda ()
-      (setq org-src-fontify-natively t ; syntax-highlight if org recognizes src block
-       org-src-tab-acts-natively t ; use programming major modes in src blocks
-       org-adapt-indentation nil ; turn off special indentation in org subsections
-       org-directory "~/org"
-       org-log-done 'time) ; timstamp when TODO - DONE
-      ))
+  (use-package org
+    :pin org ;; Pin the package to an archive
+    :commands (org-capture org-agenda) ;; load the package
+    :config
+    (add-hook 'org-mode-hook
+      (lambda ()
+        (tk/org-font-setup)
+        (tk/org-load-packages)
+        (tk/org-setup-tags)
+        (tk/org-setup-agenda)
+        (variable-pitch-mode 1)
+        ;; See manual 5.2.3. (x) - fast select. ! - timestamp it. @ - note w
+        ;; timestamp. default: TODO, DONE. Can set this to have more complex
+        ;; project management. A bit overkill, but good demo
+        (setq org-todo-keywords
+          '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
+             (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANC(k@/!)")))
+        ;; Save Org buffers after refiling, confirm saving fewer files on emacs exit
+        (advice-add 'org-refile :after 'org-save-all-org-buffers)
+
+        ;; settings
+        (setq org-src-fontify-natively t ; syntax-highlight if org recognizes src block
+          org-src-tab-acts-natively t ; use programming major modes in src blocks
+          org-adapt-indentation nil ; turn off special indentation in org subsections
+          org-directory "~/org"
+          org-log-done 'time) ; timstamp when TODO - DONE
+        )))
 #+end_src
