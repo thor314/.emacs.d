@@ -3,7 +3,6 @@
 Surprisingly powerful.
 #+begin_src emacs-lisp
   (use-package sx
-    :defer t
     :config
     (bind-keys :prefix "C-r s"
       :prefix-map my-sx-map
@@ -17,46 +16,39 @@ Surprisingly powerful.
 #+end_src
 * =free-keys= Show what keys are unbound, v useful
 #+begin_src emacs-lisp
-  (use-package free-keys
-    :defer t)
+  (use-package free-keys)
 #+end_src
 [[https://github.com/Fuco1/free-keys][free-keys]].
 * =command-log-mode= - infrequently used mode, useful for demos and alternative to C-h k
 #+begin_src emacs-lisp
-	(use-package command-log-mode :commands command-log-mode
-    :defer t)
+	(use-package command-log-mode)
 #+end_src
 * [[https://github.com/iqbalansari/restart-emacs/blob/master/restart-emacs.el][restart-emacs]] - smol package for restarting emacs
 #+begin_src emacs-lisp
 	(use-package restart-emacs
-    :defer t
     :config
     (setq restart-emacs-restore-frames t) ;; try to restore frames
     (global-set-key (kbd "C-x c") 'restart-emacs))
 #+end_src
 * [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
 #+begin_src emacs-lisp
-	(use-package bug-hunter
-    :defer t)
+	(use-package bug-hunter)
 #+end_src
 * =re-builder= - Build and test regex
 #+begin_src emacs-lisp
-  (use-package re-builder
-    :defer t)
+  (use-package re-builder)
 #+end_src
 [[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
 * =crontab-mode=
 [[https://www.emacswiki.org/emacs/CrontabMode][EmacsWiki: Crontab Mode]] Major mode for editting crontab files
 #+begin_src emacs-lisp
 	(use-package crontab-mode
-    :defer t
     :config
     (add-to-list 'auto-mode-alist '("\\.?cron\\(tab\\)?\\." . crontab-mode)))
 #+end_src
 * =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree
-    :defer t
     :config
     (global-undo-tree-mode))
 #+end_src
@@ -66,7 +58,6 @@ Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
   ;(use-package popup) ; not making use atm. Creates dropdown ui.
   (use-package popwin
-    :defer t
     :config
     (popwin-mode 1)
     ;; popup buffers, if I want to use them

@@ -113,8 +113,6 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
 ** All the [[https://github.com/domtronn/all-the-icons.el][Icons]]
 #+begin_src emacs-lisp
   (use-package all-the-icons
-    :defer t
-    :commands (dired-mode-hook)
     :if (display-graphic-p))
   ;; run this once to install fonts
   ;;(all-the-icons-install-fonts)
@@ -129,8 +127,6 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 ** [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
 #+begin_src emacs-lisp
 	(use-package zoom
-    :commands (window-state-change-hook)
-    :defer t
     :config
     (zoom-mode 1))
 #+end_src
@@ -158,8 +154,6 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
 ** [[https://github.com/Malabarba/beacon][Beacon]]: pulse line when changing buffer
 #+begin_src emacs-lisp
   (use-package beacon
-    :commands (window-state-change-hook)
-    :defer t
     :config
     (beacon-mode 1)
     ;; make blink small, fast
@@ -171,8 +165,6 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
 * Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
 #+begin_src emacs-lisp
   (use-package esh-autosuggest
-    :commands (eshell-mode-hook)
-    :defer t
     :config
     (add-hook 'eshell-mode-hook
     (lambda ()
@@ -209,9 +201,8 @@ Most useful: replace a regexp across multiple files.
       (local-set-key (kbd "M-%") 'dired-do-find-regexp-and-replace)
       ))
   (use-package all-the-icons-dired
-    :commands (dired-mode-hook)
     :hook (dired-mode . all-the-icons-dired-mode)
-    :defer t)
+    )
 #+end_src
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
 #+begin_src emacs-lisp

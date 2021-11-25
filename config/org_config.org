@@ -1,18 +1,57 @@
-* nice quick packages
+* Variable spaced font
+Prefer variable-spaced font when looking at text, monospaced when looking at code. Variable-pitch screws a bunch of things up, so copy pasta a soln in.
+https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font-faces
+#+begin_src emacs-lisp
+  ;; (variable-pitch-mode 0) ;; trippy, give it a look
+  (defun tk/org-font-setup ()
+    ;; Replace list hyphen with dot
+    (font-lock-add-keywords 'org-mode
+      '(("^ *\\([-]\\) "
+          (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+    ;; Set faces for heading levels
+    (dolist (face '((org-level-1 . 1.2)
+                     (org-level-2 . 1.1)
+                     (org-level-3 . 1.05)
+                     (org-level-4 . 1.0)
+                     (org-level-5 . 1.1)
+                     (org-level-6 . 1.1)
+                     (org-level-7 . 1.1)
+                     (org-level-8 . 1.1)))
+      (set-face-attribute (car face) nil :font "Cantarell" :weight 'regular :height (cdr face)))
+    ;; Ensure that anything that should be fixed-pitch in Org files appears that way
+    (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
+    (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
+    (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+    (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+    (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+    (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
+#+end_src
+* Quick packages
 - [[https://github.com/sabof/org-bullets][org-bullets: utf-8 bullets for org-mode]]
 - [[https://github.com/rexim/org-cliplink][org-cliplink: Insert org-mode links from clipboard]]
 - [[https://github.com/abo-abo/org-download][org-download: Drag and drop images to Emacs org-mode]]
 - [[https://github.com/bastibe/org-journal][org-journal: A simple org-mode based journaling mode]]
 #+begin_src emacs-lisp
   (use-package org-bullets) ; Prettier bullet points
+  ;; Turn on the following with org-bullets for nicer looking outlines
+  (org-indent-mode)
   ;; issue: supposed to work with twitter threads, currently broken though, couldn't figure out how to fix.
   (use-package org-cliplink) ; bound to C-c y
   (use-package org-download)
   (add-hook 'dired-mode-hook 'org-download-enable)
   ;; Use the heck out of this
   (use-package org-journal)
+  ;; variable pitch mode looks good in text buffers without code  blocks
+  (add-hook 'org-journal-mode-hook 'variable-pitch-mode)
   (setq org-journal-dir "~/org/journal"
     org-journal-file-format "%Y%m%d.org")
+  (add-hook 'polymode-minor-mode-hook (variable-pitch-mode 0))
 #+end_src
 * Tags
 Default tags available in org files. Syntax =?x= for literal ASCII value of x.
