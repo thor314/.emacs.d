@@ -52,7 +52,7 @@ Movement and transformations based on sexps is paradigm for text editing, whenev
 ** Org-mode
 [[https://github.com/Fuco1/smartparens/blob/master/smartparens-org.el][reference]]
 #+begin_src emacs-lisp
-	(require 'smartparens-org) ;; load predicates
+  (require 'smartparens-org) ;; load predicates
   (sp-with-modes 'org-mode
     (sp-local-pair "*" "*"
       :unless '(sp-point-after-word-p sp-point-at-bol-p)
@@ -60,7 +60,8 @@ Movement and transformations based on sexps is paradigm for text editing, whenev
     (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
     (sp-local-pair "/" "/" :unless '(sp-point-after-word-p sp-org-point-after-left-square-bracket-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; /") ;; deletes the matching pair if I press space
     (sp-local-pair "~" "~" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; ~")
-    (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; ="))
+    (sp-local-pair "=" "=" :unless '(sp-point-after-word-p) :post-handlers '(("[d1]" "SPC")) :wrap "C-; =")
+    (sp-local-pair "'" nil :actions nil))
 #+end_src
 
 ** Elisp

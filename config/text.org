@@ -11,11 +11,12 @@ I basically only use markdown for README's.
 [[https://github.com/polymode/poly-org][poly-org: Polymode for org-mode]]
 #+begin_src emacs-lisp
   (use-package polymode)
-  ;; known issue with indentation, polymode sometimes indents elisp blocks 2 spaces, and sometimes only one, unclear why
-  ;; second known issue, polymode seems to run flycheck on the text at the top outline section.
-  ;;
-  (use-package poly-org)
-  (add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
+  ;; known issue with indentation, poly-org sometimes indents elisp blocks 2 spaces, and sometimes only one, unclear why
+  ;; second known issue, poly-org-mode seems to run flycheck on the text at the top outline section.
+  ;; third known issue, poly-org-mode seems to break syntax highlighting
+  ;; screw it, disable poly-org-mode
+  ;(use-package poly-org)
+  ;(add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
   (use-package poly-markdown)
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
 #+end_src
