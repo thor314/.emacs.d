@@ -1,4 +1,26 @@
-I could be making more complete use of:
+* 2021-11-25 Do better startup times:
+3 main things:
+- increase the size of the gc threshold
+- Use autoload (defer in use-package) to defer loading libraries. Eg, prefer:
+#+begin_src emacs-lisp
+	(use-package blahy
+    ;; autoload on first usage of blah
+    :defer t
+    ;; run before blah is loaded
+    :init (add-hook 'some-hook 'blah-mode)
+    ;; is roughly equivalent to, where commands defines autoload conditions for lazy loading.
+    :commands (some-hook)
+    ;; commands that get run after blah is loaded
+    :config
+    (setq blah-var "bloop"))
+ ;; also see, non-vital packages:
+ (use-package recentf
+  ;; Loads after 1 second of idle time.
+  :defer 1)
+#+end_src
+- avoid helper functions, eg (yas-global-mode 1); prefer:
+
+* I could be making more complete use of:
 CxCx, Mh, M@ - mark stuff
 Ccb - bookmarks
 list-faces-display

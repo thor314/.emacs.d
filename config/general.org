@@ -114,6 +114,7 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
 #+begin_src emacs-lisp
   (use-package all-the-icons
     :defer t
+    :commands (dired-mode-hook)
     :if (display-graphic-p))
   ;; run this once to install fonts
   ;;(all-the-icons-install-fonts)
@@ -128,6 +129,8 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 ** [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
 #+begin_src emacs-lisp
 	(use-package zoom
+    :commands (window-state-change-hook)
+    :defer t
     :config
     (zoom-mode 1))
 #+end_src
@@ -155,6 +158,8 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
 ** [[https://github.com/Malabarba/beacon][Beacon]]: pulse line when changing buffer
 #+begin_src emacs-lisp
   (use-package beacon
+    :commands (window-state-change-hook)
+    :defer t
     :config
     (beacon-mode 1)
     ;; make blink small, fast
@@ -166,8 +171,10 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
 * Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
 #+begin_src emacs-lisp
   (use-package esh-autosuggest
-    :defer t)
-  (add-hook 'eshell-mode-hook
+    :commands (eshell-mode-hook)
+    :defer t
+    :config
+    (add-hook 'eshell-mode-hook
     (lambda ()
       ;; enable password caching
       ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
@@ -183,7 +190,7 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
       (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
       (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
       (esh-autosuggest-mode)
-      ))
+      )))
 #+end_src
 ** Eshell tips
 *** [[https://masteringemacs.org/article/complete-guide-mastering-eshell][this]] link tldr's useful eshell stuff:
@@ -202,6 +209,7 @@ Most useful: replace a regexp across multiple files.
       (local-set-key (kbd "M-%") 'dired-do-find-regexp-and-replace)
       ))
   (use-package all-the-icons-dired
+    :commands (dired-mode-hook)
     :hook (dired-mode . all-the-icons-dired-mode)
     :defer t)
 #+end_src
