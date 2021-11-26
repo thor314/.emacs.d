@@ -1,15 +1,31 @@
+* Org format region as Markdown to clipboard -- incomplete, still screwing around
+Test:
+[[https://www.reddit.com/r/orgmode/submit][a link]] *and some bold* /and italics/ =whai not=
+org-md-export-as-markdown
+Hmm, when I select the region and call the function, it doesn't appear to do anything.
+#+begin_src emacs-lisp
+  (defun tkkk/org-copy-region-as-markdown (beg end &optional region)
+    (interactive  (list (mark) (point) 'region))
+    (unless (and beg end) (user-error "No region, beep boop")
+      (insert "text")))
+      ;;(org-export-replace-region-by 'md)))
+#+end_src
+
+#+RESULTS:
+: tkkk/org-copy-region-as-markdown
+
 * Link last word from kill ring WIP
 #+begin_src emacs-lisp
-  (defun link-last-word-from-kill ()
-    (interactive)
-    (push-mark)
-    (backward-word)
-    (insert "[[")
-    (yank)
-    (insert "][")
-    (forward-word)
-    (insert "]]")
-    (pop-mark))
+    (defun link-last-word-from-kill ()
+      (interactive)
+      (push-mark)
+      (backward-word)
+      (insert "[[")
+      (yank)
+      (insert "][")
+      (forward-word)
+      (insert "]]")
+      (pop-mark))
 #+end_src
 
 * Copy/yank without newlines

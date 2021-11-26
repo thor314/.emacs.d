@@ -66,6 +66,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          (:endgroup)
          ("CRYPTO" . ?c)
          ("EMACS" . ?e)
+         ("HABIT" . ?h)
          ("LINUX" . ?l)
          ("MATH" . ?m)
          ("NOTE" . ?n)
@@ -76,18 +77,33 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
 * Agenda
+[[https://orgmode.org/manual/Agenda-Commands.html][Agenda Commands (The Org Manual)]]
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda, eventually]].
 #+begin_src emacs-lisp
   (defun tk/org-setup-agenda ()
     (setq org-agenda-files '("~/org/agenda/")
+      org-archive-location ("~/org/agenda/archive.org")
       org-priority-default 80 ;; between C and B
       org-agenda-start-with-log-mode t ;; log includes done entries
       org-log-done 'time ;; add timestamps
       org-log-into-drawer t) ;; Non-nil=>insert state change notes, timestamps into a drawer.
+    (add-hook 'org-todo-after-state-change-hook
+      (lambda ()
+        ;; if state changed to DONE or CANC, refile to archive.org
+
+      ))
 
     (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
-      '(("c" "crypto" tags-todo "CRYPTO")
+      '(
+         ("y" agenda*) ;; appointments: todo
+         ("c" "Crypto" tags-todo "CRYPTO")
          ("e" "Emacs" tags-todo "EMACS")
+         ;; ex multi letter
+                                          ;("g" . "HOME+Name tags searches")
+                                          ;("gl" tags "+home+HABIT")
+                                          ;("gp" tags "+home+EMACS")
+         ("h" "Habit" tags-todo "HABIT")
+         ("l" "Linux" tags-todo "Linux")
          ("m" "Math" tags-todo "MATH")
          ("r" "Rust" tags-todo "RUST")
          ("p" "Personal" tags-todo "PERS")
@@ -95,11 +111,11 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          ("z" "Misc" tags-todo "MISC")
          ;; demo of more powerful agenda template
          ("d" "Dashboard"
-     ((agenda "" ((org-deadline-warning-days 7)))
-      (todo "NEXT"
-        ((org-agenda-overriding-header "Next Tasks")))
-      (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
-
+           ;; bug: ==== bit is 5 chars too long for my screen
+           ((agenda "" ((org-deadline-warning-days 7)))
+             (todo "NEXT"
+               ((org-agenda-overriding-header "Next Tasks")))
+             (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
          ))
     (add-hook 'org-agenda-mode-hook
       (lambda ()
@@ -177,7 +193,7 @@ Create a file: Org roam find file
         ;; project management. A bit overkill, but good demo
         (setq org-todo-keywords
           '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)")
-             (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "COMPLETED(c!)" "CANC(k@/!)")))
+             (sequence "BACKLOG(b)" "PLAN(p)" "READY(r)" "ACTIVE(a)" "REVIEW(v)" "WAIT(w@/!)" "|" "CANC(k@/!)")))
         ;; Save Org buffers after refiling, confirm saving fewer files on emacs exit
         (advice-add 'org-refile :after 'org-save-all-org-buffers)
 
