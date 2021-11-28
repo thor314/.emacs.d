@@ -82,16 +82,14 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
   (defun tk/org-setup-agenda ()
     (setq org-agenda-files '("~/org/agenda/")
-      org-archive-location ("~/org/agenda/archive.org")
+      org-archive-location "~/org/agenda/archive.org"
       org-priority-default 80 ;; between C and B
       org-agenda-start-with-log-mode t ;; log includes done entries
-      org-log-done 'time ;; add timestamps
       org-log-into-drawer t) ;; Non-nil=>insert state change notes, timestamps into a drawer.
-    (add-hook 'org-todo-after-state-change-hook
-      (lambda ()
-        ;; if state changed to DONE or CANC, refile to archive.org
-
-      ))
+    ;; (add-hook 'org-todo-after-state-change-hook
+    ;;   (lambda ()
+    ;;     ;; if state changed to DONE or CANC, refile to archive.org
+    ;;     ))
 
     (setq org-agenda-custom-commands ; options - todo, tags, tags-todo
       '(
@@ -202,6 +200,6 @@ Create a file: Org roam find file
           org-src-tab-acts-natively t ; use programming major modes in src blocks
           org-adapt-indentation nil ; turn off special indentation in org subsections
           org-directory "~/org"
-          org-log-done 'time) ; timstamp when TODO - DONE
+          org-log-done 'time) ; timestamp when TODO - DONE
         )))
 #+end_src

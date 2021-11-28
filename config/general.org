@@ -133,9 +133,10 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 
 ** [[https://github.com/dgutov/diff-hl][diff-hl]] - highlight changes since last git commit
 #+begin_src emacs-lisp
-	(use-package diff-hl
+  (use-package diff-hl
     :config
-    (global-diff-hl-mode)) ; rebalance awkwardly balanced window divisions
+    (global-diff-hl-mode)
+    (global-diff-hl-amend-mode))
 #+end_src
 
 ** Slightly nicer mode line [[https://github.com/tarsius/moody][moody]].
