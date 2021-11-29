@@ -28,17 +28,22 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
     (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
 #+end_src
 * Quick packages
-- [[https://github.com/sabof/org-bullets][org-bullets: utf-8 bullets for org-mode]]
+- [[https://github.com/integral-dw/org-superstar-mode][org-superstar-mode: Make org-mode stars a little more super]]
 - [[https://github.com/rexim/org-cliplink][org-cliplink: Insert org-mode links from clipboard]]
 - [[https://github.com/abo-abo/org-download][org-download: Drag and drop images to Emacs org-mode]]
 - [[https://github.com/bastibe/org-journal][org-journal: A simple org-mode based journaling mode]]
 #+begin_src emacs-lisp
   (defun tk/org-load-packages ()
-    (use-package org-bullets
-      :config (org-bullets-mode)) ;; Prettier bullet points
-    (setq org-ellipsis " ▾")
+    (use-package org-superstar ;; supercedes org-bullets:
+      :config
+      ;; This line is necessary.
+      (setq org-superstar-leading-bullet ?\s)
+      ;; If you use Org Indent you also need to add this, otherwise the
+      ;; above has no effect while Indent is enabled.
+      (org-indent-mode)
+      (setq org-indent-mode-turns-on-hiding-stars nil)
+      (setq org-ellipsis " ▾"))
     ;; Turn on the following with org-bullets for nicer looking outlines
-    (org-indent-mode)
     ;; issue: supposed to work with twitter threads, currently broken though, couldn't figure out how to fix.
     (use-package org-cliplink) ; bound to C-c y
     (use-package org-download)
@@ -76,18 +81,20 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          ("MISC" . ?z))))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
-* Agenda
+* TODO Agenda
 [[https://orgmode.org/manual/Agenda-Commands.html][Agenda Commands (The Org Manual)]]
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda, eventually]].
 #+begin_src emacs-lisp
   (defun tk/org-setup-agenda ()
     (setq org-agenda-files '("~/org/agenda/")
+      ;; 2021-11-29 currently not used to the full extent, want to auto-refile done todos to here
       org-archive-location "~/org/agenda/archive.org"
       org-priority-default 80 ;; between C and B
       org-agenda-start-with-log-mode t ;; log includes done entries
       org-log-into-drawer t) ;; Non-nil=>insert state change notes, timestamps into a drawer.
     ;; (add-hook 'org-todo-after-state-change-hook
     ;;   (lambda ()
+    ;;  (org-refile nil nil '("archive" "~/org/agenda/archive.org" ))
     ;;     ;; if state changed to DONE or CANC, refile to archive.org
     ;;     ))
 
@@ -97,9 +104,9 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          ("c" "Crypto" tags-todo "CRYPTO")
          ("e" "Emacs" tags-todo "EMACS")
          ;; ex multi letter
-                                          ;("g" . "HOME+Name tags searches")
-                                          ;("gl" tags "+home+HABIT")
-                                          ;("gp" tags "+home+EMACS")
+         ;;("g" . "HOME+Name tags searches")
+         ;;("gl" tags "+home+HABIT")
+         ;;("gp" tags "+home+EMACS")
          ("h" "Habit" tags-todo "HABIT")
          ("l" "Linux" tags-todo "Linux")
          ("m" "Math" tags-todo "MATH")
@@ -108,12 +115,12 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          ("w" "Write" tags-todo "WRITE")
          ("z" "Misc" tags-todo "MISC")
          ;; demo of more powerful agenda template
-         ("d" "Dashboard"
-           ;; bug: ==== bit is 5 chars too long for my screen
-           ((agenda "" ((org-deadline-warning-days 7)))
-             (todo "NEXT"
-               ((org-agenda-overriding-header "Next Tasks")))
-             (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
+         ;; ("d" "Dashboard"
+         ;;   ;; bug: ==== bit is 5 chars too long for my screen
+         ;;   ((agenda "" ((org-deadline-warning-days 7)))
+         ;;     (todo "NEXT"
+         ;;       ((org-agenda-overriding-header "Next Tasks")))
+         ;;     (tags-todo "agenda/ACTIVE" ((org-agenda-overriding-header "Active Projects")))))
          ))
     (add-hook 'org-agenda-mode-hook
       (lambda ()
@@ -134,6 +141,10 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
 #+begin_src emacs-lisp
   (add-hook 'org-mode-hook
     (lambda ()
+      ;; following 3 are for debugging
+      (global-set-key [f5] 'polymode-minor-mode)
+      (global-set-key (kbd "C-<f5>") 'poly-org-mode)
+      (global-set-key [f6] 'buffer-face-mode)
       (local-set-key (kbd "C-c y") 'org-cliplink) ;; similar to my function (see next line)
       (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
@@ -182,10 +193,10 @@ Create a file: Org roam find file
     (add-hook 'org-mode-hook
       (lambda ()
         (tk/org-font-setup)
+        (variable-pitch-mode 1)
         (tk/org-load-packages)
         (tk/org-setup-tags)
         (tk/org-setup-agenda)
-        (variable-pitch-mode 1)
         ;; See manual 5.2.3. (x) - fast select. ! - timestamp it. @ - note w
         ;; timestamp. default: TODO, DONE. Can set this to have more complex
         ;; project management. A bit overkill, but good demo

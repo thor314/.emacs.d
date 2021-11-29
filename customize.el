@@ -7,9 +7,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
   '(org-agenda-files
-     '("/home/thor/org/agenda/habits.org" "/home/thor/org/journal/20211129.org"))
+     '("/home/thor/org/agenda/agenda.org" "/home/thor/org/agenda/archive.org" "/home/thor/org/agenda/habits.org" "/home/thor/org/agenda/todo.org" "/home/thor/org/journal/20211129.org"))
   '(package-selected-packages
-     '(cdlatex auctex poly-org esup crontab-mode org-download org-cliplink zoom yasnippet-snippets use-package undo-tree twittering-mode treemacs-projectile toml-mode theme-magic sx solarized-theme smartparens rustic rust-playground restart-emacs rainbow-delimiters powerthesaurus popwin poly-markdown org-roam org-journal org-bullets ob-rust moody lsp-ui lsp-ivy ivy-rich ivy-prescient helpful free-keys forge flycheck-rust fira-code-mode esh-autosuggest diff-hl counsel-spotify counsel-projectile company-shell company-prescient company-anaconda command-log-mode circe-notifications bug-hunter bitlbee beacon auto-compile all-the-icons-gnus all-the-icons-dired)))
+     '(org-bullets org-superstar cdlatex auctex esup crontab-mode org-download org-cliplink zoom yasnippet-snippets use-package undo-tree twittering-mode treemacs-projectile toml-mode theme-magic sx solarized-theme smartparens rustic rust-playground restart-emacs rainbow-delimiters powerthesaurus popwin poly-markdown org-roam org-journal ob-rust moody lsp-ui lsp-ivy ivy-rich ivy-prescient helpful free-keys forge flycheck-rust fira-code-mode esh-autosuggest diff-hl counsel-spotify counsel-projectile company-shell company-prescient company-anaconda command-log-mode circe-notifications bug-hunter bitlbee beacon auto-compile all-the-icons-gnus all-the-icons-dired)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

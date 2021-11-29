@@ -1,5 +1,5 @@
 * Markdown
-I basically only use markdown for README's.
+I basically only use markdown for shared README's.
 #+begin_src emacs-lisp
   (add-hook 'markdown-mode-hook
     (lambda ()
@@ -14,9 +14,9 @@ I basically only use markdown for README's.
   ;; known issue with indentation, poly-org sometimes indents elisp blocks 2 spaces, and sometimes only one, unclear why
   ;; second known issue, poly-org-mode seems to run flycheck on the text at the top outline section.
   ;; third known issue, poly-org-mode seems to break syntax highlighting
-  ;; But disabling poly-mode sucks too: disables company-completion.
-  ;; Current annoying resolution: selectively enable it; bind to key f
-  (use-package poly-org)
+  ;; fourth known issue, bugs out with variable pitch fonts
+  ;; that's...too much for me dude. Try again eventually
+  ;;(use-package poly-org)
   ;;(add-to-list 'auto-mode-alist '("\\.org" . poly-org-mode))
   (use-package poly-markdown)
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
@@ -38,11 +38,11 @@ I basically only use markdown for README's.
   (add-hook 'text-mode-hook
     (lambda ()
       ;; nts. auto-fill looks nice, but makes a lot of formatting things
-      ;; a pain in the ass, and I'm too lazy to fix them all.
-                                        ;(turn-on-auto-fill)
+      ;; a pain in the ass, and I'm too lazy to fix them all. Turning off.
+      ;;(turn-on-auto-fill)
       (setq sentence-end-double-space nil) ; single space after periods
       (setq line-number-mode nil)
-      ;; note: turn flyspell mode on for syntax highlighting
+      ;; note: turn flyspell mode on for syntax highlighting, but leave off by default
       (local-set-key (kbd "M-j") 'org-meta-return)
       (local-set-key (kbd "<f9>") 'flyspell-goto-next-error)
       (local-set-key (kbd "C-<f9>") 'flyspell-correct-word)
