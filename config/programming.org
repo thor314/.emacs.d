@@ -27,10 +27,10 @@
       '(add-to-list 'company-backends 'company-anaconda)
       ))
   (use-package company-prescient)
-  (add-hook 'after-init-hook 'global-company-mode)
   (add-hook 'company-mode-hook
     (lambda ()
-      (setq company-idle-delay 0.5 ;; how long to wait until popup
+      (setq company-idle-delay 0.2 ;; how long to wait until popup
+        company-show-quick-access 1
         company-minimum-prefix-length 1)
       (company-prescient-mode)
       (define-key company-active-map (kbd "C-n") 'company-select-next)
@@ -45,7 +45,7 @@
 #+begin_src emacs-lisp
   (setq lsp-keymap-prefix "M-n")
   (use-package lsp-mode
-    ;;:hook (rustic-mode . lsp)
+    :hook (rustic-mode . lsp)
     :commands lsp)
   ;; sometimes quite laggy:
   (use-package lsp-ui)

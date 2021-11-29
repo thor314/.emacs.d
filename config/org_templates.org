@@ -106,19 +106,19 @@ time-prompt, tree-type, table-line-pos
          :unnarrowed t)
        ("w" "week review" plain "%?"
          :if-new (file+head "review/week/%<%Y-%m-%d>-week_review.org"
-                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:\n* Week In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Week\n** Theme for Week:\n** Review of Review of Predictions \n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Review of Crypto Finances\n")
+                   "#+title: Week Review %<%Y-%m-%d> \n#+filetags: :week_review:\n* Week In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Week\n** Theme for Week:\n** Review of Review of Predictions \n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n*** Attn Health - \n** Review of Crypto Finances\n")
          :unnarrowed t)
        ("m" "month review" plain "%?"
          :if-new (file+head "review/month/%<%Y-%m-%d>-month_review.org"
-                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* Month In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Month\n** Theme for Month:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Value Review:\n*** Self-love\n*** Placing curiosity above judgement\n*** Creating community\n*** Learning and building\n** Review of Crypto Finances\n")
+                   "#+title: Month Review %<%Y-%m-%d> \n#+filetags: :month_review:\n* Month In Review\n** Big vibes\n** Concepts\n** Free Write\n** Projects in Review\n** Projects for this Month\n** Theme for Month:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n*** Attn Health - \n** Value Review:\n*** Self-love\n*** Placing curiosity above judgement\n*** Creating community\n*** Learning and building\n** Review of Crypto Finances\n")
          :unnarrowed t)
        ("q" "quarter review" plain "%?"
          :if-new (file+head "review/quarter/%<%Y-%m-%d>-quarter_review.org"
-                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:\n* Quarter In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Quarter\n** Theme for Quarter:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Review of Crypto Finances\n\nPeople https://docs.google.com/spreadsheets/d/17u74o6Z5y6o8YGpMzJ4YLM3dF01WkwoUYblAS8wHqoM/edit?usp=drive_web&ouid=115883971599314555687 ")
+                   "#+title: Quarter Review %<%Y-%m-%d> \n#+filetags: :quarter_review:\n* Quarter In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Quarter\n** Theme for Quarter:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n*** Attn Health - \n** Review of Crypto Finances\n\nPeople https://docs.google.com/spreadsheets/d/17u74o6Z5y6o8YGpMzJ4YLM3dF01WkwoUYblAS8wHqoM/edit?usp=drive_web&ouid=115883971599314555687 ")
          :unnarrowed t)
        ("y" "year review" plain "%?"
          :if-new (file+head "review/year/%<%Y-%m-%d>-year_review.org"
-                   "#+title: Year Review %<%Y-%m-%d> \n#+filetags: :year_review:\n* Year In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Year\n** Theme for Year:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n *** Attn Health - \n** Review of Crypto Finances\n")
+                   "#+title: Year Review %<%Y-%m-%d> \n#+filetags: :year_review:\n* Year In Review\n** Big vibes\n** Free Write\n** Projects in Review\n** Projects for this Year\n** Theme for Year:\n** Review of Review of Predictions \n**\n** PPRESH check-in\n*** Professional - \n*** Projects - \n*** Romantic - \n*** Emotional - \n*** Social - \n*** Phys Health - \n*** Attn Health - \n** Review of Crypto Finances\n")
          :unnarrowed t)
 ))
 #+end_src
