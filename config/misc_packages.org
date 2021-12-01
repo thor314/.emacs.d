@@ -64,6 +64,20 @@ Surprisingly powerful.
   (use-package command-log-mode
     :config (global-set-key (kbd "C-x l") 'command-log-mode))
 #+end_src
+* [[https://github.com/bbatsov/super-save][super-save: Save Emacs buffers when they lose focus]] + make system crash or closing emacs less teriffying
+#+begin_src emacs-lisp
+    (use-package super-save
+      :config (super-save-mode 1)
+      (setq super-save-auto-save-when-idle t
+        super-save-idle-duration 30
+        auto-save-default nil))
+#+end_src
+* Note to self, I looked at but didn't install X because
+- [[https://github.com/abo-abo/ace-window][GitHub - abo-abo/ace-window: Quickly switch windows in Emacs]] - This package seems popular, but I can't remember the last time I had more than 3 windows
+- [[https://github.com/jwiegley/alert][GitHub - jwiegley/alert: A Growl-like alerts notifier for Emacs]] - I don't need finer grain on notification (yet)
+- [[https://github.com/nex3/perspective-el][GitHub - nex3/perspective-el: Perspectives for Emacs]]  perspective mode, or any of the other window/tab groupers: Ivy views are doing fine at the moment.
+-
+
 * =pop-win= - less annoying help and compilation buffers
 Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
