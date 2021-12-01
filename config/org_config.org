@@ -36,6 +36,7 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
   (defun tk/org-load-packages ()
     (use-package org-superstar ;; supercedes org-bullets:
       :config
+      (org-superstar-mode)
       ;; This line is necessary.
       (setq org-superstar-leading-bullet ?\s)
       ;; If you use Org Indent you also need to add this, otherwise the
@@ -52,6 +53,7 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
     (use-package org-journal)
 
     ;; org-habit is a built in library for tracking stuff about repeating tasks
+    ;; why use: habits displayed with consistency graph: How consistent at getting that task done.
     (require 'org-habit)
     (add-to-list 'org-modules 'org-habit)
     (setq org-habit-graph-column 60)

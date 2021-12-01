@@ -33,6 +33,7 @@
     ("linsk" "links" nil :count 3)
     ("looknig" "looking" nil :count 1)
     ("montsh" "months" nil :count 0)
+    ("moutn" "mount" nil :count 1)
     ("nad" "and" nil :count 6)
     ("networknig" "networking" nil :count 2)
     ("nto" "not" nil :count 0)

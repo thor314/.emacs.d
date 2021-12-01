@@ -20,7 +20,7 @@
 (require 'package)
 ;;(require 'cl-lib) ; not currently needed
 ;; NB! If a package cannot be found, try Mx package-refresh-contents!
-(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
@@ -74,6 +74,8 @@
 (setq custom-file "~/.emacs.d/customize.el")
 (load custom-file)
 
+;; start emacs server from this instance for emacsclient
+(server-start)
 ;; open the config directory at startup
 (oo-open-config)
 ;;; init.el ends here
