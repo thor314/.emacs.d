@@ -14,45 +14,56 @@ Surprisingly powerful.
       ("a" . sx-ask)
       ("s" . sx-search)))
 #+end_src
-* =free-keys= Show what keys are unbound, v useful
+* [[https://github.com/Fuco1/free-keys][free-keys: Show free keybindings for modkeys or prefixes]] Show what keys are unbound, v useful
 #+begin_src emacs-lisp
-  (use-package free-keys)
+    (use-package free-keys
+      :config (global-set-key (kbd "C-x e") 'free-keys))
+#+end_src
+* [[https://github.com/justbur/emacs-which-key][which-key: Emacs package that displays available keybinds]] - extremely useful
+#+begin_src emacs-lisp
+  (use-package which-key
+    :init (which-key-mode)
+    :config
+    (setq which-key-idle-delay .3  ;; seconds
+      which-key-popup-type 'minibuffer)) ;; doesn't eat half the screen
 #+end_src
 [[https://github.com/Fuco1/free-keys][free-keys]].
-* =command-log-mode= - infrequently used mode, useful for demos and alternative to C-h k
-#+begin_src emacs-lisp
-	(use-package command-log-mode)
-#+end_src
-* [[https://github.com/iqbalansari/restart-emacs/blob/master/restart-emacs.el][restart-emacs]] - smol package for restarting emacs
+* [[https://github.com/iqbalansari/restart-emacs][restart-emacs: A simple emacs package to restart emacs]] - smol package for restarting emacs
 #+begin_src emacs-lisp
 	(use-package restart-emacs
     :config
     (setq restart-emacs-restore-frames t) ;; try to restore frames
     (global-set-key (kbd "C-x c") 'restart-emacs))
 #+end_src
-* [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter]] - helper to debug config
+* [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter: Hunt down errors in elisp files.]] helper to debug config
 #+begin_src emacs-lisp
-	(use-package bug-hunter)
+  (use-package bug-hunter
+    :config (global-set-key (kbd "C-x b") 'bug-hunter-init-file)
+    (global-set-key (kbd "C-x B") 'bug-hunter-file))
 #+end_src
-* =re-builder= - Build and test regex
+* [[https://www.emacswiki.org/emacs/ReBuilder][EmacsWiki: Re Builder]] - Build and test regex
 #+begin_src emacs-lisp
-  (use-package re-builder)
+  (use-package re-builder
+        :config (global-set-key (kbd "C-x x") 're-builder))
 #+end_src
-[[https://www.emacswiki.org/emacs/ReBuilder][re-builder]].
-* =crontab-mode=
-[[https://www.emacswiki.org/emacs/CrontabMode][EmacsWiki: Crontab Mode]] Major mode for editting crontab files
+* [[https://www.emacswiki.org/emacs/CrontabMode][EmacsWiki: Crontab Mode]] Major mode for editting crontab files
 #+begin_src emacs-lisp
 	(use-package crontab-mode
     :config
     (add-to-list 'auto-mode-alist '("\\.?cron\\(tab\\)?\\." . crontab-mode)))
 #+end_src
-* =undo-tree= - Visualize undo history tree (wow, cool): =C-x u=
+* [[https://www.emacswiki.org/emacs/UndoTree][EmacsWiki: Undo Tree]] - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree
     :config
-    (global-undo-tree-mode))
+    (global-undo-tree-mode)
+    :config (global-set-key (kbd "C-x u") 'undo-tree-visualize))
 #+end_src
-[[https://www.emacswiki.org/emacs/UndoTree][undo-tree]].
+* [[https://github.com/lewang/command-log-mode][command-log-mode: log commands to buffer]] - infrequently used mode, useful for demos and alternative to C-h k
+#+begin_src emacs-lisp
+  (use-package command-log-mode
+    :config (global-set-key (kbd "C-x l") 'command-log-mode))
+#+end_src
 * =pop-win= - less annoying help and compilation buffers
 Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
