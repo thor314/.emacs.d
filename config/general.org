@@ -3,6 +3,9 @@
 #+begin_src emacs-lisp
   (defalias 'yes-or-no-p 'y-or-n-p) ; brevity is the soul of wit
   (setq inhibit-startup-message t
+    ;; When upgrading emacs to 28, uncomment
+    ;; Silence compiler warnings as they can be pretty disruptive
+    ;; comp-async-report-warnings-errors nil
     gc-cons-threshold 20000000 ; default is 800KB, set to 200MB
     read-process-output-max 3000000 ;; incr data read from process. default is 4kb.
     require-final-newline t ; Whether to add a newline automatically at the end of the file.
@@ -24,7 +27,14 @@
     auto-save-file-name-transforms
     `((".*" ,temporary-file-directory t)))
 #+end_src
-
+** Setting to determine what system Emacs is running on
+#+begin_src emacs-lisp
+  ;;(require 'subr-x)
+  (setq linux-p
+    (eq system-type 'gnu/linux))
+  ;; (setq guix-p
+  ;;   (and linux-p) (check-guix-somehow))
+#+end_src
 ** Turn theses modes off
 #+begin_src emacs-lisp
   (auto-composition-mode 0) ; turn off (small diff): text characters automatically composed by functions registered in composition-function-table
