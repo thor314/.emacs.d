@@ -5,6 +5,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 
 * Reminder keys - also see global_keybinds.org
 - =M-o= - hydra
+- =S-spc= - search within current results
 - =C-M-o= - dispatching done (keep minibuffer open)
 - =C-M-m= - ivy-call (keep minibuffer open)
 - =C-c C-o= - while in Minibuffer, ivy-occur
@@ -15,6 +16,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 #+begin_src emacs-lisp
   (use-package ivy) ; intentional redundancy; counsel installs ivy.
   (setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
+    enable-recursive-minibuffers t
     ivy-count-format "%d/%d ")
   (setq ivy-display-style 'fancy)
   (ivy-mode 1)
@@ -54,6 +56,24 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 (use-package avy)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].
+* [[https://github.com/lewang/flx][Flx]] - better fuzzy-matching
+#+begin_src emacs-lisp
+	(use-package flx  ;; Improves sorting for fuzzy-matched results
+  :after ivy
+  :defer t
+  :init
+  (setq ivy-flx-limit 10000))
+#+end_src
+* [[https://github.com/tumashu/ivy-posframe][ivy-posframe: move minibuffer to centerscreen]] attractive display
+#+begin_src emacs-lisp
+  (use-package ivy-posframe
+    :config
+    (setq ivy-posframe-width      115
+      ivy-posframe-min-width  115
+      ivy-posframe-height     10
+      ivy-posframe-min-height 10)
+    (ivy-posframe-mode))
+#+end_src
 * [[https://github.com/Lautaro-Garcia/counsel-spotify][Counsel Spotify]] - don't leave emacs, never leave emacs
 Takes a little setup thru spotify.
 #+begin_src emacs-lisp
