@@ -73,6 +73,9 @@ note that there's a new mode called =counsel-mode= that does most of this remapp
   (global-set-key (kbd "C-h l") 'counsel-find-library)
   (global-set-key (kbd "C-c b") 'counsel-bookmark) ; note: bkmks overlap with ivy-view
   (global-set-key (kbd "C-r k") 'counsel-rg)
+  (global-set-key (kbd "C-r g") 'lgrep)
+  (global-set-key (kbd "C-r K") 'rg)
+  (global-set-key (kbd "C-r l") 'counsel-locate)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "<menu>") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)

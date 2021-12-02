@@ -1,3 +1,20 @@
+* Grepping:
+- [[https://github.com/dajva/rg.el][ripgrep]] - real gud grepping
+- [[https://github.com/mhayashi1120/Emacs-wgrep][Emacs-wgrep: Writable grep buffer and apply the changes]]
+Usage: especially great for programming.
+(l|r)?grep or rg for the pattern, replace all instances, save the change across all buffers modified.
+#+begin_src emacs-lisp
+  (use-package wgrep
+    :after rg
+    :config
+    (setq wgrep-auto-save-buffer t
+      wgrep-enable-key "r"))
+  (use-package rg
+    :after wgrep
+    :config
+    (autoload 'wgrep-rg-setup "wgrep-rg")
+    (add-hook 'rg-mode-hook 'wgrep-rg-setup))
+#+end_src
 * [[https://github.com/vermiculus/sx.el/][sx.el: Stack Exchange for Emacs]]
 #+begin_src emacs-lisp
   (use-package sx
