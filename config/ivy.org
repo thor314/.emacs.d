@@ -61,8 +61,11 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 #+begin_src emacs-lisp
   (use-package ivy-posframe
     :config
-    (setq ivy-posframe-width  115
-      ivy-posframe-min-width  115
+    ;; set this for full-screen emacs display
+    (setq ivy-posframe-width  160
+      ;; set this to 90 for good half-screen emacs display
+      ivy-posframe-min-width  90
+      ;; setting next 2 equal avoids a offscreen bottom-of-buffer bug
       ivy-posframe-height     10
       ivy-posframe-min-height 10)
     (ivy-posframe-mode))

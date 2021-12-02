@@ -39,7 +39,7 @@
 #+begin_src emacs-lisp
 	(use-package restart-emacs
     :config
-    (setq restart-emacs-restore-frames t) ;; try to restore frames
+    (setq restart-emacs-restore-frames nil) ;; try to restore frames
     (global-set-key (kbd "C-x c") 'restart-emacs))
 #+end_src
 * [[https://github.com/Malabarba/elisp-bug-hunter][elisp-bug-hunter: Hunt down errors in elisp files.]] helper to debug config
@@ -85,7 +85,8 @@
 - [[https://github.com/nex3/perspective-el][GitHub - nex3/perspective-el: Perspectives for Emacs]]  perspective mode, or any of the other window/tab groupers: Ivy views are doing fine at the moment.
 -
 
-* =pop-win= - less annoying help and compilation buffers
+* Deprecated
+** =pop-win= - less annoying help and compilation buffers
 Not currently using; useful to customize how compilation buffers appear.
 #+begin_src emacs-lisp
   ;(use-package popup) ; not making use atm. Creates dropdown ui.
@@ -97,7 +98,7 @@ Not currently using; useful to customize how compilation buffers appear.
 #+end_src
 [[https://github.com/emacsorphanage/popwin][popwin]]. [[https://github.com/auto-complete/popup-el][popup]].
 
-* [[https://github.com/hayamiz/twittering-mode][twittering-mode]] - deprecated; not maintaned, too many warnings and errors, bad auth, okay but not great client
+** [[https://github.com/hayamiz/twittering-mode][twittering-mode]] - deprecated; not maintaned, too many warnings and errors, bad auth, okay but not great client
 :#+begin_src emacs-lisp
   (use-package twittering-mode
     :config
@@ -111,8 +112,8 @@ Not currently using; useful to customize how compilation buffers appear.
   ;; fails w/ error: setq: Symbol’s function definition is void: epa--decode-coding-string
   ;; so just put up with authenticating each session
 #+end_src
-* [[https://github.com/atykhonov/emacs-howdoi][howdoi]] - deprecated; package unfunctional, not maintained
-* deprecated: [[https://github.com/jcaw/theme-magic][theme-magic]] Make the rest of linux look more like emacs - package buggy, not maintained
+** [[https://github.com/atykhonov/emacs-howdoi][howdoi]] - deprecated; package unfunctional, not maintained
+** deprecated: [[https://github.com/jcaw/theme-magic][theme-magic]] Make the rest of linux look more like emacs - package buggy, not maintained
 dependency: =pip3 install pywal=
 :#+begin_src emacs-lisp
 	(use-package theme-magic)
@@ -120,7 +121,7 @@ dependency: =pip3 install pywal=
   ;; update the rest of linux when I update emacs' theme
   (theme-magic-export-theme-mode)
 #+end_src
-* =esup= the startup profiler - deprecated until issue solved
+** =esup= the startup profiler - deprecated until issue solved
 [[https://github.com/jschaf/esup][esup: ESUP - Emacs Start Up Profiler]]
 Usage: Run M-x esup to get profiling data. This plus the following are
 wonderful for startup info.
