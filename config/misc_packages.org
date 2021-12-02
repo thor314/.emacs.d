@@ -20,12 +20,16 @@ Surprisingly powerful.
       :config (global-set-key (kbd "C-x e") 'free-keys))
 #+end_src
 * [[https://github.com/justbur/emacs-which-key][which-key: Emacs package that displays available keybinds]] - extremely useful
+- [[https://github.com/yanghaoxie/which-key-posframe][Whichkey posframe frontend]]
 #+begin_src emacs-lisp
   (use-package which-key
     :init (which-key-mode)
     :config
-    (setq which-key-idle-delay .3  ;; seconds
+    (setq which-key-idle-delay .5
       which-key-popup-type 'minibuffer)) ;; doesn't eat half the screen
+  (use-package which-key-posframe
+    :config
+    (which-key-posframe-mode))
 #+end_src
 [[https://github.com/Fuco1/free-keys][free-keys]].
 * [[https://github.com/iqbalansari/restart-emacs][restart-emacs: A simple emacs package to restart emacs]] - smol package for restarting emacs

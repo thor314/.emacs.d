@@ -1,9 +1,35 @@
 * TODOS
+** from reading daviwil's config https://config.daviwil.com/emacs
+*** TODO expand region https://github.com/magnars/expand-region.el
+*** DONE add support for window history with winner mode https://www.emacswiki.org/emacs/WinnerMode
+CLOSED: [2021-12-01 Wed 14:53]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-01 Wed 14:53]
+:END:
+*** TODO https://github.com/tumashu/ivy-posframe pretty centered minibuffer display
+*** TODO https://github.com/mhayashi1120/Emacs-wgrep - edit a grep buffer, apply changes to file, like sed interactively.
+*** TODO https://github.com/daviwil/dotcrafter.el
+*** TODO https://github.com/justinbarclay/parinfer-rust-mode
+*** TODO https://github.com/gregsexton/origami.el
 ** TODO latex niceties in org-mode
+** tramp default mode is scp
+may want to update to ssh.
+** pinentrymode?
+From https://config.daviwil.com/emacs
+  (setq epa-pinentry-mode 'loopback)
+  (pinentry-start)
 ** C-j in org mode on checkbox should create new checkbox
+** Org screenshot has dumb default behavior wrt pics
+** Investigate the concept of a human-task-stack to throw 2-30 minute tasks onto, external to the org-todo system.
 ** DONE org-roam templates not getting loaded
 CLOSED: [2021-10-10 Sun 12:49]
-** Org screenshot has dumb default behavior wrt pics
-** change org-roam order of operations: make file, then ask for slug
-** I think smart-parens is interfering with my region-replace delete.
-** Investigate the concept of a human-task-stack to throw 2-30 minute tasks onto, external to the org-todo system.
+** CANC change org-roam order of operations: make file, then ask for slug
+CLOSED: [2021-12-01 Wed 14:34]
+:LOGBOOK:
+- State "CANC"       from              [2021-12-01 Wed 14:34]
+:END:
+** DONE I think smart-parens is interfering with my region-replace delete.
+CLOSED: [2021-12-01 Wed 14:33]
+:LOGBOOK:
+- State "DONE"       from              [2021-12-01 Wed 14:33]
+:END:

@@ -56,19 +56,12 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 (use-package avy)
 #+end_src
 [[https://github.com/abo-abo/avy][avy]].
-* [[https://github.com/lewang/flx][Flx]] - better fuzzy-matching
-#+begin_src emacs-lisp
-	(use-package flx  ;; Improves sorting for fuzzy-matched results
-  :after ivy
-  :defer t
-  :init
-  (setq ivy-flx-limit 10000))
-#+end_src
+
 * [[https://github.com/tumashu/ivy-posframe][ivy-posframe: move minibuffer to centerscreen]] attractive display
 #+begin_src emacs-lisp
   (use-package ivy-posframe
     :config
-    (setq ivy-posframe-width      115
+    (setq ivy-posframe-width  115
       ivy-posframe-min-width  115
       ivy-posframe-height     10
       ivy-posframe-min-height 10)
@@ -85,12 +78,23 @@ Takes a little setup thru spotify.
 * [[https://github.com/raxod502/prescient.el][prescient]] completions
 Turning prescient on remembers the last 1000 commands used and puts them at the top of the list
 #+begin_src emacs-lisp
- (use-package prescient)
- (use-package ivy-prescient)
- (use-package company-prescient)
- (ivy-prescient-mode)
- (company-prescient-mode)
- (prescient-persist-mode) ;; save commonly used commands in var/prescient-save.el
- (setq prescient-history-length 1000)
- (setq prescient-frequency-decay .999)
+  (use-package prescient
+    :config
+    (prescient-persist-mode) ;; save commonly used commands in var/prescient-save.el
+    (setq prescient-history-length 1000
+     prescient-frequency-decay .999
+     prescient-filter-method '(literal regexp initialism))
+    ;;(prescient-filter-method '(literal regexp initialism fuzzy)) ;; fuzzy is aggro
+    )
+  (use-package ivy-prescient
+    :after prescient
+    :config (ivy-prescient-mode))
 #+end_src
+* [[https://github.com/lewang/flx][Flx]] - fuzzy-matching - deprecated for prescient
+: #+begin_src emacs-lisp
+	(use-package flx  ;; Improves sorting for fuzzy-matched results
+  :after ivy
+  :defer t
+  :init
+  (setq ivy-flx-limit 10000))
+:#+end_src
