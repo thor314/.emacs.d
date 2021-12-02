@@ -15,22 +15,22 @@ Experiment. Want: Signal, Telegram, Discord all in Emacs.
         :port "6697"
         ;; the following requires entering password on startup, comment out when not using register-required channels
         )
-        ;;:channels ("#emacs #nonguix")
-        ;;:nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "irc.libera.chat")
-        ("Bitlbee"
-          :host "localhost"
-          :nick "cryptograthor"
-          ;; :tls t ; stops me from connecting, idk why
-          :port "6667"
-          ;;:nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "bitlbee")
-          )
-        ))
+       :channels ("#emacs #nonguix #guix")
+       ;;:nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "irc.libera.chat")
+       ("Bitlbee"
+         :host "localhost"
+         :nick "cryptograthor"
+         ;; :tls t ; stops me from connecting, idk why
+         :port "6667"
+         ;;:nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "bitlbee")
+         )
+       ))
 
 
-    ;; get desktop notification for buffers in 'tracking-buffers
+  ;; get desktop notification for buffers in 'tracking-buffers
                                           ;(use-package circe-notifications)
                                           ;(add-hook 'circe-server-connected-hook 'enable-circe-notifications)
-    ;;(eval-after-load "circe-notifications"
-    ;;'(setq circe-notifications-watch-strings
-    ;;    '("people" "you" "like" "to" "hear" "from")))
+  ;;(eval-after-load "circe-notifications"
+  ;;'(setq circe-notifications-watch-strings
+  ;;    '("people" "you" "like" "to" "hear" "from")))
 #+end_src

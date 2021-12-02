@@ -15,8 +15,16 @@ CLOSED: [2021-12-02 Thu 15:12]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2021-12-02 Thu 15:12]
 :END:
-*** TODO https://github.com/mhayashi1120/Emacs-wgrep - edit a grep buffer, apply changes to file, like sed interactively.
-*** TODO https://github.com/daviwil/dotcrafter.el
+*** DONE https://github.com/mhayashi1120/Emacs-wgrep - edit a grep buffer, apply changes to file, like sed interactively.
+CLOSED: [2021-12-02 Thu 22:29]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-02 Thu 22:29]
+:END:
+*** DONE https://github.com/daviwil/dotcrafter.el
+CLOSED: [2021-12-02 Thu 22:46]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-02 Thu 22:46]
+:END:
 *** TODO https://github.com/justinbarclay/parinfer-rust-mode
 *** TODO https://github.com/gregsexton/origami.el
 ** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
