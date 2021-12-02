@@ -68,6 +68,10 @@ N2R: Some of these are on by default; explicitness seems good.
   (mouse-wheel-mode 1) ; allow scroll by mouse-wheel
   (transient-mark-mode) ; don't hide active selected region
 
+  (winner-mode)
+  (global-set-key (kbd "C-x w f") 'winner-redo)
+  (global-set-key (kbd "C-x w b") 'winner-undo)
+
   ;; Set frame transparency, maximize screen by default
   (defvar tk/frame-transparency '(95 . 95))
   (set-frame-parameter nil 'alpha tk/frame-transparency)
