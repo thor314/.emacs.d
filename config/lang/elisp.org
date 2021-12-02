@@ -5,5 +5,13 @@
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 #+end_src
+* [[https://github.com/justinbarclay/parinfer-rust-mode][Parinfer]] - a code formatting tool for lisps!
+Still trying this out. Unsure whether it will play nice with smartparens.
+#+begin_src emacs-lisp
+  (use-package parinfer-rust-mode
+    :hook emacs-lisp-mode
+    :config
+    (setq parinfer-rust-auto-download t))
+#+end_src
 * <deprecated> =paredit= - use smartparens instead
 (reason: smartparens has better cross-language support, also see  [[https://www.reddit.com/r/emacs/comments/1q99wi/moving_from_paredit_to_smartparens/][boz's]] recc)

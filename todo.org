@@ -25,16 +25,25 @@ CLOSED: [2021-12-02 Thu 22:46]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2021-12-02 Thu 22:46]
 :END:
-*** TODO https://github.com/justinbarclay/parinfer-rust-mode
-*** TODO https://github.com/gregsexton/origami.el
-** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
-** TODO emacsdaemon
-** tramp default mode is scp
-may want to update to ssh.
-** pinentrymode?
+*** DONE https://github.com/justinbarclay/parinfer-rust-mode
+CLOSED: [2021-12-02 Thu 23:06]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-02 Thu 23:06]
+:END:
+*** CANC https://github.com/gregsexton/origami.el
+CLOSED: [2021-12-02 Thu 23:07]
+** DONE emacsdaemon
+CLOSED: [2021-12-02 Thu 23:17]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-02 Thu 23:17]
+:END:
+** TODO pinentrymode?
 From https://config.daviwil.com/emacs
   (setq epa-pinentry-mode 'loopback)
   (pinentry-start)
+** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
+** tramp default mode is scp
+may want to update to ssh.
 ** C-j in org mode on checkbox should create new checkbox
 ** Org screenshot has dumb default behavior wrt pics
 ** Investigate the concept of a human-task-stack to throw 2-30 minute tasks onto, external to the org-todo system.
