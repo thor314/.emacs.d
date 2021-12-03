@@ -37,10 +37,24 @@ CLOSED: [2021-12-02 Thu 23:17]
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2021-12-02 Thu 23:17]
 :END:
-** TODO pinentrymode?
+** DONE pinentrymode?
+CLOSED: [2021-12-03 Fri 16:02]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2021-12-03 Fri 16:02]
+:END:
 From https://config.daviwil.com/emacs
   (setq epa-pinentry-mode 'loopback)
   (pinentry-start)
+*** https://jherrlin.github.io/posts/emacs-gnupg-and-pass/
+1. GnuPG: generate asym keys
+2. Gen sub-keys for en|de crypt, and signing with lifetime of 1 year, remake keys every year
+3. Use enc/dec keys to decrypt password files in pass password store
+4. Use signing keys to sign git commits
+5. Use emacs gpg pinentry, with a mode to manage passwords
+
+Use GnuPG to generate asymmetric keys. Generate sub keys for encryption/decryption and signing. Sub keys have a lifetime of 1 year. After 1 year new sub keys for encrypt/decrypt and signing needs to be generated. Use signing sub key to sign git commits. Use encryption/decryption sub key to encrypt/decrypt password files in pass password store. Use Emacs for for gpg pinentry and install a Emacs mode to manage pass passwords.
+
+
 ** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
 ** tramp default mode is scp
 may want to update to ssh.

@@ -235,13 +235,26 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that. 
   (setq exec-path (append exec-path '("/home/thor/.cargo/bin")))
   (setenv "NVM_DIR" "~/.nvm")
 #+end_src
-* Set authentication
+* Authentication and passphrases
+[[https://www.gnu.org/software/emacs/manual/html_mono/auth.html][Auth source manual]]. In a nutshell, store passwords in =auth-sources= files in a given format:
+- =machine mymachine login myloginname password mypassword port myport=
+A golden quote: "90% of Emacs users have unusual setups and the remaining 10% are really unusual".
+[[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][The mastering emacs]] post on setting this up was okay.
+[[https://jherrlin.github.io/posts/emacs-gnupg-and-pass/][This guy]]  is doing hard mode, but documents reasonably well. Don't use pinentry though, it deprecated.
 #+begin_src emacs-lisp
   (setq auth-sources '("~/.authinfo.gpg"))
-    ;; https://github.com/emacs-circe/circe/wiki/Configuration
+  ;; the following two lines enable GnuPG passphrase prompting in the minibuffer.
+  ;; see the answer by Y.E.
+  ;; note that the pinentry package is deprecated for GnuPG >= 2.1  https://emacs.stackexchange.com/questions/32881/enabling-minibuffer-pinentry-with-emacs-25-and-gnupg-2-1-on-ubuntu-xenial
+  ;; step 2, adding allow-emacs-pinentry not necessary on linux
+  (require 'epg)
+  (setq epg-pinentry-mode 'loopback)
+  ;; store passwords in .authinfo.gpg, and get them with my-fetch-passwords.
+  ;; See messaging.org for examples.
+  ;; https://github.com/emacs-circe/circe/wiki/Configuration
   (defun my-fetch-password (&rest params)
     """Usage: Put a line in my auth file (~/.authinfo.gpg), then load:
-    (my-fetch-password :user <login> :machine <machine>) """
+       (my-fetch-password :user <login> :machine <machine>) """
     (require 'auth-source)
     (let ((match (car (apply 'auth-source-search params))))
       (if match
