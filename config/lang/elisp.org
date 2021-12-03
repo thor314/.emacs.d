@@ -5,11 +5,10 @@
 (with-eval-after-load 'flycheck
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 #+end_src
-* [[https://github.com/justinbarclay/parinfer-rust-mode][Parinfer]] - a code formatting tool for lisps!
-Still trying this out. Unsure whether it will play nice with smartparens.
-Bug one: annoyingly inquires if it can format the text - maybe fixed w/ check before to nil
+* [[https://github.com/justinbarclay/parinfer-rust-mode][Parinfer]] - a code formatting tool for lisps! - deprecated.
+Bug one: annoyingly inquires if it can format the text - maybe fixed w/ check before to nil? Nope not fixed! Thus, deprecated.
 Bug two: sometimes opens its own strange buffer for elisp text editing that doesn't save back to the og buffer (see messages.org)
-#+begin_src emacs-lisp
+:#+begin_src emacs-lisp
   (use-package parinfer-rust-mode
     :hook emacs-lisp-mode
     :config

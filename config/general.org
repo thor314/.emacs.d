@@ -145,11 +145,12 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
     (zoom-mode 1))
 #+end_src
 
-** [[https://github.com/dgutov/diff-hl][diff-hl]] - highlight changes since last git commit
+** [[https://github.com/dgutov/diff-hl][diff-hl]] - highlight changes since last git commit in margin
 #+begin_src emacs-lisp
   (use-package diff-hl
     :config
     (global-diff-hl-mode)
+    (diff-hl-margin-mode)
     (global-diff-hl-amend-mode))
 #+end_src
 
