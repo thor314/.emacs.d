@@ -1,16 +1,15 @@
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
   (use-package magit)
-  (use-package forge
-    :after magit)
+  (use-package magit-todos
+    ;; put todos in magit
+    :after magit
+    :config (magit-todos-mode))
+  (use-package forge :after magit)
   ;; NOTE: Make sure to configure a GitHub token before using this package
   ;; in ~/.authinfo.gpg, include the line machine api.github.com login thor314^forge password <https://magit.vc/manual/ghub/Creating-a-Token.html#Creating-a-Token>
 #+end_src
-[[https://magit.vc/manual/magit.html][magit]]. [[https://magit.vc/manual/forge.html][forge]].
-
-** Why forge, not $x:
-0. Don't leave emacs. Write text in an editor that makes sense.
-1. Abstract (github|gitlab) to "some_forge".
+[[https://magit.vc/manual/magit.html][magit]]. [[https://magit.vc/manual/forge.html][forge]]. [[https://github.com/alphapapa/magit-todos#installation][magit todos]].
 
 * Flycheck error information on the fly
 #+begin_src emacs-lisp

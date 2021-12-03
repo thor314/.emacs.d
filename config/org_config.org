@@ -83,7 +83,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
          ("MISC" . ?z))))
 #+end_src
 [[https://orgmode.org/manual/Tags.html#Tags][tags]].
-* TODO Agenda
+* Agenda
 [[https://orgmode.org/manual/Agenda-Commands.html][Agenda Commands (The Org Manual)]]
 [[https://github.com/alphapapa/org-super-agenda][look into super agenda, eventually]].
 #+begin_src emacs-lisp

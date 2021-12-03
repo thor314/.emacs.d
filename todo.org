@@ -1,4 +1,11 @@
 * TODOS
+** DONE Note that hl-diff mode has been inconsistent lately.
+CLOSED: [2021-12-03 Fri 16:46]
+:LOGBOOK:
+- State "DONE"       from              [2021-12-03 Fri 16:46]
+:END:
+** TODO dwil - org mode setup
+** TODO check out how to set up a website like his
 ** from reading daviwil's config https://config.daviwil.com/emacs
 *** DONE expand region https://github.com/magnars/expand-region.el
 CLOSED: [2021-12-02 Thu 15:17]
@@ -53,7 +60,6 @@ From https://config.daviwil.com/emacs
 5. Use emacs gpg pinentry, with a mode to manage passwords
 
 Use GnuPG to generate asymmetric keys. Generate sub keys for encryption/decryption and signing. Sub keys have a lifetime of 1 year. After 1 year new sub keys for encrypt/decrypt and signing needs to be generated. Use signing sub key to sign git commits. Use encryption/decryption sub key to encrypt/decrypt password files in pass password store. Use Emacs for for gpg pinentry and install a Emacs mode to manage pass passwords.
-
 
 ** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
 ** tramp default mode is scp
