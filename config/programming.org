@@ -50,6 +50,7 @@
       ))
 #+end_src
 * LSP
+[[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
 #+begin_src emacs-lisp
   (setq lsp-keymap-prefix "M-n")
   (use-package lsp-mode
@@ -58,12 +59,6 @@
   ;; sometimes quite laggy:
   (use-package lsp-ui)
   (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-#+end_src
-
-** LSP configuration
-Definition with eldoc/equiv tends to be the most lag-inducing.
-[[https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/][visual guide to lsp configuration]]
-#+begin_src emacs-lisp
   (setq lsp-enable-symbol-highlighting nil ;; highlight instances
     lsp-ui-doc-enable nil ;; hover dialogs
     lsp-lens-enable nil ;; number references to object
@@ -79,6 +74,7 @@ Definition with eldoc/equiv tends to be the most lag-inducing.
     lsp-idle-delay 0.5 ; refresh highlights
     lsp-enable-snippet nil ; hide yasnippets from company completes
     lsp-show-snippet nil)
+  ;; Definition with eldoc tends to be the most lag-inducing.
 #+end_src
 [[https://emacs-lsp.github.io/lsp-mode/][lsp-mode]]. [[https://emacs-lsp.github.io/lsp-mode/page/installation/][setup-instructions]].
 

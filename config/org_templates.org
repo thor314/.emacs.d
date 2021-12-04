@@ -22,6 +22,8 @@ This can be one of the most useful functions in all of Emacs, automating a lot o
          "* Note from %u: %? :NOTE:\n" :prepend t)
        ("no" "Org usage note" entry (file+headline "~/org/notes.org" "Notes")
          "* Note from %u: %? :NOTE:\n" :prepend t)
+       ("na" "Advent of Code note" entry (file+headline "~/py/play/advent/notes.org" "Notes")
+         "* Note from %u: %? :NOTE:\n" :prepend t)
 
        ;; Store todos in file agenda/todo.org
        ("c" "Crypto" entry (file+headline "~/org/agenda/todo.org" "Crypto")

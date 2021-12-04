@@ -18,7 +18,7 @@
 
 ;; Get package repositories
 (require 'package)
-;;(require 'cl-lib) ; not currently needed
+
 ;; NB! If a package cannot be found, try Mx package-refresh-contents!
 (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
