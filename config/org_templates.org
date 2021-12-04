@@ -4,11 +4,23 @@ This can be one of the most useful functions in all of Emacs, automating a lot o
   (setq org-default-notes-file (concat org-directory "/notes.org")) ; capture
   (setq org-capture-templates
     '(
+       ;; the following two sections might be better served by some
+       ;; integration with projectile, but I couldn't find a feature
+       ;; implementation, so the following creates an entry in the project
+       ;; root directory for creating notes or todos.
+
+       ;; Use this format to create todos in major projects
+       ("t" "Notes files in various directories")
+       ("te" "Emacs todo" entry (file+headline "~/.emacs.d/todo.org" "Todos")
+         "** TODO %u: %? \n" :prepend t)
+       ("to" "Org todo" entry (file+headline "~/org/todo.org" "Todos")
+         "*** TODO %u: %? \n" :prepend t)
+
        ;; Use this format to create quicknotes in projects
        ("n" "Notes files in various directories")
-       ("ne" "Emacs usage note" entry (file "~/.emacs.d/notes.org")
+       ("ne" "Emacs usage note" entry (file+headline "~/.emacs.d/notes.org" "Notes")
          "* Note from %u: %? :NOTE:\n" :prepend t)
-       ("no" "Org usage note" entry (file "~/org/notes.org")
+       ("no" "Org usage note" entry (file+headline "~/org/notes.org" "Notes")
          "* Note from %u: %? :NOTE:\n" :prepend t)
 
        ;; Store todos in file agenda/todo.org
