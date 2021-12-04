@@ -1,6 +1,9 @@
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
   (use-package magit)
+  (use-package git-link
+    :config (setq git-link-open-in-browser t)
+    :bind ("C-c g l" . git-link))
   (use-package magit-todos
     ;; put todos in magit
     :after magit
@@ -9,7 +12,10 @@
   ;; NOTE: Make sure to configure a GitHub token before using this package
   ;; in ~/.authinfo.gpg, include the line machine api.github.com login thor314^forge password <https://magit.vc/manual/ghub/Creating-a-Token.html#Creating-a-Token>
 #+end_src
-[[https://magit.vc/manual/magit.html][magit]]. [[https://magit.vc/manual/forge.html][forge]]. [[https://github.com/alphapapa/magit-todos#installation][magit todos]].
+- [[https://magit.vc/manual/magit.html][magit]] - interface git
+- [[https://magit.vc/manual/forge.html][forge]] - interface github
+- [[https://github.com/alphapapa/magit-todos#installation][magit todos]] - todos in magit buffer
+-  [[pu][Git link]] - convenience function for copying Git(hub|lab|etc) URL to clipboard
 
 * Flycheck error information on the fly
 #+begin_src emacs-lisp
