@@ -1,4 +1,5 @@
 * TODOS
+
 ** DONE Note that hl-diff mode has been inconsistent lately.
 CLOSED: [2021-12-03 Fri 16:46]
 :LOGBOOK:

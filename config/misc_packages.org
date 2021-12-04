@@ -1,3 +1,9 @@
+* [[pu][Git link]] - convenience function for copying Git(hub|lab|etc) URL to clipboard
+#+begin_src emacs-lisp
+  (use-package git-link
+    :bind ("C-c g l" . git-link))
+#+end_src
+https://github.com/thor314/.emacs.d/blob/main/config/misc_packages.org#L2
 * Grepping:
 - [[https://github.com/dajva/rg.el][ripgrep]] - real gud grepping
 - [[https://github.com/mhayashi1120/Emacs-wgrep][Emacs-wgrep: Writable grep buffer and apply the changes]]
@@ -30,6 +36,7 @@ Usage: especially great for programming.
       ("s" . sx-search)))
 #+end_src
 * [[https://github.com/magnars/expand-region.el][expand-region.el: Emacs extension to increase selected region]] - usage: just select the damn region
+also see [[https://github.com/leoliu/easy-kill][easy-kill]]
 #+begin_src emacs-lisp
 	(use-package expand-region
   :bind ("C-=" . er/expand-region))
@@ -100,7 +107,8 @@ Usage: especially great for programming.
 - [[https://github.com/abo-abo/ace-window][GitHub - abo-abo/ace-window: Quickly switch windows in Emacs]] - This package seems popular, but I can't remember the last time I had more than 3 windows
 - [[https://github.com/jwiegley/alert][GitHub - jwiegley/alert: A Growl-like alerts notifier for Emacs]] - I don't need finer grain on notification (yet)
 - [[https://github.com/nex3/perspective-el][GitHub - nex3/perspective-el: Perspectives for Emacs]]  perspective mode, or any of the other window/tab groupers: Ivy views are doing fine at the moment.
--
+- [[https://github.com/editorconfig/editorconfig-emacs][editorconfig]] - universal editor configuration plugin across everyone's favorite editors, because I only collaborate in Rust for the most part, which has a suitable =.rustfmt.toml=  solution.
+- [[https://github.com/leoliu/easy-kill][easy-kill]] - because I'm still exploring expand-region, but I may included it in the future
 
 * Deprecated
 ** =pop-win= - less annoying help and compilation buffers

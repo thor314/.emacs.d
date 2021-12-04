@@ -10,5 +10,3 @@ If you're starting out with Emacs, cool, congrats! As far as I can tell, we're s
 In any case, if you're reading my config for lulz, I try to include links to the packages, and notes for my own easy reference. In particular, ==config/(misc_packages|org_config|org_template|programming).org= are probably the most interesting.
 
 Have fun!
-
-**
