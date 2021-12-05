@@ -187,26 +187,36 @@ Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
       beacon-blink-delay 0.2))
 #+end_src
 * Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
+[[https://github.com/akreisher/eshell-syntax-highlighting][eshell-syntax-highlighting: Syntax highlighting for Eshell]]
 #+begin_src emacs-lisp
   (use-package esh-autosuggest
     :config
     (add-hook 'eshell-mode-hook
-    (lambda ()
-      ;; enable password caching
-      ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
-      (require 'em-tramp)
-      (setq eshell-prefer-lisp-functions t)
-      (setq eshell-prefer-lisp-variables t)
-      ;; also need to set an alias: alias sudo 'eshell/sudo $*'
-      (setq password-cache t) ;; enable passwd caching
-      (setq password-cache-expiry 600) ; for 10 minutes
-      (setq eshell-history-size 10000
-        eshell-buffer-maximum-lines 10000
-        eshell-scroll-to-bottom-on-input t)
-      (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
-      (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
-      (esh-autosuggest-mode)
-      )))
+      (lambda ()
+        ;; enable password caching
+        ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
+        (require 'em-tramp)
+        (setq eshell-prefer-lisp-functions t)
+        (setq eshell-prefer-lisp-variables t)
+        ;; also need to set an alias: alias sudo 'eshell/sudo $*'
+        (setq password-cache t) ;; enable passwd caching
+        (setq password-cache-expiry 600) ; for 10 minutes
+        (setq eshell-history-size 10000
+          eshell-buffer-maximum-lines 10000
+          eshell-scroll-to-bottom-on-input t)
+        (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
+        (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
+        (esh-autosuggest-mode)
+
+        (with-eval-after-load 'esh-opt
+          (setq eshell-destroy-buffer-when-process-dies t)
+          (setq eshell-visual-commands '("htop" "zsh")))
+        (use-package eshell-syntax-highlighting
+          ;; Adds syntax highlighting to commands entered in eshell
+          :after esh-mode
+          :config
+          (eshell-syntax-highlighting-global-mode +1))
+        )))
 #+end_src
 ** Eshell tips
 *** [[https://masteringemacs.org/article/complete-guide-mastering-eshell][this]] link tldr's useful eshell stuff:
