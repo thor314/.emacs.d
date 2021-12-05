@@ -17,11 +17,6 @@
 - [[https://github.com/alphapapa/magit-todos#installation][magit todos]] - todos in magit buffer
 -  [[pu][Git link]] - convenience function for copying Git(hub|lab|etc) URL to clipboard
 
-* Flycheck error information on the fly
-#+begin_src emacs-lisp
-  (use-package flycheck)
-#+end_src
-
 * [[http://company-mode.github.io/][company]] text-completion
 - [[https://github.com/raxod502/prescient.el][prescient: Simple but effective sorting and filtering]]
 - [[https://github.com/PythonNut/company-flx][company-flx: Flx fuzzy matching for company]]
@@ -85,13 +80,22 @@
 (add-hook 'rustic-mode-hook 'eglot-ensure)
 :#+end_src
 
+* Yasnippets
+#+begin_src emacs-lisp
+  (use-package yasnippet)
+  (use-package yasnippet-snippets)
+  (yas-reload-all)
+#+end_src
 * Prog mode
 #+begin_src emacs-lisp
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
   (add-hook 'prog-mode-hook
     (lambda ()
       (company-mode)
+      (use-package flycheck)
       (flycheck-mode)
+      (yas-minor-mode)
+
       (local-set-key [f8] 'yas-visit-snippet-file)
       (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
       (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
@@ -103,9 +107,6 @@
       (show-paren-mode) ; higlight matching parens pairs at point
       (use-package rainbow-delimiters) ; Pretty rainbows for the grown man's S-expr's
       (rainbow-delimiters-mode)
-      (use-package yasnippet)
-      (use-package yasnippet-snippets)
-      (yas-minor-mode)
 
       ;; *compilation* buffer
       ;; skip some lines in compilation messages; rustic ignores this
@@ -113,7 +114,6 @@
       ;; scroll to first error; rustic ignores
       (setq compilation-scroll-output 'first-error)
       ))
-  (yas-reload-all) ; this line slows startup by about 2x if placed in the above hook!
 #+end_src
  [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]]. [[https://github.com/joaotavora/yasnippet][yasnippet]]. [[https://github.com/AndreaCrotti/yasnippet-snippets][collection]].
 

@@ -1,4 +1,5 @@
 * Todos
+** TODO [2021-12-05 Sun]: Emojify, Pass, Modeline config
 ** TODO [2021-12-04 Sat]: Eventually: read [[https://config.daviwil.com/emacs][dw]] prog setup
 ** DONE Note that hl-diff mode has been inconsistent lately.
 CLOSED: [2021-12-03 Fri 16:46]
