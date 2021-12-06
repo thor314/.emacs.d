@@ -1,3 +1,38 @@
+* [[https://github.com/emacs-circe/circe/wiki/Tracking][tracking]] - circe get buffer attention, cycle with C-c C-SPC
+#+begin_src emacs-lisp
+  (use-package tracking
+    :bind ("C-r SPC" . tracking-next-buffer)
+    :config
+    (setq tracking-faces-priorities '(all-the-icons-pink
+                                       all-the-icons-lgreen
+                                       all-the-icons-lblue))
+    (setq tracking-frame-behavior nil))
+#+end_src
+* [[https://github.com/zevlg/telega.el][Telega]] - telegram client
+** installation guide
+verify all dependencies, or expect to discover them in the cmake step: [[https://zevlg.github.io/telega.el/][Telega Manual (v0.7.018)]]
+cd ~/.emacs.d && git clone https://github.com/tdlib/td.git
+cd ~/.emacs.d/td
+mkdir build && cd build
+ # this will reveal missing dependencies
+cmake ../
+# use as many cores as available, takes a couple mins
+make -j4
+sudo make install
+** c0d3
+#+begin_src emacs-lisp
+  (use-package telega
+    :commands (telega)
+    :bind ("C-r T" . telega)
+    :defer t)
+  (setq telega-user-use-avatars nil
+    telega-use-tracking-for '(any pin unread)
+    telega-chat-use-markdown-formatting t
+    telega-emoji-use-images t
+    telega-completing-read-function #'ivy-completing-read
+    telega-msg-rainbow-title nil
+    telega-chat-fill-column 75)
+#+end_src
 * [[https://github.com/emacs-circe/circe][Circe]], the IRC client. Relies on a irc daemon like [[https://www.bitlbee.org/user-guide.html][bitlbee]]
 Circe [[https://www.nongnu.org/circe/][homepage]].
 Experiment. Want: Signal, Telegram, Discord all in Emacs.
