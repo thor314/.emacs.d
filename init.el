@@ -78,7 +78,8 @@
 ;; then, can start new instances with `emacsclient -c`
 ;(server-start)
 
-(org-agenda "a" "a")
-(make-frame-command)
+(split-window-right)
 (oo-open-config)
+(org-agenda "a" "a")
+
 ;;; init.el ends here

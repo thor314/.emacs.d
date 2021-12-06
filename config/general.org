@@ -109,6 +109,16 @@ Explicitly unset some keys that aren't very useful, reserving them for future pe
 - C-x v diff-hl
 - C-c ! flycheck
 * Appearance
+** Declutter modeline with Diminish
+- [[https://github.com/emacsmirror/diminish][diminish]] - hide minor modes, declutter mode line. Can be used from use-package.
+#+begin_src emacs-lisp
+  (use-package diminish
+    :config
+    (diminish 'abbrev-mode)
+    (diminish 'eldoc-mode)
+    (diminish 'visual-line-mode) ;; wrap
+    ) ;; hide minor modes from mode line
+#+end_src
 ** Fonts
 It's =pragma 'nov 2021'=. Get yourself some nice ligatures with [[https://github.com/tonsky/FiraCode][Fira Code]].
 Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature.el]], for ligature settings, as of Emacs 28.
@@ -117,28 +127,19 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
   (defvar tk/default-variable-font-size 105)
   (set-face-attribute 'default nil :font "Fira Code Retina" :height tk/default-font-size)
   (set-face-attribute 'fixed-pitch nil :font "Fira Code Retina" :height tk/default-font-size)
-  ;(ligature-set-ligatures 't '("www"))
+                                          ;(ligature-set-ligatures 't '("www"))
   (set-face-attribute 'variable-pitch nil :font "Cantarell" :height tk/default-variable-font-size :weight 'regular)
   (global-prettify-symbols-mode 1) ; lambda -> symbol
   ;; Note: This mode can be aggressively annoying  with some of the symbols.
-  (use-package fira-code-mode
-  :custom (fira-code-mode-disabled-ligatures '(">=" "<=" "=>" "x" "**" "/=" "::" "#[" "+" "==" "->" "+=" "*" "!=" "[]"  ":" ))  ; ligatures you don't want
-  :hook prog-mode)
+  (use-package fira-code-mode :diminish
+    :custom (fira-code-mode-disabled-ligatures '(">=" "<=" "=>" "x" "**" "/=" "::" "#[" "+" "==" "->" "+=" "*" "!=" "[]"  ":" ))  ; ligatures you don't want
+    :hook prog-mode)
 #+end_src
 ** Improve modeline
-- [[https://github.com/emacsmirror/diminish][diminish]] - hide minor modes, declutter mode line. Can be used from use-package.
 - [[https://github.com/Malabarba/smart-mode-line/][smart mode line]] low-config out of the box good mode line. Also considered doom-modeline, which looks to have more features.
 #+begin_src emacs-lisp
    (setq display-time-format "%l:%M %p %b %y"
      display-time-default-load-average nil)
-   (use-package diminish
-     :config
-     (diminish 'abbrev-mode)
-     (diminish 'eldoc-mode)
-     (diminish 'yas-minor-mode)
-     (diminish 'visual-line-mode) ;; wrap
-     (diminish 'fira-code-mode)
-     ) ;; hide minor modes from mode line
   (use-package smart-mode-line
      :config
      (setq sml/no-confirm-load-theme t)

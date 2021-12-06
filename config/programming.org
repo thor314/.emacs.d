@@ -97,8 +97,8 @@
 
 * Yasnippets
 #+begin_src emacs-lisp
-  (use-package yasnippet)
-  (use-package yasnippet-snippets)
+  (use-package yasnippet :diminish)
+  (use-package yasnippet-snippets :diminish)
   (yas-reload-all)
 #+end_src
 * Prog mode
