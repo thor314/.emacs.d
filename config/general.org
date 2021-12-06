@@ -157,10 +157,7 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
   ;;(load-theme 'doom-wilmersdorf t) ;; light gray, purplish flairs
 #+end_src
 
-#+RESULTS:
-: t
-
-** [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
+* [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
 #+begin_src emacs-lisp
 	(use-package zoom
     :config
@@ -176,10 +173,31 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
     (global-diff-hl-amend-mode))
 #+end_src
 
-** Slightly nicer mode line [[https://github.com/tarsius/moody][moody]].
-Also see [[https://github.com/seagle0128/doom-modeline][doom]] modeline.
+** Improve modeline
+- [[https://github.com/emacsmirror/diminish][diminish]] - hide minor modes, declutter mode line. Can be used from use-package.
+- [[https://github.com/Malabarba/smart-mode-line/][smart mode line]] low-config out of the box good mode line. Also considered doom-modeline, which looks to have more features.
 #+begin_src emacs-lisp
-  ;; (use-package moody)
+  (setq display-time-format "%l:%M %p %b %y"
+    display-time-default-load-average nil)
+  (use-package diminish) ;; hide minor modes from mode line
+  ;; alternatively, try (use-package X :diminish t)
+  (diminish 'undo-tree-mode)
+  (diminish 'buffer-face-mode)
+  (diminish 'super-save-mode)
+  (diminish 'abbrev-mode)
+  (diminish 'smartparens-mode)
+  (diminish 'ivy-posframe-mode)
+  (diminish 'ivy-mode)
+  (diminish 'diff-hl-amend-mode) ;; amend
+  (diminish 'which-key-mode) ;; wk
+  (diminish 'visual-line-mode) ;; wrap
+  (diminish 'zoom-mode) ;; zoom
+  (diminish 'beacon-mode) ;; zoom
+  (diminish 'org-indent-mode)
+  (use-package smart-mode-line
+    :config
+    (sml/setup))
+  ;; (use-package moody) ;; moody: old mode line
   ;; (moody-replace-mode-line-buffer-identification)
   ;; (moody-replace-eldoc-minibuffer-message-function)
   ;; (moody-replace-vc-mode) ; branch info
