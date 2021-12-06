@@ -35,7 +35,7 @@
 - [[https://github.com/PythonNut/company-flx][company-flx: Flx fuzzy matching for company]]
 - [[https://github.com/dunn/company-emoji][company emojify]] :cactus: 🎑
 #+begin_src emacs-lisp
-  (use-package company)
+  (use-package company :diminish)
   (eval-after-load "company"
     (progn
       '(add-to-list 'company-backends 'company-shell)
@@ -107,7 +107,7 @@
   (add-hook 'prog-mode-hook
     (lambda ()
       (company-mode)
-      (use-package flycheck)
+      (use-package flycheck :diminish)
       (flycheck-mode)
       (yas-minor-mode)
 
@@ -116,6 +116,7 @@
       (local-set-key (kbd "C-h <f8>") 'yas-describe-tables)
       (local-set-key (kbd "<C-f8>") 'yas-new-snippet)
       (subword-mode 1) ; ThisStuffIsFiveWords on M-f M-b
+      (diminish 'subword-mode)
       ;; eldoc can lag significantly
       (setq eldoc-mode nil) ; definitions appear in minibuffer (redundant with global-eldoc-mode)
       ;;(hs-minor-mode) ; code folding

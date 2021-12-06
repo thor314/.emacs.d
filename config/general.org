@@ -134,7 +134,10 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
    (use-package diminish
      :config
      (diminish 'abbrev-mode)
+     (diminish 'eldoc-mode)
+     (diminish 'yas-minor-mode)
      (diminish 'visual-line-mode) ;; wrap
+     (diminish 'fira-code-mode)
      ) ;; hide minor modes from mode line
   (use-package smart-mode-line
      :config
@@ -215,37 +218,41 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
       beacon-blink-duration 0.2
       beacon-blink-delay 0.2))
 #+end_src
-* Eshell - convenient emacs lisp compatible shell, install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
-[[https://github.com/akreisher/eshell-syntax-highlighting][eshell-syntax-highlighting: Syntax highlighting for Eshell]]
+* Eshell - convenient emacs lisp compatible shell; [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html][man]]
+- install fish-like [[https://github.com/dieggsy/esh-autosuggest/][autosuggest]]
+- [[https://github.com/akreisher/eshell-syntax-highlighting][eshell-syntax-highlighting: Syntax highlighting for Eshell]]
+Known [[https://emacs.stackexchange.com/questions/69654/eshell-sudo-doesnt-remember-password-for-apt][issue]] - on entering eshell, and doing something like, =sudo apt help=, I have to enter passphrase twice: once for global, once for apt/sudo stuff. Then I only have to enter the passphrase once for further sudo stuff.
 #+begin_src emacs-lisp
+  ;; enable password caching for up to 10 minutes
+  ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
+  ;;(eshell/alias "sudo" "eshell/sudo $*") ;; prompts for sudo:root@localhost
+  (require 'em-tramp)
+  (setq eshell-prefer-lisp-functions t)
+  (setq eshell-prefer-lisp-variables t)
+  (setq password-cache t)
+  (setq password-cache-expiry 600)
+  (setq eshell-destroy-buffer-when-process-dies t)
+  (setq eshell-visual-commands '("htop" "zsh"))
+  (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
+  (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
+  (setq eshell-history-size 10000
+    eshell-hist-ignoredups t
+    eshell-highlight-prompt t
+    eshell-buffer-maximum-lines 10000
+    eshell-scroll-to-bottom-on-input t)
+
   (use-package esh-autosuggest
     :config
     (add-hook 'eshell-mode-hook
       (lambda ()
-        ;; enable password caching
-        ;; https://emacs.stackexchange.com/questions/5608/how-to-let-eshell-remember-sudo-password-for-two-minutes
-        (require 'em-tramp)
-        (setq eshell-prefer-lisp-functions t)
-        (setq eshell-prefer-lisp-variables t)
-        ;; also need to set an alias: alias sudo 'eshell/sudo $*'
-        (setq password-cache t) ;; enable passwd caching
-        (setq password-cache-expiry 600) ; for 10 minutes
-        (setq eshell-history-size 10000
-          eshell-buffer-maximum-lines 10000
-          eshell-scroll-to-bottom-on-input t)
-        (local-set-key (kbd "M-p") 'eshell-previous-matching-input-from-input)
-        (local-set-key (kbd "M-n") 'eshell-next-matching-input-from-input)
         (esh-autosuggest-mode)
-
-        (with-eval-after-load 'esh-opt
-          (setq eshell-destroy-buffer-when-process-dies t)
-          (setq eshell-visual-commands '("htop" "zsh")))
-        (use-package eshell-syntax-highlighting
-          ;; Adds syntax highlighting to commands entered in eshell
-          :after esh-mode
-          :config
-          (eshell-syntax-highlighting-global-mode +1))
+        (define-key eshell-mode-map (kbd "<tab>") 'esh-autosuggest-complete-word)
         )))
+
+  (use-package eshell-syntax-highlighting
+    ;; Adds syntax highlighting to commands entered in eshell
+    :config
+    (eshell-syntax-highlighting-global-mode +1))
 #+end_src
 ** Eshell tips
 *** [[https://masteringemacs.org/article/complete-guide-mastering-eshell][this]] link tldr's useful eshell stuff:
@@ -331,9 +338,9 @@ A golden quote: "90% of Emacs users have unusual setups and the remaining 10% ar
   ;; Note that the pinentry package is deprecated for GnuPG >= 2.1
   ;; https://emacs.stackexchange.com/questions/32881/enabling-minibuffer-pinentry-with-emacs-25-and-gnupg-2-1-on-ubuntu-xenial
   ;; step 2, adding allow-emacs-pinentry not necessary on linux
-  (require 'epg)
   ;; redirects all Pinentry queries to the caller, so Emacs can query
   ;; passphrase through the minibuffer
+  (require 'epg)
   (setq epg-pinentry-mode 'loopback)
   ;; store passwords in .authinfo.gpg, and get them with my-fetch-passwords.
   ;; See messaging.org for examples.

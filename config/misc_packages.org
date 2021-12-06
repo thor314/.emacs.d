@@ -84,12 +84,12 @@ also see [[https://github.com/leoliu/easy-kill][easy-kill]]
     :diminish
     :config
     (global-undo-tree-mode)
-    :config (global-set-key (kbd "C-x u") 'undo-tree-visualize))
+    :config (global-set-key (kbd "C-r u") 'undo-tree-visualize))
 #+end_src
 * [[https://github.com/lewang/command-log-mode][command-log-mode: log commands to buffer]] - infrequently used mode, useful for demos and alternative to C-h k
 #+begin_src emacs-lisp
   (use-package command-log-mode
-    :config (global-set-key (kbd "C-x l") 'command-log-mode))
+    :config (global-set-key (kbd "C-r h") 'clm/open-command-log-buffer))
 #+end_src
 * [[https://github.com/bbatsov/super-save][super-save: Save Emacs buffers when they lose focus]] + make system crash or closing emacs less teriffying
 #+begin_src emacs-lisp

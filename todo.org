@@ -1,4 +1,6 @@
 * Todos
+** TODO dwil - org mode setup
+** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
 ** DONE [2021-12-05 Sun]: Emojify, Pass, Modeline config
 CLOSED: [2021-12-06 Mon 11:35]
 :LOGBOOK:
@@ -14,8 +16,11 @@ CLOSED: [2021-12-03 Fri 16:46]
 :LOGBOOK:
 - State "DONE"       from              [2021-12-03 Fri 16:46]
 :END:
-** TODO dwil - org mode setup
-** TODO check out how to set up a website like his
+** CANC check out how to set up a website like his
+CLOSED: [2021-12-06 Mon 12:56]
+:LOGBOOK:
+- State "CANC"       from "TODO"       [2021-12-06 Mon 12:56]
+:END:
 ** from reading daviwil's config https://config.daviwil.com/emacs
 *** DONE expand region https://github.com/magnars/expand-region.el
 CLOSED: [2021-12-02 Thu 15:17]
@@ -71,7 +76,6 @@ From https://config.daviwil.com/emacs
 
 Use GnuPG to generate asymmetric keys. Generate sub keys for encryption/decryption and signing. Sub keys have a lifetime of 1 year. After 1 year new sub keys for encrypt/decrypt and signing needs to be generated. Use signing sub key to sign git commits. Use encryption/decryption sub key to encrypt/decrypt password files in pass password store. Use Emacs for for gpg pinentry and install a Emacs mode to manage pass passwords.
 
-** TODO latex [[https://karthinks.com/software/latex-input-for-impatient-scholars/][niceties]] in org-mode
 ** tramp default mode is scp
 may want to update to ssh.
 ** C-j in org mode on checkbox should create new checkbox

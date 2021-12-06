@@ -82,7 +82,7 @@ note that there's a new mode called =counsel-mode= that does most of this remapp
   (global-set-key (kbd "C-x f") 'counsel-find-file)
   (global-set-key (kbd "C-c o") 'counsel-outline) ; jump to a different outline heading
   (global-set-key (kbd "M-y") 'counsel-yank-pop) ; nicer kill ring
-  (global-set-key (kbd "C-r u") 'counsel-unicode-char)
+  ;(global-set-key (kbd "C-r u") 'counsel-unicode-char)
 
   (global-set-key (kbd "C-r m") 'counsel-linux-app) ; launch an application
   (global-set-key (kbd "C-r w") 'counsel-wmctrl) ; switch windows
