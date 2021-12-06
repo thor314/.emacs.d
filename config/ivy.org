@@ -72,13 +72,21 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
       ivy-posframe-min-height 10)
     (ivy-posframe-mode))
 #+end_src
-* [[https://github.com/Lautaro-Garcia/counsel-spotify][Counsel Spotify]] - don't leave emacs, never leave emacs
-Takes a little setup thru spotify.
+* [[https://github.com/alexmurray/ivy-xref][Ivy-Xref]] display xref results nicely
 #+begin_src emacs-lisp
-  (use-package counsel-spotify)
-  (setq counsel-spotify-client-id "78c85c7b50e34d74a2e879717259b650")
-  ;; set this in secrets
-  ;(setq counsel-spotify-client-secret "go here: https://developer.spotify.com/dashboard/applications/78c85c7b50e34d74a2e879717259b650")
+  (setq tags-table-list
+    '("~/.emacs.d" "/usr/share/emacs"))
+  (use-package ivy-xref
+    :ensure t
+    :init
+    ;; xref initialization is different in Emacs 27 - there are two different
+    ;; variables which can be set rather than just one
+    (when (>= emacs-major-version 27)
+      (setq xref-show-definitions-function #'ivy-xref-show-defs))
+    ;; Necessary in Emacs <27. In Emacs 27 it will affect all xref-based
+    ;; commands other than xref-find-definitions (e.g. project-find-regexp)
+    ;; as well
+    (setq xref-show-xrefs-function #'ivy-xref-show-xrefs))
 #+end_src
 * [[https://github.com/raxod502/prescient.el][prescient]] completions
 Turning prescient on remembers the last 1000 commands used and puts them at the top of the list
@@ -94,6 +102,14 @@ Turning prescient on remembers the last 1000 commands used and puts them at the 
   (use-package ivy-prescient
     :after prescient
     :config (ivy-prescient-mode))
+#+end_src
+* [[https://github.com/Lautaro-Garcia/counsel-spotify][Counsel Spotify]] - don't leave emacs, never leave emacs
+Takes a little setup thru spotify.
+#+begin_src emacs-lisp
+  (use-package counsel-spotify)
+  (setq counsel-spotify-client-id "78c85c7b50e34d74a2e879717259b650")
+  ;; set this in secrets
+  ;(setq counsel-spotify-client-secret "go here: https://developer.spotify.com/dashboard/applications/78c85c7b50e34d74a2e879717259b650")
 #+end_src
 * [[https://github.com/lewang/flx][Flx]] - fuzzy-matching - deprecated for prescient
 : #+begin_src emacs-lisp

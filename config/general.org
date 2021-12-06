@@ -122,7 +122,7 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
   (global-prettify-symbols-mode 1) ; lambda -> symbol
   ;; Note: This mode can be aggressively annoying  with some of the symbols.
   (use-package fira-code-mode
-  :custom (fira-code-mode-disabled-ligatures '("x" "**" "/=" "::" "#[" "+" "==" "->" "+=" "*" "!=" "[]"  ":" ))  ; ligatures you don't want
+  :custom (fira-code-mode-disabled-ligatures '(">=" "<=" "=>" "x" "**" "/=" "::" "#[" "+" "==" "->" "+=" "*" "!=" "[]"  ":" ))  ; ligatures you don't want
   :hook prog-mode)
 #+end_src
 ** Improve modeline

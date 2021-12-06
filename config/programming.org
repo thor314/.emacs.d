@@ -1,3 +1,16 @@
+* TODO Figure out how to use compile package
+: #+begin_src emacs-lisp
+	(use-package compile
+  :straight nil
+  :custom
+  (compilation-scroll-output t))
+
+(defun auto-recompile-buffer ()
+  (interactive)
+  (if (member #'recompile after-save-hook)
+      (remove-hook 'after-save-hook #'recompile t)
+    (add-hook 'after-save-hook #'recompile nil t)))
+#+end_src
 * Magit git interface, Forge git(hub|lab) interface
 #+begin_src emacs-lisp
   (use-package magit)
