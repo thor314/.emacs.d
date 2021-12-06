@@ -1,4 +1,19 @@
-
+*  [[https://github.com/kidd/org-gcal.el#Installation][org-calendar]] - waiting on issue resolution
+On pause:
+- [[https://github.com/kidd/org-gcal.el/issues/141][instructions]]
+- [[https://support.google.com/accounts/thread/139008802/google-calendar-developer-api-says-enabled-in-the-console-but-403-authorization-error-when-used?hl=en][support]]
+- [[https://console.cloud.google.com/apis/credentials?project=tk-org-gcal][calendar api page]]
+#+begin_src emacs-lisp
+  (use-package org-gcal
+    :defer t
+    :config
+    (setq org-gcal-client-id
+      "1096406758325-1ru1lhls2pvc2vfn28spdia1hs768uql.apps.googleusercontent.com"
+      org-gcal-client-secret (my-fetch-password :user "1096406758325-1ru1lhls2pvc2vfn28spdia1hs768uql.apps.googleusercontent.com" :machine "gcloud")
+      org-gcal-fetch-file-alist '(("thor314@gmail.com" .  "~/org/cal/thor_cal.org")
+                                   ("houpormfl9c8jc8ml0rsl0icpg@group.calendar.google.com" . "~/org/cal/bonk_dor_cal.org")))
+    (org-gcal-fetch))
+#+end_src
 * Variable spaced font
 Prefer variable-spaced font when looking at text, monospaced when looking at code. Variable-pitch screws a bunch of things up, so copy pasta a soln in.
 https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font-faces
@@ -94,7 +109,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
   (defun tk/org-setup-agenda ()
     (setq org-agenda-files '("~/org/agenda/")
       ;; 2021-11-29 currently not used to the full extent, want to auto-refile done todos to here
-      org-archive-location "~/org/agenda/archive.org"
+      ;;(setq org-archive-location 'nil) "~/org/agenda/archive.org")
       org-priority-default 80 ;; between C and B
       org-agenda-start-with-log-mode t ;; log includes done entries
       org-log-into-drawer t) ;; Non-nil=>insert state change notes, timestamps into a drawer.
