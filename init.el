@@ -77,6 +77,8 @@
 ;; start emacs server from this instance for emacsclient
 ;; then, can start new instances with `emacsclient -c`
 ;(server-start)
-;; open the config directory at startup
+
+(org-agenda "a" "a")
+(make-frame-command)
 (oo-open-config)
 ;;; init.el ends here

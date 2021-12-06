@@ -1,3 +1,4 @@
+
 * Variable spaced font
 Prefer variable-spaced font when looking at text, monospaced when looking at code. Variable-pitch screws a bunch of things up, so copy pasta a soln in.
 https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font-faces
@@ -216,4 +217,22 @@ Create a file: Org roam find file
           org-directory "~/org"
           org-log-done 'time) ; timestamp when TODO - DONE
         )))
+#+end_src
+* Pretteh [[https://github.com/kiwanami/emacs-calfw][calendar]]: calfw - deprecated, pretteh but not well maintained/documented
+: #+begin_src emacs-lisp
+    (use-package calfw
+      :config
+      ;; make pretteh-er
+      (setq cfw:fchar-junction ?╋
+        cfw:fchar-vertical-line ?┃
+        cfw:fchar-horizontal-line ?━
+        cfw:fchar-left-junction ?┣
+        cfw:fchar-right-junction ?┫
+        cfw:fchar-top-junction ?┯
+        cfw:fchar-top-left-corner ?┏
+        cfw:fchar-top-right-corner ?┓))
+    (use-package calfw-org
+      :bind ("C-r o" . cfw:open-org-calendar)
+      :config
+      (setq cfw:org-agenda-schedule-args '(:timestamp)))
 #+end_src
