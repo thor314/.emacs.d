@@ -29,7 +29,7 @@
 * Dired and Eshell (C-r l e|d)
 #+begin_src emacs-lisp
   (global-set-key (kbd "C-r d") 'dired-jump)
-  (global-set-key (kbd "C-r e") 'eshell)
+  (global-set-key (kbd "C-r t") 'eshell) ; e for emoji
 #+end_src
 * My functions
 #+begin_src emacs-lisp

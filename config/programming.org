@@ -20,12 +20,14 @@
 * [[http://company-mode.github.io/][company]] text-completion
 - [[https://github.com/raxod502/prescient.el][prescient: Simple but effective sorting and filtering]]
 - [[https://github.com/PythonNut/company-flx][company-flx: Flx fuzzy matching for company]]
+- [[https://github.com/dunn/company-emoji][company emojify]] :cactus: 🎑
 #+begin_src emacs-lisp
   (use-package company)
   (eval-after-load "company"
     (progn
       '(add-to-list 'company-backends 'company-shell)
       '(add-to-list 'company-backends 'company-anaconda)
+      '(add-to-list 'company-backends 'company-emoji)
       ))
   (use-package company-prescient)
   ;; (use-package company-flx ;; company-prescient does the job well

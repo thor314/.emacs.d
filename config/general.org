@@ -133,18 +133,32 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
   ;; run this once to install fonts
   ;;(all-the-icons-install-fonts)
 #+end_src
+** Emojis 🎩 🌵 🐛
+See company for completion, added emoji backend.
+Known issue: emojify-insert-emoji rendering doesn't play nice with ivy-posframe.
+#+begin_src emacs-lisp
+  (use-package emojify
+    :hook (after-init . global-emojify-mode)
+    :bind (("C-r E" . emojify-apropos-emoji)
+            ("C-r e" . emojify-insert-emoji))
+    :config (setq emojify-company-tooltips-p t)
+    (global-emojify-mode-line-mode))
+#+end_src
 ** Theme [[https://github.com/bbatsov/solarized-emacs][sol-theme]].
 Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]] themes.
 #+begin_src emacs-lisp
   (use-package doom-themes)
   ;; some of my faves:
   ;;(load-theme 'doom-vibrant t) ;; dark gray with blue, green, and purple highlightings
-  (load-theme 'doom-city-lights t) ;; lighter, blueish, salmon, green, blue/purle highlights
-  ;;(load-theme 'doom-moonlight t) ;;  purple-ish, dark
-  ;;(load-theme 'doom-palenight t) ;;  purple-ish, lighter
+  ;;(load-theme 'doom-city-lights t) ;; lighter, blueish, salmon, green, blue/purle highlights
+  ;;(load-theme 'doom-moonlight t) ;;  purple-ish, dark, think I like palenight better
+  (load-theme 'doom-palenight t) ;;  purple-ish, lighter
   ;;(load-theme 'doom-sourcerer t) ;;  dark gray, purplish flairs
   ;;(load-theme 'doom-wilmersdorf t) ;; light gray, purplish flairs
 #+end_src
+
+#+RESULTS:
+: t
 
 ** [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
 #+begin_src emacs-lisp
