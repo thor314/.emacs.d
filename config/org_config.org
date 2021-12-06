@@ -35,6 +35,7 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
 #+begin_src emacs-lisp
   (defun tk/org-load-packages ()
     (use-package org-superstar ;; supercedes org-bullets:
+      :diminish
       :config
       (org-superstar-mode)
       ;; This line is necessary.
@@ -42,6 +43,8 @@ https://github.com/daviwil/emacs-from-scratch/blob/master/Emacs.org/#better-font
       ;; If you use Org Indent you also need to add this, otherwise the
       ;; above has no effect while Indent is enabled.
       (org-indent-mode)
+      (diminish 'org-indent-mode)
+
       (setq org-indent-mode-turns-on-hiding-stars nil)
       (setq org-ellipsis " ▾"))
     ;; Turn on the following with org-bullets for nicer looking outlines
@@ -144,9 +147,6 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
   (add-hook 'org-mode-hook
     (lambda ()
       ;; following 3 are for debugging
-      (global-set-key [f5] 'polymode-minor-mode)
-      (global-set-key (kbd "C-<f5>") 'poly-org-mode)
-      (global-set-key [f6] 'buffer-face-mode)
       (local-set-key (kbd "C-c y") 'org-cliplink) ;; similar to my function (see next line)
       (local-set-key (kbd "C-; y") 'link-last-word-from-kill)
       (local-set-key (kbd "C-c C-r") 'org-schedule)
@@ -199,6 +199,7 @@ Create a file: Org roam find file
         (tk/org-load-packages)
         (tk/org-setup-tags)
         (tk/org-setup-agenda)
+        (diminish 'buffer-face-mode)
         ;; See manual 5.2.3. (x) - fast select. ! - timestamp it. @ - note w
         ;; timestamp. default: TODO, DONE. Can set this to have more complex
         ;; project management. A bit overkill, but good demo

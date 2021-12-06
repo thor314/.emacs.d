@@ -44,6 +44,7 @@ also see [[https://github.com/leoliu/easy-kill][easy-kill]]
 - [[https://github.com/yanghaoxie/which-key-posframe][Whichkey posframe frontend]]
 #+begin_src emacs-lisp
   (use-package which-key
+    :diminish
     :init (which-key-mode)
     :config
     (setq which-key-idle-delay .5
@@ -80,6 +81,7 @@ also see [[https://github.com/leoliu/easy-kill][easy-kill]]
 * [[https://www.emacswiki.org/emacs/UndoTree][EmacsWiki: Undo Tree]] - Visualize undo history tree (wow, cool): =C-x u=
 #+begin_src emacs-lisp
   (use-package undo-tree
+    :diminish
     :config
     (global-undo-tree-mode)
     :config (global-set-key (kbd "C-x u") 'undo-tree-visualize))
@@ -92,6 +94,7 @@ also see [[https://github.com/leoliu/easy-kill][easy-kill]]
 * [[https://github.com/bbatsov/super-save][super-save: Save Emacs buffers when they lose focus]] + make system crash or closing emacs less teriffying
 #+begin_src emacs-lisp
     (use-package super-save
+    :diminish
       :config (super-save-mode 1)
       (setq super-save-auto-save-when-idle t
         super-save-idle-duration 30

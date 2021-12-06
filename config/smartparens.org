@@ -2,7 +2,8 @@
 Movement and transformations based on sexps is paradigm for text editing, whenever there are nested levels of sexp's. Most useful for any sort of programming, but also useful for any matching-pair behaviors. Takes about 2 hours to learn and an hour to set up. [[https://github.com/Fuco1/smartparens/wiki][Wiki]].
 ** Globals
 #+begin_src emacs-lisp
-	(use-package smartparens)
+	(use-package smartparens
+    :diminish)
   (smartparens-global-mode 1)
   (add-hook 'smartparens-mode-hook
     (lambda ()

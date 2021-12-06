@@ -14,7 +14,8 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 - If defining a new function, can extend behavior with ivy-actions, [[https://oremacs.com/swiper/#example---define-a-new-command-with-several-actions][ex]]
 * Installation
 #+begin_src emacs-lisp
-  (use-package ivy) ; intentional redundancy; counsel installs ivy.
+  (use-package ivy
+    :diminish) ; intentional redundancy; counsel installs ivy.
   (setq ivy-use-virtual-buffers t ; add recents+bkmks to ivy-switch-buffer
     enable-recursive-minibuffers t
     ivy-count-format "%d/%d ")
@@ -60,6 +61,7 @@ Ivy, Helm, Ido are similar. Ivy is faster, more minimalistic, easier API to exte
 * [[https://github.com/tumashu/ivy-posframe][ivy-posframe: move minibuffer to centerscreen]] attractive display
 #+begin_src emacs-lisp
   (use-package ivy-posframe
+    :diminish
     :config
     ;; set this for full-screen emacs display
     (setq ivy-posframe-width  160

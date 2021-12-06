@@ -125,6 +125,29 @@ Also see: [[https://github.com/tonsky/FiraCode/wiki/Emacs-instructions][ligature
   :custom (fira-code-mode-disabled-ligatures '("x" "**" "/=" "::" "#[" "+" "==" "->" "+=" "*" "!=" "[]"  ":" ))  ; ligatures you don't want
   :hook prog-mode)
 #+end_src
+** Improve modeline
+- [[https://github.com/emacsmirror/diminish][diminish]] - hide minor modes, declutter mode line. Can be used from use-package.
+- [[https://github.com/Malabarba/smart-mode-line/][smart mode line]] low-config out of the box good mode line. Also considered doom-modeline, which looks to have more features.
+#+begin_src emacs-lisp
+   (setq display-time-format "%l:%M %p %b %y"
+     display-time-default-load-average nil)
+   (use-package diminish
+     :config
+     (diminish 'abbrev-mode)
+     (diminish 'visual-line-mode) ;; wrap
+     ) ;; hide minor modes from mode line
+  (use-package smart-mode-line
+     :config
+     (setq sml/no-confirm-load-theme t)
+    (sml/apply-theme 'respectful)  ; Respect the theme colors
+     (sml/setup))
+   ;; (use-package moody) ;; moody: old mode line
+   ;; (moody-replace-mode-line-buffer-identification)
+   ;; (moody-replace-eldoc-minibuffer-message-function)
+   ;; (moody-replace-vc-mode) ; branch info
+   ;; (setq moody-mode-line-height 25)
+#+end_src
+
 ** All the [[https://github.com/domtronn/all-the-icons.el][Icons]]   
 #+begin_src emacs-lisp
   (use-package all-the-icons
@@ -159,50 +182,23 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 
 * [[https://github.com/cyrus-and/zoom][zoom]] - rebalance awkwardly balanced window divisions
 #+begin_src emacs-lisp
-	(use-package zoom
+  (use-package zoom
+    :diminish
     :config
     (zoom-mode 1))
 #+end_src
 
 ** [[https://github.com/dgutov/diff-hl][diff-hl]] - highlight changes since last git commit in margin
 #+begin_src emacs-lisp
-  (use-package diff-hl
-    :config
-    (global-diff-hl-mode)
-    (diff-hl-margin-mode)
-    (global-diff-hl-amend-mode))
+    (use-package diff-hl
+      :diminish
+      :config
+      (global-diff-hl-mode)
+      (diff-hl-margin-mode)
+      (global-diff-hl-amend-mode)
+      (diminish 'diff-hl-amend-mode))
 #+end_src
 
-** Improve modeline
-- [[https://github.com/emacsmirror/diminish][diminish]] - hide minor modes, declutter mode line. Can be used from use-package.
-- [[https://github.com/Malabarba/smart-mode-line/][smart mode line]] low-config out of the box good mode line. Also considered doom-modeline, which looks to have more features.
-#+begin_src emacs-lisp
-  (setq display-time-format "%l:%M %p %b %y"
-    display-time-default-load-average nil)
-  (use-package diminish) ;; hide minor modes from mode line
-  ;; alternatively, try (use-package X :diminish t)
-  (diminish 'undo-tree-mode)
-  (diminish 'buffer-face-mode)
-  (diminish 'super-save-mode)
-  (diminish 'abbrev-mode)
-  (diminish 'smartparens-mode)
-  (diminish 'ivy-posframe-mode)
-  (diminish 'ivy-mode)
-  (diminish 'diff-hl-amend-mode) ;; amend
-  (diminish 'which-key-mode) ;; wk
-  (diminish 'visual-line-mode) ;; wrap
-  (diminish 'zoom-mode) ;; zoom
-  (diminish 'beacon-mode) ;; zoom
-  (diminish 'org-indent-mode)
-  (use-package smart-mode-line
-    :config
-    (sml/setup))
-  ;; (use-package moody) ;; moody: old mode line
-  ;; (moody-replace-mode-line-buffer-identification)
-  ;; (moody-replace-eldoc-minibuffer-message-function)
-  ;; (moody-replace-vc-mode) ; branch info
-  ;; (setq moody-mode-line-height 25)
-#+end_src
 ** [[https://github.com/Wilfred/helpful][Helpful]] - make emacs help buffers better
 #+begin_src emacs-lisp
 	(use-package helpful)
@@ -210,6 +206,7 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 ** [[https://github.com/Malabarba/beacon][Beacon]]: pulse line when changing buffer
 #+begin_src emacs-lisp
   (use-package beacon
+    :diminish
     :config
     (beacon-mode 1)
     ;; make blink small, fast
@@ -259,16 +256,50 @@ Also see [[https://github.com/hlissner/emacs-doom-themes/tree/screenshots][doom]
 - pseudo-devices: try overwriting =dev/clip= or =/dev/kill=.
 - [[https://www.gnu.org/software/emacs/manual/html_mono/eshell.html][the]] manual
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][Dired]] - simple, useful directory explorer, good regexp search replace
+- [[https://github.com/ralesi/ranger.el#features][dired ranger]] - previews of stuff in dired
+- [[https://github.com/Fuco1/dired-hacks][dired hacks]] - including dired rainbow, and other dired extensions
 Most useful: replace a regexp across multiple files.
 #+begin_src emacs-lisp
+    (setq dired-listing-switches "-agho --group-directories-first"
+        ;;dired-omit-files "^\\.[^.].*"
+        dired-omit-verbose nil
+        dired-hide-details-hide-symlink-targets nil)
   (add-hook 'dired-mode-hook
     (lambda ()
       (local-set-key (kbd "C-%") 'dired-do-query-replace-regexp)
       (local-set-key (kbd "M-%") 'dired-do-find-regexp-and-replace)
       ))
   (use-package all-the-icons-dired
+    :diminish
     :hook (dired-mode . all-the-icons-dired-mode)
     )
+  ;; pretteh
+  (use-package dired-rainbow
+    :defer 10
+    :config
+    (dired-rainbow-define-chmod directory "#6cb2eb" "d.*")
+    (dired-rainbow-define html "#eb5286" ("css" "less" "sass" "scss" "htm" "html" "jhtm" "mht" "eml" "mustache" "xhtml"))
+    (dired-rainbow-define xml "#f2d024" ("xml" "xsd" "xsl" "xslt" "wsdl" "bib" "json" "msg" "pgn" "rss" "yaml" "yml" "rdata"))
+    (dired-rainbow-define document "#9561e2" ("docm" "doc" "docx" "odb" "odt" "pdb" "pdf" "ps" "rtf" "djvu" "epub" "odp" "ppt" "pptx"))
+    (dired-rainbow-define markdown "#ffed4a" ("org" "etx" "info" "markdown" "md" "mkd" "nfo" "pod" "rst" "tex" "textfile" "txt"))
+    (dired-rainbow-define database "#6574cd" ("xlsx" "xls" "csv" "accdb" "db" "mdb" "sqlite" "nc"))
+    (dired-rainbow-define media "#de751f" ("mp3" "mp4" "mkv" "MP3" "MP4" "avi" "mpeg" "mpg" "flv" "ogg" "mov" "mid" "midi" "wav" "aiff" "flac"))
+    (dired-rainbow-define image "#f66d9b" ("tiff" "tif" "cdr" "gif" "ico" "jpeg" "jpg" "png" "psd" "eps" "svg"))
+    (dired-rainbow-define log "#c17d11" ("log"))
+    (dired-rainbow-define shell "#f6993f" ("awk" "bash" "bat" "sed" "sh" "zsh" "vim"))
+    (dired-rainbow-define interpreted "#38c172" ("py" "ipynb" "rb" "pl" "t" "msql" "mysql" "pgsql" "sql" "r" "clj" "cljs" "scala" "js"))
+    (dired-rainbow-define compiled "#4dc0b5" ("asm" "cl" "lisp" "el" "c" "h" "c++" "h++" "hpp" "hxx" "m" "cc" "cs" "cp" "cpp" "go" "f" "for" "ftn" "f90" "f95" "f03" "f08" "s" "rs" "hi" "hs" "pyc" ".java"))
+    (dired-rainbow-define executable "#8cc4ff" ("exe" "msi"))
+    (dired-rainbow-define compressed "#51d88a" ("7z" "zip" "bz2" "tgz" "txz" "gz" "xz" "z" "Z" "jar" "war" "ear" "rar" "sar" "xpi" "apk" "xz" "tar"))
+    (dired-rainbow-define packaged "#faad63" ("deb" "rpm" "apk" "jad" "jar" "cab" "pak" "pk3" "vdf" "vpk" "bsp"))
+    (dired-rainbow-define encrypted "#ffed4a" ("gpg" "pgp" "asc" "bfe" "enc" "signature" "sig" "p12" "pem"))
+    (dired-rainbow-define fonts "#6cb2eb" ("afm" "fon" "fnt" "pfb" "pfm" "ttf" "otf"))
+    (dired-rainbow-define partition "#e3342f" ("dmg" "iso" "bin" "nrg" "qcow" "toast" "vcd" "vmdk" "bak"))
+    (dired-rainbow-define vc "#0074d9" ("git" "gitignore" "gitattributes" "gitmodules"))
+    (dired-rainbow-define-chmod executable-unix "#38c172" "-.*x.*"))
+
+  ;; previews of stuff in dired
+  ;; (use-package dired-ranger) ; not using, comment until feeling like looking at this more
 #+end_src
 * [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Abbrevs.html][Abbrevs]] - often used to correct spelling errors
 #+begin_src emacs-lisp
@@ -291,21 +322,25 @@ Sometimes the PATH shell var isn't set correctly. Use this area to modify that. 
 - =machine mymachine login myloginname password mypassword port myport=
 A golden quote: "90% of Emacs users have unusual setups and the remaining 10% are really unusual".
 [[https://www.masteringemacs.org/article/keeping-secrets-in-emacs-gnupg-auth-sources][The mastering emacs]] post on setting this up was okay.
-[[https://jherrlin.github.io/posts/emacs-gnupg-and-pass/][This guy]]  is doing hard mode, but documents reasonably well. Don't use pinentry though, it deprecated.
+[[https://jherrlin.github.io/posts/emacs-gnupg-and-pass/][This guy]]  is doing hard mode, but documents reasonably well. Don't use his pinentry strat though, it deprecated.
 #+begin_src emacs-lisp
+  (setq tramp-default-method "ssh")
   (setq auth-sources '("~/.authinfo.gpg"))
   ;; the following two lines enable GnuPG passphrase prompting in the minibuffer.
   ;; see the answer by Y.E.
-  ;; note that the pinentry package is deprecated for GnuPG >= 2.1  https://emacs.stackexchange.com/questions/32881/enabling-minibuffer-pinentry-with-emacs-25-and-gnupg-2-1-on-ubuntu-xenial
+  ;; Note that the pinentry package is deprecated for GnuPG >= 2.1
+  ;; https://emacs.stackexchange.com/questions/32881/enabling-minibuffer-pinentry-with-emacs-25-and-gnupg-2-1-on-ubuntu-xenial
   ;; step 2, adding allow-emacs-pinentry not necessary on linux
   (require 'epg)
+  ;; redirects all Pinentry queries to the caller, so Emacs can query
+  ;; passphrase through the minibuffer
   (setq epg-pinentry-mode 'loopback)
   ;; store passwords in .authinfo.gpg, and get them with my-fetch-passwords.
   ;; See messaging.org for examples.
   ;; https://github.com/emacs-circe/circe/wiki/Configuration
   (defun my-fetch-password (&rest params)
     """Usage: Put a line in my auth file (~/.authinfo.gpg), then load:
-       (my-fetch-password :user <login> :machine <machine>) """
+        (my-fetch-password :user <login> :machine <machine>) """
     (require 'auth-source)
     (let ((match (car (apply 'auth-source-search params))))
       (if match
