@@ -247,7 +247,7 @@ Known [[https://emacs.stackexchange.com/questions/69654/eshell-sudo-doesnt-remem
     (add-hook 'eshell-mode-hook
       (lambda ()
         (esh-autosuggest-mode)
-        (define-key eshell-mode-map (kbd "<tab>") 'esh-autosuggest-complete-word)
+        ;(define-key eshell-mode-map (kbd "<tab>") 'esh-autosuggest-complete-word)
         )))
 
   (use-package eshell-syntax-highlighting

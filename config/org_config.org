@@ -148,7 +148,7 @@ Default tags available in org files. Syntax =?x= for literal ASCII value of x.
         (setq org-agenda-start-on-weekday nil ; start today
           org-agenda-hide-tags-regexp ".*" ; hide all tags
           org-agenda-include-deadlines t
-          org-agenda-include-diary t
+          ;; org-agenda-include-diary t
           org-agenda-loop-over-headlines-in-active-region nil
           org-agenda-restore-windows-after-quit t
           org-agenda-skip-deadline-if-done t

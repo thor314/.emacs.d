@@ -24,10 +24,9 @@ sudo make install
   (use-package telega
     :commands (telega)
     :bind ("C-r T" . telega)
-    :defer t)
+    :defer 15)
   (setq telega-user-use-avatars nil
     telega-use-tracking-for '(any pin unread)
-    telega-chat-use-markdown-formatting t
     telega-emoji-use-images t
     telega-completing-read-function #'ivy-completing-read
     telega-msg-rainbow-title nil
