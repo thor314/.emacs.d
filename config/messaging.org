@@ -1,6 +1,7 @@
 * [[https://github.com/emacs-circe/circe/wiki/Tracking][tracking]] - circe get buffer attention, cycle with C-c C-SPC
 #+begin_src emacs-lisp
   (use-package tracking
+    :defer 15
     :bind ("C-r SPC" . tracking-next-buffer)
     :config
     (setq tracking-faces-priorities '(all-the-icons-pink
@@ -35,34 +36,36 @@ sudo make install
 * [[https://github.com/emacs-circe/circe][Circe]], the IRC client. Relies on a irc daemon like [[https://www.bitlbee.org/user-guide.html][bitlbee]]
 Circe [[https://www.nongnu.org/circe/][homepage]].
 Experiment. Want: Signal, Telegram, Discord all in Emacs.
+May have to install [[https://zoomadmin.com/HowToInstall/UbuntuPackage/inetutils-inetd][inetutils-inetd]].
 #+begin_src emacs-lisp
   (use-package circe
-     :config
-     (setq lui-flyspell-p t
-       lui-fill-column 75
-       lui-time-stamp-format "[%H:%M:%S]"
-       lui-time-stamp-position 'right))
+    :defer t
+    :commands circe
+    :config
+    (setf circe-network-options
+      `(("Libera"
+          :host "irc.eu.libera.chat"
+          :tls t
+          :nick "cryptograthor"
+          :pass ,(my-fetch-password :user "cryptograthor" :machine "irc.libera.chat")
+          :port "6697"
+          ;; the following prompts for password
+          :channels ("#emacs")
+          )
+         ("Bitlbee"
+           :host "localhost"
+           :nick "cryptograthor"
+           ;; :tls t ; stops me from connecting, idk why
+           :port "6667"))))
+
+  (setq lui-flyspell-p t
+    lui-fill-column 75
+    lui-time-stamp-format "[%H:%M:%S]"
+    lui-time-stamp-position 'right)
   ;; how to get the following to load on entering circe?
   ;; the following not loading password.
-  (add-hook 'circe-mode-hook
-    (lambda ()
-      (setf circe-network-options
-        `(("Libera"
-            :host "irc.eu.libera.chat"
-            :tls t
-            :nick "cryptograthor"
-            :port "6697"
-            ;; the following prompts for password
-            :channels ("#emacs #nonguix #guix"))
-           :nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "irc.libera.chat")
-           ("Bitlbee"
-             :host "localhost"
-             :nick "cryptograthor"
-             ;; :tls t ; stops me from connecting, idk why
-             :port "6667")))))
                                           ;(setq circe-mode-hook nil)
   ;;:nickserv-password ,(my-fetch-password :user "cryptograthor" :machine "bitlbee")
-
 
 
 
