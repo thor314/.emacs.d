@@ -1,9 +1,39 @@
-** Why I don't generally recommend Emacs
+** Why I don't recommend Emacs (especially Vanilla Emacs)
+TLDR: I learned to use Emacs, Lisp, and Org-mode, and didn't think it was worth it; I argue why in reference to the 17 Principles of Unix, and make a couple targetted suggestions.
+
+Emacs is a truly an pet dragon. It is ancient--36 years and counting. It requires a huge amount of training and care in addition to learning an arcane language: Elisp probably accounts for 80% of remaining Lisp programmers, sorry Clojure. And Emacs is *not well-suited to the vast majority of users of this era*.
+
+I suspect most Emacs users were inculcated by a ~senior programmer~ hi mom, or else wanted a pet dragon because it was cool. In either case, some combination of cognitive dissonance ("no really, Emacs is productive"), switching costs (Lisp, org-mode, and more), and not wanting to look at the alternatives keeps us here.
+
+I was hyped into Emacs as a tool. We use tools to accomplish some set of Stuff. Emacs does lots of Stuff. But following the First Principle of Unix, the [[Rule of Modularity][Rule of Modularity]], it should accomplish one *Thing in Particular*.
+
+Emacs' *Thing in Particular*, as best I can tell, is to *Evaluate Lisp Code*. More specifically, Emacs is a tool to *Evaluate Lisp Code to Configure Emacs*. This can be fun. This can have great and useful results. But it would be misinformation to recommend Emacs as the best, or even a good tool for actually getting Stuff done, if Stuff isn't configuring Emacs.
+
+For the Emacsen out there: =(unlesss (or (eq 'user-goal "configuring emacs") (switching-costs-too-great)) (save-buffers-kill-terminal))=
+
+One might argue that Emacs does lots of things *very well*. For instance, Magit is an amazingly ergonomic client to git. Org-mode and its extensions do a pretty good job of rendering a Markdown-substitute, and give the user access to a decent suite of configurable productivity and organization tools. Emacs does a pretty good job as a Latex renderer.
+
+True dat. I use these tools, and have done so for several years now, as an investment into learning tools that make my developing, writing, and general computing life better which it has, at the expense of lots of time. I'm at the other side of several hundred hours spent configuring Emacs, and several thousand hours using Emacs. That time was not ill-spent, but it certainly could have been better spent Getting Stuff Done.
+
+Eric Raymond's [[https://paulvanderlaken.com/2019/09/17/17-principles-of-unix-software-design/][17 Principles of Unix]], mentioned above, are pretty good rules for writing software and avoiding cults, and there is no shortage of technology cults.
+1. Rule of Modularity -Write simple parts connected by clean interfaces.
+Emacs is not a simple part. It is a complete interface system, sitting on top of your operating system. *The Emacs Spirit* is to *Never Leave Emacs*. This incentivizes the user to over-rely on Emacs. Discarding modularity means the user is isolated from non-Emacs interfaces, or must themselves integrate non-Emacs tools into Emacs.
+
+Last, a personal rule: *Perfect is the enemy of Good Enough*.
+
+
 1. Emacs isn't efficient: I don't think getting up to speed in Emacs was a worthwhile time investment. There were hundreds of hours of configuring banging my head against stack overflow threads and thick documentation to get to the point I'm at now. The point I'm at now is great. But I'm certain other editor communities have done a better job.
 2. Emacs doesn't follow the principle of minimality. Emacs is a 40 something year old Lisp playground. Many have played. It can even be fun to play. But Emacs comes packaged as a poorly trained dog that only becomes manageable after hours on hours of training. Can be fun, can be exasperating.
 What do I recommend instead? Idk, start with the easy things. Like Vim. Lol. No really, I think Neovim might be the way to go. How often do ya hear that from an Emacs user? I'm a bit jealous of what I've seen done in NeoVim. Doesn't look crusty, and Lua looks great. If I ever get over the switching costs, that's what I'm trying next. Anyways...
-** What am I looking at
-This is my emacs config. It's not the best emacs config, but it's mine, and I love it. I scrounged around the internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of =.org= files because organization is good, and I like collapsable sectioning and pretty text. The literate setup divides and collapses the sections in a way I enjoy. For most of the packages I use, I include a link to the documentation for. This makes it easy for myself (and possibly others) to use my config reasonably efficiently for reference.
+
+** What to do instead
+Depends what you want to do. I'm still figuring it out.
+
+But if you haven't learned Vim, or at least Vim keybindings with evil-mode, start there. [[https://colemak.com/][Good ergonomics]] are really important for anyone looking to spend  all their time on a keyboard. Vim keybindings are less likely to give you repetitive strain injury, besides being simply more ergonimic. Ironically, my Dvorak keyboard setup makes the Emacs default keybindings more ergonomic, but still not ergonomic enough to avoid developing [[http://xahlee.info/emacs/emacs/emacs_pinky_2020.html][Emacs-pinky]].
+
+I've invested too much to jump ship entirely. I'm looking into migrating to [[https://github.com/hlissner/doom-emacs][Doom Emacs]], which looks to be better constrained and less featureful than [[https://github.com/syl20bnr/spacemacs/tree/master][Spacemacs]]. If I was less invested in Emacs, I'd be looking to [[https://neovim.io/][Neovim]] and [[http://neovimcraft.com/plugin/Kethku/neovide/index.html][Neovide]]. I haven't used these yet, but they look quite good from what I've seen.
+
+t ois my emacs config. It's not the best emacs config, but it's mine, and I love it. I scrounged around the internet for stuff I wanted, and like a good viking, dragged the good stuff back here. It's in a set of =.org= files because organization is good, and I like collapsable sectioning and pretty text. The literate setup divides and collapses the sections in a way I enjoy. For most of the packages I use, I include a link to the documentation for. This makes it easy for myself (and possibly others) to use my config reasonably efficiently for reference.
  Quick note to anyone rippin mah binds: I use a Dvorak keyboard layout. Your ergonomics may vary.
 
 Emacsen are sort of a programming 'n productivity cult (and as described above, I'm not convinced we're doing it the best). But if you're dead-set on Emacs-ing, would recommend checking out [[https://github.com/syl20bnr/spacemacs/tree/master][Spacemacs]], if you're coming from Vim, or else [[https://github.com/bbatsov/prelude][Prelude]] Emacs by the author of Projectile. [[https://github.com/jkitchin/scimax][Scimax]] is an emacs starterkit for scientists and engineers. Also check out the [[https://wiki.systemcrafters.cc/emacs][SystemCrafters]] community, they're great, and v helpful. I generally reference these locations, and [[https://github.com/jwiegley/dot-emacs][others']] configs for cues as to how I'd like to set up my own.
