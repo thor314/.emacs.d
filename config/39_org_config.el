@@ -72,19 +72,13 @@
   (use-package org-cliplink) ; bound to C-c y
   (use-package org-download)
   (add-hook 'dired-mode-hook 'org-download-enable)
-  ;; Use the heck out of org-journal
-  (use-package org-journal)
 
   ;; org-habit is a built in library for tracking stuff about repeating
   ;; tasks why use: habits displayed with consistency graph: How
   ;; consistent at getting that task done.
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
-  (setq org-habit-graph-column 60)
-
-  ;; variable pitch mode looks good in text buffers without code blocks
-  (setq org-journal-dir "~/org/journal"
-    org-journal-file-format "%Y%m%d.org"))
+  (setq org-habit-graph-column 60))
 
 ;; Tags [[https://orgmode.org/manual/Tags.html#Tags][tags]]
 ;; Default tags available in org files. Syntax =?x= for literal ASCII value of x.
@@ -120,11 +114,17 @@
     (local-set-key (kbd "C-,") 'ivy-switch-buffer)
     (local-set-key (kbd "C-.") 'other-window)))
 
+;; Use the heck out of org-journal
+(use-package org-journal)
+(setq org-journal-dir "~/org/journal"
+  org-journal-file-format "%Y%m%d.org")
+
 ;; Hook
 (use-package org
   :pin org ;; Pin the package to an archive
   :commands (org-capture org-agenda) ;; load the package
   :config
+  ;; variable pitch mode looks good in text buffers without code blocks
   (add-hook 'org-mode-hook
     (lambda ()
       (tk/org-font-setup)

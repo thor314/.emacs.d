@@ -4,11 +4,12 @@
 ;; :custom
 ;; (compilation-scroll-output t))
 
-(defun auto-recompile-buffer ()
-  (interactive)
-  (if (member #'recompile after-save-hook)
-    (remove-hook 'after-save-hook #'recompile t)
-    (add-hook 'after-save-hook #'recompile nil t)))
+;; (defun auto-recompile-buffer ()
+;;   (interactive)
+;;   (if (member #'recompile after-save-hook)
+;;     (remove-hook 'after-save-hook #'recompile t)
+;;     (add-hook 'after-save-hook #'recompile nil t)))
+
 ;; Magit git interface, Forge git(hub|lab) interface
 (use-package magit)
 (use-package git-link
@@ -31,6 +32,7 @@
 ;; - [[https://github.com/PythonNut/company-flx][company-flx: Flx fuzzy matching for company]]
 ;; - [[https://github.com/dunn/company-emoji][company emojify]] :cactus: 🎑
 (use-package company :diminish)
+(use-package company-emoji)
 (eval-after-load "company"
   (progn
     '(add-to-list 'company-backends 'company-shell)

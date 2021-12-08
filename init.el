@@ -51,41 +51,39 @@
 ;; consider automatic package updates: auto-package-update https://github.com/rranelli/auto-package-update.el
 ;; why not used: not that important
 
-;; general config files live in ./config. Tangle these files, then remove the *.el artifacts after loading.
-
 ;; core of useful stuff
-(load-file "./config/01_tk_functions.el")
-(load-file "./config/02_general.el")
-(load-file "./config/03_appearance.el")
-(load-file "./config/04_eshell.el")
-(load-file "./config/05_dired.el")
-(load-file "./config/06_secret.el") ;; doesn't get vc'd
-(load-file "./config/07_auth_tramp_path.el")
+(load-file "~/.emacs.d/config/01_tk_functions.el")
+(load-file "~/.emacs.d/config/02_general.el")
+(load-file "~/.emacs.d/config/03_appearance.el")
+(load-file "~/.emacs.d/config/04_eshell.el")
+(load-file "~/.emacs.d/config/05_dired.el")
+(load-file "~/.emacs.d/config/06_secret.el") ;; doesn't get vc'd
+(load-file "~/.emacs.d/config/07_auth_tramp_path.el")
 
 ;; nice packages
-(load-file "./config/11_ivy.el")
-(load-file "./config/12_smartparens.el")
-(org-babel-load-file "./config/13_misc_packages.org")
-(load-file "./config/14_messaging.el")
+(load-file "~/.emacs.d/config/11_ivy.el")
+(load-file "~/.emacs.d/config/12_smartparens.el")
+(org-babel-load-file "~/.emacs.d/config/13_misc_packages.org")
+(load-file "~/.emacs.d/config/14_messaging.el")
 
 ;; programming
-(load-file "./config/21_programming.el")
-(load-file "./config/20_lang/1_elisp.el")
-(load-file "./config/20_lang/2_sh.el")
-(load-file "./config/20_lang/3_rust.el")
-(load-file "./config/20_lang/4_python.el")
+(load-file "~/.emacs.d/config/21_programming.el")
+(load-file "~/.emacs.d/config/20_lang/1_elisp.el")
+(load-file "~/.emacs.d/config/20_lang/2_sh.el")
+(load-file "~/.emacs.d/config/20_lang/3_rust.el")
+(load-file "~/.emacs.d/config/20_lang/4_python.el")
 
 ;; configure text files
-(load-file "./config/31_text.el")
-(load-file "./config/32_org_agenda.el")
-(load-file "./config/33_org_roam.el")
-(load-file "./config/34_org_templates.el")
-(load-file "./config/341_org_roam_templates.el")
-(load-file "./config/35_latex.el")
-(load-file "./config/39_org_config.el")
+(load-file "~/.emacs.d/config/31_text.el")
+(load-file "~/.emacs.d/config/32_org_agenda.el")
+(load-file "~/.emacs.d/config/33_org_roam.el")
+(load-file "~/.emacs.d/config/34_org_templates.el")
+(load-file "~/.emacs.d/config/341_org_roam_templates.el")
+;; (load-file "~/.emacs.d/config/35_latex.el")
+(load-file "~/.emacs.d/config/39_org_config.el")
 
 ;; load last
-(load-file "./config/81_global_keybinds.el")
+(load-file "~/.emacs.d/config/81_global_keybinds.el")
 ;;(load-file "~/.emacs.d/config/91_experimental.el")
 
 ;; tell emacs to use customize.el for customization
