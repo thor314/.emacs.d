@@ -1,8 +1,12 @@
 ;;; emacs.d/init.el --- Thor Kamphefner's emacs config orchestrator
 ;;; Commentary:
-;; I opt for a literate set-up, modularized into several files.
-;; Modularity to more quickly get in and out of the right spot.
-;; Literate to document the config unobtrusively.
+;; I tried out a literate set-up. It wasn't possible to configure Org files
+;; to feel good to write code in, eg with org-poly-mode, so I migrated back.
+;;
+;; I've kept some of my text-mode configurations in org files, because why
+;; not. But any complex code should go in a .el file. Misc packages is
+;; still in an org file, as they consist of more text than code, and the
+;; folding is nice. I use ripgrep to find whatever section I want.
 
 ;;; Code:
 ;; https://blog.d46.us/advanced-emacs-startup/
@@ -48,27 +52,41 @@
 ;; why not used: not that important
 
 ;; general config files live in ./config. Tangle these files, then remove the *.el artifacts after loading.
-(org-babel-load-file "~/.emacs.d/config/tk_functions.org")
-(org-babel-load-file "~/.emacs.d/config/general.org")
-(org-babel-load-file "~/.emacs.d/config/ivy.org")
-(org-babel-load-file "~/.emacs.d/config/smartparens.org")
-(org-babel-load-file "~/.emacs.d/config/misc_packages.org")
-(org-babel-load-file "~/.emacs.d/config/programming.org")
-(org-babel-load-file "~/.emacs.d/config/text.org")
-(org-babel-load-file "~/.emacs.d/config/org_config.org")
-;(org-babel-load-file "~/.emacs.d/config/experimental.org")
-(org-babel-load-file "~/.emacs.d/config/global_keybinds.org")
-(org-babel-load-file "~/.emacs.d/config/secret.org")
-(org-babel-load-file "~/.emacs.d/config/org_templates.org")
-(org-babel-load-file "~/.emacs.d/config/messaging.org")
-;; languages
-(org-babel-load-file "~/.emacs.d/config/lang/rust.org")
-(org-babel-load-file "~/.emacs.d/config/lang/sh.org")
-(org-babel-load-file "~/.emacs.d/config/lang/elisp.org")
 
-;; clean up the *.el artifacts
-(shell-command "rm ~/.emacs.d/config/*.el")
-(shell-command "rm ~/.emacs.d/config/lang/*.el")
+;; core of useful stuff
+(load-file "./config/01_tk_functions.el")
+(load-file "./config/02_general.el")
+(load-file "./config/03_appearance.el")
+(load-file "./config/04_eshell.el")
+(load-file "./config/05_dired.el")
+(load-file "./config/06_secret.el") ;; doesn't get vc'd
+(load-file "./config/07_auth_tramp_path.el")
+
+;; nice packages
+(load-file "./config/11_ivy.el")
+(load-file "./config/12_smartparens.el")
+(org-babel-load-file "./config/13_misc_packages.org")
+(load-file "./config/14_messaging.el")
+
+;; programming
+(load-file "./config/21_programming.el")
+(load-file "./config/20_lang/1_elisp.el")
+(load-file "./config/20_lang/2_sh.el")
+(load-file "./config/20_lang/3_rust.el")
+(load-file "./config/20_lang/4_python.el")
+
+;; configure text files
+(load-file "./config/31_text.el")
+(load-file "./config/32_org_agenda.el")
+(load-file "./config/33_org_roam.el")
+(load-file "./config/34_org_templates.el")
+(load-file "./config/341_org_roam_templates.el")
+(load-file "./config/35_latex.el")
+(load-file "./config/39_org_config.el")
+
+;; load last
+(load-file "./config/81_global_keybinds.el")
+;;(load-file "~/.emacs.d/config/91_experimental.el")
 
 ;; tell emacs to use customize.el for customization
 (setq custom-file "~/.emacs.d/customize.el")

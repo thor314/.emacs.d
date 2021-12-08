@@ -1,5 +1,0 @@
-* Shell
-#+begin_src emacs-lisp
-(use-package company-shell)
-#+end_src
-[[Https://github.com/Alexander-Miller/company-shell][company-shell]]
